@@ -1,8 +1,0 @@
-{
-    "blocks": {
-        "/blockchain/flow": true,
-        "/blockchain/flow/cadence": true,
-        "/category/voting/ballot": true,
-        "/framework/vanilla": true
-    }
-}
