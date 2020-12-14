@@ -13,5 +13,7 @@
         "children": "form"
     },
     "children": [],
+    "blockchains": ["ethereum", "matic"],
+    "languages": ["solidity"],
     "dependencies": {}
 }

@@ -35,5 +35,12 @@
             "default": "single"
         }
     ],
+    "blockchains": [
+        "ethereum",
+        "matic"
+    ],
+    "languages": [
+        "solidity"
+    ],
     "dependencies": {}
 }

@@ -12,6 +12,13 @@
         "enabled": true,
         "children": "form"
     },
+    "blockchains": [
+        "ethereum",
+        "matic"
+    ],
+    "languages": [
+        "solidity"
+    ],
     "children": [],
     "dependencies": {}
 }

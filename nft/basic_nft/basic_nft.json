@@ -14,5 +14,7 @@
     },
     "parameters": [
     ],
+    "blockchains": ["flow"],
+    "languages": ["cadence"],
     "dependencies": {}
 }

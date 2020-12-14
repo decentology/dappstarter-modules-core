@@ -12,10 +12,17 @@
         "enabled": true,
         "children": "form"
     },
+    "blockchains": [
+        "ethereum",
+        "matic"
+    ],
+    "languages": [
+        "solidity"
+    ],
     "children": [],
     "dependencies": {
         "access_control": [
-            "administrator_role"
+            "core.administrator_role"
         ]
     }
 }
