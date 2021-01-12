@@ -1,11 +1,11 @@
 ///(page-post-content
 import "../components/page-panel.js";
 import "../components/page-body.js";
-import "../../../lib/components/shared/action-card.js";
-import "../../../lib/components/widgets/text-widget.js";
-import "../../../lib/components/widgets/number-widget.js";
-import "../../../lib/components/widgets/account-widget.js";
-import UploadWidget from "../../../lib/components/widgets/upload-widget.js";
+import "../../../components/action-card.js";
+import "../../../components/text-widget.js";
+import "../../../components/number-widget.js";
+import "../../../components/account-widget.js";
+import UploadWidget from "../../../components/upload-widget.js";
 import "@uppy/core/dist/style.css";
 import "@uppy/dashboard/dist/style.css";
 import DappLib from "@decentology/dappstarter-dapplib";
