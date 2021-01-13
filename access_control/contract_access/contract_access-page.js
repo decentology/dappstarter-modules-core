@@ -1,8 +1,8 @@
 ///(page-post-content
-import "../components/page-panel.js";
-import "../../../components/action-card.js";
-import "../components/page-body.js";
-import "../../../components/account-widget.js";
+import "../../components/page-panel.js";
+import "../../components/action-card.js";
+import "../../components/page-body.js";
+import "../../components/account-widget.js";
 import { LitElement, html, customElement, property } from "lit-element";
 
 @customElement("contract-access-page")

@@ -1,8 +1,8 @@
 ///(page-post-content
-import "../../../components/action-card.js";
-import "../components/page-body.js";
-import "../../../components/account-widget.js";
-import "../../../components/number-widget.js";
+import "../../components/action-card.js";
+import "../../components/page-body.js";
+import "../../components/account-widget.js";
+import "../../components/number-widget.js";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 

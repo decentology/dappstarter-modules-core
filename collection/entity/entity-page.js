@@ -1,12 +1,12 @@
 ///(page-post-content
 
-import '../../../components/action-card.js';
-import '../components/page-body.js';
-import "../components/page-panel.js";
-import '../../../components/text-widget.js';
-import '../../../components/number-widget.js';
-import '../../../components/account-widget.js';
-import DOM from "../../../components/dom";
+import '../../components/action-card.js';
+import '../../components/page-body.js';
+import '../../components/page-panel.js';
+import '../../components/text-widget.js';
+import '../../components/number-widget.js';
+import '../../components/account-widget.js';
+import DOM from "../../components/dom";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
