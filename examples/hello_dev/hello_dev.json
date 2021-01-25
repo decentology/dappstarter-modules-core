@@ -1,0 +1,24 @@
+{
+    "name": "hello_dev",
+    "title": "Hello Dev",
+    "description": "Simple read and write example. This module is required for the Beta.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "blockchains": [
+        "solana"
+    ],
+    "languages": [
+        "rust"
+    ],
+    "children": [],
+    "dependencies": {
+    }
+}
