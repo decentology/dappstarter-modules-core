@@ -1,0 +1,20 @@
+{
+    "name": "nft_composer",
+    "title": "NFT Composer",
+    "description": "Interactively select options to build an NFT application.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "parameters": [
+    ],
+    "blockchains": ["flow", "ethereum", "matic", "conflux"],
+    "languages": ["cadence", "solidity"],
+    "dependencies": {}
+}
