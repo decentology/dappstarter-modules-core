@@ -79,12 +79,12 @@
                     "description": ""
                 },
                 {
-                    "name": "gameAsset",
+                    "name": "game_asset",
                     "title": "Game Asset",
                     "description": ""
                 },
                 {
-                    "name": "digitalAsset",
+                    "name": "digital_asset",
                     "title": "Digital Asset",
                     "description": ""
                 },
@@ -92,32 +92,19 @@
                     "name": "collectible",
                     "title": "Collectible",
                     "description": ""
+                },
+                {
+                    "name": "encrypt_metadata",
+                    "title": "Encrypt Metadata",
+                    "description": ""
+                },
+                {
+                    "name": "encrypt_assets",
+                    "title": "Encrypt Assets",
+                    "description": ""
                 }
             ],
-            "default": "collectible",
-            "parameters": [
-                {
-                    "name": "storage",
-                    "type": "choice",
-                    "description": "Define encryption choices",
-                    "title": "Storage",
-                    "multiple": true,
-                    "ui": "checkbox",
-                    "options": [
-                        {
-                            "name": "encryptMetadata",
-                            "title": "Encrypt Metadata",
-                            "description": ""
-                        },
-                        {
-                            "name": "encryptAssets",
-                            "title": "Encrypt Assets",
-                            "description": ""
-                        }
-                    ],
-                    "default": "encryptAssets"
-                }
-            ]
+            "default": "collectible"
         },
         {
             "name": "generator",

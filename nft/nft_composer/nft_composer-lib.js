@@ -2,11 +2,20 @@
 ///)
 
 class nft_composer {
-    
-///(functions
+
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 //TODO: Add NFT Composer library functions
 
+///(functions[language:cadence]
+flow () {
+
+}
+///)
+
+///(functions[language:solidity]
+solidity () {
+
+}
 ///)
 }
