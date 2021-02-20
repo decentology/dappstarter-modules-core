@@ -59,10 +59,7 @@ static async safeTransferFrom(data) {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData),
-      hint: `Verify transfer by using "Balance for Account" to check the balance of ${DappLib.formatAccount(
-        data.to
-      )}.`,
+      result: DappLib.getTransactionHash(result.callData)
     };
   }
 
@@ -102,14 +99,12 @@ static async safeTransferFrom(data) {
       data.owners,
       data.ids
     );
-    let balance = result.callData;
     return {
-      type: DappLib.DAPP_RESULT_BIG_NUMBER,
-      label: DappLib.formatAccount(result.callAccount) + " Account Balance",
-      result: new BN(balance),
-      unitResult: await DappLib._fromSmallestUnit(balance, data),
-      hint: null,
-    };
+        type: DappLib.DAPP_RESULT_ARRAY,
+        label: 'Batch balances',
+        result: result.callData,
+        formatter: ['Text-20-5'] 
+    }
   }
 
   static async setApprovalForAll(data) {

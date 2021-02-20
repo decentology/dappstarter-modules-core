@@ -69,7 +69,7 @@ class entity {
                 type: DappLib.DAPP_RESULT_ARRAY,
                 label: 'Entities',
                 result: result.callData,
-                formatter: ['Text-20-5']
+                formatter: ['Text-20-5'] 
             }
         }
 
