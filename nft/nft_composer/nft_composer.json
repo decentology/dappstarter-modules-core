@@ -66,6 +66,60 @@
             "default": "grant"
         },
         {
+            "name": "metadata",
+            "type": "choice",
+            "description": "Metadata definition",
+            "title": "Metadata",
+            "multiple": false,
+            "ui": "radio",
+            "options": [
+                {
+                    "name": "basic",
+                    "title": "Basic",
+                    "description": ""
+                },
+                {
+                    "name": "gameAsset",
+                    "title": "Game Asset",
+                    "description": ""
+                },
+                {
+                    "name": "digitalAsset",
+                    "title": "Digital Asset",
+                    "description": ""
+                },
+                {
+                    "name": "collectible",
+                    "title": "Collectible",
+                    "description": ""
+                }
+            ],
+            "default": "collectible",
+            "parameters": [
+                {
+                    "name": "storage",
+                    "type": "choice",
+                    "description": "Define encryption choices",
+                    "title": "Storage",
+                    "multiple": true,
+                    "ui": "checkbox",
+                    "options": [
+                        {
+                            "name": "encryptMetadata",
+                            "title": "Encrypt Metadata",
+                            "description": ""
+                        },
+                        {
+                            "name": "encryptAssets",
+                            "title": "Encrypt Assets",
+                            "description": ""
+                        }
+                    ],
+                    "default": "encryptAssets"
+                }
+            ]
+        },
+        {
             "name": "generator",
             "type": "choice",
             "description": "Define how the NFTs will be generated",
@@ -110,6 +164,27 @@
                 }
             ],
             "default": "uniqueid_ns"
+        },
+        {
+            "name": "marketplace",
+            "type": "choice",
+            "description": "Generate marketplace pages",
+            "title": "Marketplace",
+            "multiple": false,
+            "ui": "radio",
+            "options": [
+                {
+                    "name": "multiswap",
+                    "title": "Multi-swap",
+                    "description": ""
+                },
+                {
+                    "name": "swap",
+                    "title": "Swap",
+                    "description": ""
+                }
+            ],
+            "default": "swap"
         }
     ],
     "blockchains": [
