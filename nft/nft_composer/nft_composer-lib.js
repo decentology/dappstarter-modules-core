@@ -7,13 +7,13 @@ class nft_composer {
 
 //TODO: Add NFT Composer library functions
 
-///(functions[language:cadence]
+///(functions:language:cadence
 flow () {
 
 }
 ///)
 
-///(functions[language:solidity]
+///(functions:language:solidity
 static async safeTransferFrom(data) {
     let result = await Blockchain.post(
       {
