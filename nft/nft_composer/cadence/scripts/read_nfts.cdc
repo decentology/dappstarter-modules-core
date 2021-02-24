@@ -1,7 +1,6 @@
-pub fun main(account: Address): [UInt64] {
-
+pub fun main(accountAddr: Address): [UInt64] {
     // Get the public collection of the owner of the token
-    let collectionRef = getAccount(account)
+    let collectionRef = getAccount(accountAddr)
         .getCapability(/public/NFTCollection)!
         .borrow<&{DappState.CollectionPublic}>()
         ?? panic("Could not borrow capability from public collection")

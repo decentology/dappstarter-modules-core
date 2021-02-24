@@ -18,7 +18,7 @@ class nft_composer {
         DappState: config.contracts.DappState
       },
       roles: {
-        proposer: data.admin,
+        proposer: config.contracts.DappState,
       }
     },
       'mint_nft',
@@ -34,7 +34,7 @@ class nft_composer {
 
   }
 
-  static async setupAccount(data) {
+  static async provisionAccount(data) {
 
     let config = DappLib.getConfig();
     let result = await Blockchain.post({
@@ -46,7 +46,7 @@ class nft_composer {
         proposer: data.account,
       }
     },
-      'setup_account'
+      'provision_account'
     );
 
     return {
@@ -103,8 +103,8 @@ class nft_composer {
     );
     console.log("Tokens...", result)
     return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
+      type: DappLib.DAPP_RESULT_ARRAY,
+      label: 'NFT Array',
       result: result.callData
     }
 

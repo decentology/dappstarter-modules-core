@@ -34,11 +34,11 @@ export default class NftComposerPage extends LitElement {
       >
 ///)
 
-///(functions:language:cadence
+///(actions:language:cadence
         <action-card
-          title="Setup an Account"
-          description="Sets up an account so it can receive a NFT"
-          action="setupAccount"
+          title="Provision an Account"
+          description="Gives an account the necessary definitions to use NFTs"
+          action="provisionAccount"
           method="post"
           fields="account"
         >
@@ -55,14 +55,9 @@ export default class NftComposerPage extends LitElement {
           description="Mint an NFT into an account"
           action="mintNFT"
           method="post"
-          fields="admin recipient"
+          fields="recipient"
         >
-          <account-widget
-            field="admin"
-            label="Admin"
-            placeholder="Admin address"
-          >
-          </account-widget>
+
           <account-widget
             field="recipient"
             label="Recipient"
@@ -113,8 +108,8 @@ export default class NftComposerPage extends LitElement {
         </action-card>
 ///)
 
-///(functions:language:solidity
-    // Jacob is cool
+///(actions:language:solidity
+    // Solidity action cards
 ///)
 ///(page-post-content
 
