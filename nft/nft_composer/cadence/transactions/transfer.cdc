@@ -1,34 +1,24 @@
-// This transaction transfers an NFT from one user's collection
-// to another user's collection.
-transaction(receiverAddr: Address) {
+transaction(receiverAddr: Address, withdrawID: UInt64) {
 
-    // The field that will hold the NFT as it is being
-    // transferred to the other account
-    let transferToken: @DappState.NFT
-	
     prepare(acct: AuthAccount) {
 
-        // Borrow a reference from the stored collection
+        // get the recipients public account object
+        let recipient = getAccount(receiverAddr)
+
+        // borrow a reference to the signer's NFT collection
         let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/NFTCollection)
             ?? panic("Could not borrow a reference to the owner's collection")
 
-        // Call the withdraw function on the sender's Collection
-        // to move the NFT out of the collection
-        self.transferToken <- collectionRef.withdraw(withdrawID: 1)
-    }
+        // borrow a public reference to the receivers collection
+        let depositRef = recipient.getCapability(/public/NFTCollection)!
+            .borrow<&{DappState.CollectionPublic}>()
+            ?? panic("Could not borrow a reference to the receiver's collection")
 
-    execute {
-        // Get the recipient's public account object
-        let recipient = getAccount(receiverAddr)
+        // withdraw the NFT from the owner's collection
+        let nft <- collectionRef.withdraw(withdrawID: withdrawID)
 
-        // Get the Collection reference for the receiver
-        // getting the public capability and borrowing a reference from it
-        let receiverRef = recipient.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
-            .borrow()
-            ?? panic("Could not borrow receiver reference")
-
-        // Deposit the NFT in the receivers collection
-        receiverRef.deposit(token: <-self.transferToken)
+        // Deposit the NFT in the recipient's collection
+        depositRef.deposit(token: <-nft)
     }
 }
  

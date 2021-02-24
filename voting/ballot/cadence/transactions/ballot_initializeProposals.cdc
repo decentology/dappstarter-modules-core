@@ -1,4 +1,3 @@
-
 transaction(proposals: [String]) {
 
     prepare(admin: AuthAccount) {

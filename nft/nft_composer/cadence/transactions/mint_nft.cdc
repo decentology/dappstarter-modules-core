@@ -1,29 +1,22 @@
-// This transaction allows the Minter account to mint an NFT
-// and deposit it into its collection.
-transaction {
-
-    // The reference to the collection that will be receiving the NFT
-    let receiverRef: &{DappState.NFTReceiver}
+transaction(recipient: Address) {
 
     // The reference to the Minter resource stored in account storage
     let minterRef: &DappState.NFTMinter
 
     prepare(acct: AuthAccount) {
-        // Get the owner's collection capability and borrow a reference
-        self.receiverRef = acct.getCapability<&{DappState.NFTReceiver}>(/public/NFTReceiver)
-            .borrow()
-            ?? panic("Could not borrow receiver reference")
-        
-        // Borrow a capability for the NFTMinter in storage
+        // borrow a reference to the NFTMinter resource in storage
         self.minterRef = acct.borrow<&DappState.NFTMinter>(from: /storage/NFTMinter)
-            ?? panic("could not borrow minter reference")
+            ?? panic("Could not borrow a reference to the NFT minter")
     }
 
     execute {
-        // Use the minter reference to mint an NFT, which deposits
-        // the NFT into the collection that is sent as a parameter.
-        let newNFT <- self.minterRef.mintNFT()
+        // Borrow the recipient's public NFT collection reference
+        let receiver = getAccount(recipient)
+            .getCapability(/public/NFTCollection)!
+            .borrow<&{DappState.CollectionPublic}>()
+            ?? panic("Could not get receiver reference to the NFT Collection")
 
-        self.receiverRef.deposit(token: <-newNFT)
+        // Mint the NFT and deposit it to the recipient's collection
+        self.minterRef.mintNFT(recipient: receiver)
     }
 }

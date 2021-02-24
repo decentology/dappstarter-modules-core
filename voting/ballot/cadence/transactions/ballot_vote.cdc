@@ -1,4 +1,3 @@
-
 transaction(proposalVotes: [UInt64]) {
 
     prepare(voter: AuthAccount) {

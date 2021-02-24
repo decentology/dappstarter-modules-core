@@ -1,4 +1,5 @@
 ///(import
+const t = require('@onflow/types');
 ///)
 
 class nft_composer {
@@ -17,10 +18,13 @@ class nft_composer {
         DappState: config.contracts.DappState
       },
       roles: {
-        proposer: data.account,
+        proposer: data.admin,
       }
     },
-      'mint_nft'
+      'mint_nft',
+      {
+        recipient: { value: data.recipient, type: t.Address },
+      }
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
@@ -53,10 +57,10 @@ class nft_composer {
 
   }
 
-
   static async transfer(data) {
 
     let config = DappLib.getConfig();
+    let nftToGiveInt = parseInt(data.nftToGive)
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
       imports: {
@@ -68,7 +72,8 @@ class nft_composer {
     },
       'transfer',
       {
-        receiverAddr: { value: `0x${data.accountReceiver}`, type: t.Address },
+        receiverAddr: { value: data.accountReceiver, type: t.Address },
+        withdrawID: { value: nftToGiveInt, type: t.UInt64 }
       }
     );
 
@@ -79,9 +84,36 @@ class nft_composer {
     }
 
   }
-///)
 
-///(functions:language:solidity
+  static async readNFTs(data) {
+
+    let config = DappLib.getConfig();
+    let result = await Blockchain.get({
+      config: DappLib.getConfig(),
+      imports: {
+        DappState: config.contracts.DappState
+      },
+      roles: {
+      }
+    },
+      'read_nfts',
+      {
+        accountAddr: { value: data.account, type: t.Address }
+      }
+    );
+    console.log("Tokens...", result)
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: 'Transaction Hash',
+      result: result.callData
+    }
+
+  }
+
+
+  ///)
+
+  ///(functions:language:solidity
   static async safeTransferFrom(data) {
     let result = await Blockchain.post(
       {
@@ -215,5 +247,5 @@ class nft_composer {
       hint: null,
     };
   }
-///)
+  ///)
 }
