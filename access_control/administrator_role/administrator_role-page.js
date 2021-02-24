@@ -1,4 +1,4 @@
-///(page-post-content
+///(page-pre-content
 import "../../components/page-panel.js";
 import "../../components/action-card.js";
 import "../../components/page-body.js";

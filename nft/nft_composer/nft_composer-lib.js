@@ -79,9 +79,9 @@ class nft_composer {
     }
 
   }
-  ///)
+///)
 
-  ///(functions:language:solidity
+///(functions:language:solidity
   static async safeTransferFrom(data) {
     let result = await Blockchain.post(
       {
@@ -215,5 +215,5 @@ class nft_composer {
       hint: null,
     };
   }
-  ///)
+///)
 }
