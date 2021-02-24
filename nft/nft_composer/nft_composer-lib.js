@@ -3,18 +3,86 @@
 
 class nft_composer {
 
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+  /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-//TODO: Add NFT Composer library functions
+  //TODO: Add NFT Composer library functions
 
-///(functions:language:cadence
-flow () {
+  ///(functions:language:cadence
+  static async mintNFT(data) {
 
-}
-///)
+    let config = DappLib.getConfig();
+    let result = await Blockchain.post({
+      config: config,
+      imports: {
+        DappState: config.contracts.DappState
+      },
+      roles: {
+        proposer: data.account,
+      }
+    },
+      'mint_nft'
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: 'Transaction Hash',
+      result: result.callData.transactionId
+    }
 
-///(functions:language:solidity
-static async safeTransferFrom(data) {
+  }
+
+  static async setupAccount(data) {
+
+    let config = DappLib.getConfig();
+    let result = await Blockchain.post({
+      config: DappLib.getConfig(),
+      imports: {
+        DappState: config.contracts.DappState
+      },
+      roles: {
+        proposer: data.account,
+      }
+    },
+      'setup_account'
+    );
+
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: 'Transaction Hash',
+      result: result.callData.transactionId
+    }
+
+  }
+
+
+  static async transfer(data) {
+
+    let config = DappLib.getConfig();
+    let result = await Blockchain.post({
+      config: DappLib.getConfig(),
+      imports: {
+        DappState: config.contracts.DappState
+      },
+      roles: {
+        proposer: data.accountGiver
+      }
+    },
+      'transfer',
+      {
+        receiverAddr: { value: `0x${data.accountReceiver}`, type: t.Address },
+      }
+    );
+
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: 'Transaction Hash',
+      result: result.callData.transactionId
+    }
+
+  }
+  ///)
+
+  ///(functions:language:solidity
+  static async safeTransferFrom(data) {
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -100,10 +168,10 @@ static async safeTransferFrom(data) {
       data.ids
     );
     return {
-        type: DappLib.DAPP_RESULT_ARRAY,
-        label: 'Batch balances',
-        result: result.callData,
-        formatter: ['Text-20-5'] 
+      type: DappLib.DAPP_RESULT_ARRAY,
+      label: 'Batch balances',
+      result: result.callData,
+      formatter: ['Text-20-5']
     }
   }
 
@@ -121,10 +189,10 @@ static async safeTransferFrom(data) {
       data.approved
     );
     return {
-        type: DappLib.DAPP_RESULT_TX_HASH,
-        label: "Transaction Hash",
-        result: DappLib.getTransactionHash(result.callData)
-      };
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
   }
 
   static async isApprovedForAll(data) {
@@ -147,5 +215,5 @@ static async safeTransferFrom(data) {
       hint: null,
     };
   }
-///)
+  ///)
 }

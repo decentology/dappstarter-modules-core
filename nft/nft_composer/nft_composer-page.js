@@ -1,10 +1,10 @@
 ///(page-post-content
-import "../components/page-panel.js";
-import "../components/page-body.js";
-import "../../../components/action-card.js";
-import "../../../components/account-widget.js";
-import "../../../components/text-widget.js";
-import "../../../components/number-widget.js";
+import "../../components/page-panel.js";
+import "../../components/page-body.js";
+import "../../components/action-card.js";
+import "../../components/account-widget.js";
+import "../../components/text-widget.js";
+import "../../components/number-widget.js";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
@@ -34,25 +34,31 @@ export default class NftComposerPage extends LitElement {
       >
 
         <action-card
-          title="Account Query Example"
-          description="An example of how to query an account during development"
-          action="getAccountInfo"
-          method="get"
-          fields="account"
+          title="Transfer NFT"
+          description="Transfer an NFT from one account to another"
+          action="transfer"
+          method="post"
+          fields="accountGiver accountReceiver"
         >
           <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
+            field="accountGiver"
+            label="Account Giver"
+            placeholder="Account address to give"
+          >
+          </account-widget>
+          <account-widget
+            field="accountReceiver"
+            label="Account Receiver"
+            placeholder="Account address to receive"
           >
           </account-widget>
         </action-card>
 
 
         <action-card
-          title="Initialize Account"
-          description="Initializes an account so it can receive a NFT"
-          action="initializeAccount"
+          title="Setup an Account"
+          description="Sets up an account so it can receive a NFT"
+          action="setupAccount"
           method="post"
           fields="account"
         >
@@ -65,10 +71,10 @@ export default class NftComposerPage extends LitElement {
         </action-card>
 
         <action-card
-          title="Get NFT IDs"
-          description="Get NFT IDs for Account"
-          action="getIDs"
-          method="get"
+          title="Mint NFT"
+          description="Mint an NFT into an account"
+          action="mintNFT"
+          method="post"
           fields="account"
         >
           <account-widget
