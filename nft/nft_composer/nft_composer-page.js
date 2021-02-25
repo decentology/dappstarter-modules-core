@@ -34,7 +34,7 @@ export default class NftComposerPage extends LitElement {
       >
 ///)
 
-///(actions:language:cadence
+///(functions
         <action-card
           title="Provision an Account"
           description="Gives an account the necessary definitions to use NFTs"
@@ -67,6 +67,21 @@ export default class NftComposerPage extends LitElement {
         </action-card>
 
         <action-card
+          title="Read NFTs"
+          description="Read the NFTs in an account"
+          action="readNFTs"
+          method="get"
+          fields="account"
+        >
+          <account-widget
+            field="account"
+            label="Account"
+            placeholder="Account address"
+          >
+          </account-widget>
+        </action-card>
+        
+        <action-card
           title="Transfer NFT"
           description="Transfer an NFT from one account to another"
           action="transfer"
@@ -92,25 +107,9 @@ export default class NftComposerPage extends LitElement {
           ></text-widget>
         </action-card>
 
-        <action-card
-          title="Read NFTs"
-          description="Read the NFTs in an account"
-          action="readNFTs"
-          method="get"
-          fields="account"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
-        </action-card>
+
 ///)
 
-///(actions:language:solidity
-    // Solidity action cards
-///)
 ///(page-post-content
 
       </page-body>
