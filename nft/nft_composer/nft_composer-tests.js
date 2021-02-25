@@ -2,9 +2,9 @@ import { assert } from "console";
 import { config } from "process";
 
 ///(test
-describe('Nft-Nft_composer', async () => {
+describe('NFT Composer', async() => {
 
-    it(`no initial NFTs admin`, async function () {
+    it(`no initial NFTs admin`, async() => {
         let testData = {
             account: config.accounts[0]
         }
@@ -13,7 +13,7 @@ describe('Nft-Nft_composer', async () => {
         assert.equal(nfts.length, 0, "Account provisioned incorrectly");
     });
 
-    it(`provision two accounts`, async function () {
+    it(`provision two accounts`, async() => {
         let testData1 = {
             account: config.accounts[1]
         }
@@ -27,32 +27,32 @@ describe('Nft-Nft_composer', async () => {
         assert.equal(true, true, "Accounts provisioned incorrectly");
     });
 
-    it(`no initial NFTs account`, async function () {
+    it(`no initial NFTs account`, async() => {
         let testData = {
             account: config.accounts[1]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             let res = await DappLib.readNFTs(testData);
             let nfts = res.result;
             assert.equal(nfts.length, 0, "Account provisioned incorrectly");
         }, 2000)
     });
 
-    it(`can mint nft into account`, async function () {
+    it(`can mint nft into account`, async() => {
         let testData = {
             recipient: config.accounts[1]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             await DappLib.mintNFT(testData);
             assert.equal(true, true, "Did not mint correctly");
         }, 2000)
     });
 
-    it(`account has nft`, async function () {
+    it(`account has nft`, async() => {
         let testData = {
             account: config.accounts[1]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             let res = await DappLib.readNFTs(testData);
             let nfts = res.result;
             assert.equal(nfts.length, 1, "Account provisioned incorrectly");
@@ -60,14 +60,14 @@ describe('Nft-Nft_composer', async () => {
         }, 2000)
     });
 
-    it(`account 1 has 1 nft, account 2 has 0 nft`, async function () {
+    it(`account 1 has 1 nft, account 2 has 0 nft`, async() => {
         let testData1 = {
             account: config.accounts[1]
         }
         let testData2 = {
             account: config.accounts[2]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             let res1 = await DappLib.readNFTs(testData1);
             let nfts1 = res1.result;
             let res2 = await DappLib.readNFTs(testData2);
@@ -77,25 +77,25 @@ describe('Nft-Nft_composer', async () => {
         }, 2000)
     });
 
-    it(`transfer nft`, async function () {
+    it(`transfer nft`, async() => {
         let testData = {
             accountGiver: config.accounts[1],
             accountReceiver: config.accounts[2]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             await DappLib.transfer(testData);
             assert.equal(true, true, "Transfer executed incorrectly.");
         }, 2000)
     });
 
-    it(`account 1 has 0 nft, account 2 has 1 nft`, async function () {
+    it(`account 1 has 0 nft, account 2 has 1 nft`, async() => {
         let testData1 = {
             account: config.accounts[1]
         }
         let testData2 = {
             account: config.accounts[2]
         }
-        setTimeout(async function () {
+        setTimeout(async() => {
             let res1 = await DappLib.readNFTs(testData1);
             let nfts1 = res1.result;
             let res2 = await DappLib.readNFTs(testData2);
