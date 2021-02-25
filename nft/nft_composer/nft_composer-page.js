@@ -34,7 +34,10 @@ export default class NftComposerPage extends LitElement {
       >
 ///)
 
-///(functions
+///(functions:language:solidity
+// Solidity actions
+///)
+///(functions:language:cadence
         <action-card
           title="Provision an Account"
           description="Gives an account the necessary definitions to use NFTs"
@@ -80,7 +83,7 @@ export default class NftComposerPage extends LitElement {
           >
           </account-widget>
         </action-card>
-        
+
         <action-card
           title="Transfer NFT"
           description="Transfer an NFT from one account to another"
