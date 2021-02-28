@@ -21,7 +21,7 @@
     ],
     "dependencies": {
         "access_control": [
-            "core.administrator_role"
+            "core-administrator_role"
         ]
     }
 }
