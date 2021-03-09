@@ -116,6 +116,26 @@ class nft_composer {
   ///)
 
   ///(functions:language:solidity
+  static async supportsInterface(data) {
+    let result = await Blockchain.get(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "supportsInterface",
+      data.interfaceId
+    );
+    return {
+      type: DappLib.DAPP_RESULT_BOOLEAN,
+      label: "Is supported",
+      result: result.callData,
+      hint: null,
+    };
+  }
+
   static async safeTransferFrom(data) {
     let result = await Blockchain.post(
       {
@@ -247,6 +267,280 @@ class nft_composer {
       label: "Is approved for all",
       result: result.callData,
       hint: null,
+    };
+  }
+
+  static async create(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "create",
+      data.initialSupply,
+      data.uri
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async mint(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.authorized,
+        },
+      },
+      "mint",
+      data.id,
+      data.to,
+      data.quantities
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async setURI(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.authorized,
+        },
+      },
+      "setURI",
+      data.uri,
+      data.id,
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  //CHECK: Same named functions in different contracts performing different functions
+
+  static async mintNonFungible(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.authorized,
+        },
+      },
+      "mintNonFungible",
+      data.type,
+      data.to,
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async mintFungible(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.authorized,
+        },
+      },
+      "mintFungible",
+      data.id,
+      data.to,
+      data.quantities
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async setShouldReject(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "setShouldReject",
+      data.value
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async onERC1155Received(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "onERC1155Received",
+      data.operator,
+      data.from,
+      data.id,
+      data.value,
+      data.data
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async onERC1155BatchReceived(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "onERC1155BatchReceived",
+      data.operator,
+      data.from,
+      data.ids,
+      data.values,
+      data.data
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async updateContract(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "updateContract",
+      data.delegate,
+      data.functionSignatures,
+      data.commitMessage
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async setShouldRejectClash(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "setShouldRejectClash",
+      data.value
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async setShouldRejectXXXX(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "setShouldRejectXXXX",
+      data.value
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async onERCXXXXReceived(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "onERCXXXXReceived",
+      data.operator,
+      data.from,
+      data.id,
+      data.value,
+      data.data
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+  static async onERCXXXXBatchReceived(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "onERCXXXXBatchReceived",
+      data.operator,
+      data.from,
+      data.ids,
+      data.values,
+      data.data
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      result: DappLib.getTransactionHash(result.callData)
     };
   }
   ///)
