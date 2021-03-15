@@ -1,20 +1,28 @@
-pragma solidity ^0.5.0;
+// SPDX-License-Identifier: MIT
 
+pragma solidity ^0.8.0;
+
+import "../../interfaces/IERC165.sol";
 
 /**
- * @title ERC165
- * @dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md
+ * @dev Implementation of the {IERC165} interface.
+ *
+ * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check
+ * for the additional interface id that will be supported. For example:
+ *
+ * ```solidity
+ * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+ *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);
+ * }
+ * ```
+ *
+ * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.
  */
-interface ERC165 {
-
+abstract contract ERC165 is IERC165 {
     /**
-     * @notice Query if a contract implements an interface
-     * @param _interfaceId The interface identifier, as specified in ERC-165
-     * @dev Interface identification is specified in ERC-165. This function
-     * uses less than 30,000 gas.
+     * @dev See {IERC165-supportsInterface}.
      */
-    function supportsInterface(bytes4 _interfaceId)
-    external
-    view
-    returns (bool);
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC165).interfaceId;
+    }
 }

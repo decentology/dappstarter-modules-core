@@ -1,4 +1,4 @@
-pragma solidity  >=0.5.0;
+pragma solidity  ^0.8.0;
 
 import "../../../contracts/DappLib.sol";
 ///(import
@@ -81,7 +81,7 @@ contract access_control_contract_runstate {
         require(mode != contractRunState, "Run state is already set to the same value");
         contractRunState = mode;
 
-        emit ChangeContractRunState(mode, msg.sender, now);
+        emit ChangeContractRunState(mode, msg.sender, block.timestamp);
     }
                         
 ///)

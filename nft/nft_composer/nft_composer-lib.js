@@ -116,6 +116,26 @@ class nft_composer {
   ///)
 
   ///(functions:language:solidity
+  static async getURI(data) {
+    let result = await Blockchain.get(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.from,
+        },
+      },
+      "uri",
+      data.id
+    );
+    return {
+      type: DappLib.DAPP_RESULT_OBJECT,
+      label: "Result is:",
+      result: result.callData,
+      hint: null,
+    };
+  }
+
   static async supportsInterface(data) {
     let result = await Blockchain.get(
       {
@@ -149,7 +169,7 @@ class nft_composer {
       data.from,
       data.to,
       data.id,
-      data.value,
+      data.amount,
       data.data
     );
     return {
@@ -175,7 +195,7 @@ class nft_composer {
       data.from,
       data.to,
       data.ids,
-      data.values,
+      data.amounts,
       data.data
     );
     return {
@@ -195,7 +215,7 @@ class nft_composer {
         },
       },
       "balanceOf",
-      data.owner,
+      data.account,
       data.id
     );
     let balance = result.callData;
@@ -218,7 +238,7 @@ class nft_composer {
         },
       },
       "balanceOfBatch",
-      data.owners,
+      data.acounts,
       data.ids
     );
     return {
@@ -259,7 +279,7 @@ class nft_composer {
         },
       },
       "isApprovedForAll",
-      data.owner,
+      data.account,
       data.operator
     );
     return {
@@ -270,7 +290,7 @@ class nft_composer {
     };
   }
 
-  static async create(data) {
+  static async setURI(data) {
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -279,9 +299,8 @@ class nft_composer {
           from: data.from,
         },
       },
-      "create",
-      data.initialSupply,
-      data.uri
+      "_setURI",
+      data.newURI
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
@@ -296,117 +315,13 @@ class nft_composer {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.authorized,
-        },
-      },
-      "mint",
-      data.id,
-      data.to,
-      data.quantities
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async setURI(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.authorized,
-        },
-      },
-      "setURI",
-      data.uri,
-      data.id,
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  //CHECK: Same named functions in different contracts performing different functions
-
-  static async mintNonFungible(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.authorized,
-        },
-      },
-      "mintNonFungible",
-      data.type,
-      data.to,
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async mintFungible(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.authorized,
-        },
-      },
-      "mintFungible",
-      data.id,
-      data.to,
-      data.quantities
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async setShouldReject(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
           from: data.from,
         },
       },
-      "setShouldReject",
-      data.value
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async onERC1155Received(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.from,
-        },
-      },
-      "onERC1155Received",
-      data.operator,
-      data.from,
+      "_mint",
+      data.account,
       data.id,
-      data.value,
+      data.amount,
       data.data
     );
     return {
@@ -416,7 +331,7 @@ class nft_composer {
     };
   }
 
-  static async onERC1155BatchReceived(data) {
+  static async mintBatch(data) {
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -425,11 +340,10 @@ class nft_composer {
           from: data.from,
         },
       },
-      "onERC1155BatchReceived",
-      data.operator,
-      data.from,
+      "_mintBatch",
+      data.account,
       data.ids,
-      data.values,
+      data.amounts,
       data.data
     );
     return {
@@ -439,7 +353,7 @@ class nft_composer {
     };
   }
 
-  static async updateContract(data) {
+  static async burn(data) {
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -448,71 +362,10 @@ class nft_composer {
           from: data.from,
         },
       },
-      "updateContract",
-      data.delegate,
-      data.functionSignatures,
-      data.commitMessage
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async setShouldRejectClash(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.from,
-        },
-      },
-      "setShouldRejectClash",
-      data.value
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async setShouldRejectXXXX(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.from,
-        },
-      },
-      "setShouldRejectXXXX",
-      data.value
-    );
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: "Transaction Hash",
-      result: DappLib.getTransactionHash(result.callData)
-    };
-  }
-
-  static async onERCXXXXReceived(data) {
-    let result = await Blockchain.post(
-      {
-        config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
-        params: {
-          from: data.from,
-        },
-      },
-      "onERCXXXXReceived",
-      data.operator,
-      data.from,
+      "_burn",
+      data.account,
       data.id,
-      data.value,
-      data.data
+      data.amount
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
@@ -521,7 +374,7 @@ class nft_composer {
     };
   }
 
-  static async onERCXXXXBatchReceived(data) {
+  static async burnBatch(data) {
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -530,12 +383,10 @@ class nft_composer {
           from: data.from,
         },
       },
-      "onERCXXXXBatchReceived",
-      data.operator,
-      data.from,
+      "_burnBatch",
+      data.account,
       data.ids,
-      data.values,
-      data.data
+      data.amounts
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,

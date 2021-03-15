@@ -1,4 +1,4 @@
-pragma solidity  >=0.5.0;
+pragma solidity  ^0.8.0;
 
 import "../../../contracts/DappLib.sol";
 ///(import
@@ -97,7 +97,7 @@ contract file_storage__ipfs {
         ipfsDocs[docId] = IpfsDocument({
                                     docId: docId,
                                     label: label,
-                                    timestamp: now,
+                                    timestamp: block.timestamp,
                                     owner: msg.sender,
                                     docRef: DappLib.Multihash({
                                                     digest: digest,

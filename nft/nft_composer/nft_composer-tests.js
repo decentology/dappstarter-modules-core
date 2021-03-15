@@ -1,7 +1,7 @@
 import { assert } from "console";
 import { config } from "process";
 
-///(test
+///(test:language:cadence
 describe('NFT Composer', async() => {
 
     it(`no initial NFTs admin`, async() => {
@@ -106,4 +106,9 @@ describe('NFT Composer', async() => {
     });
 
 });
+///)
+
+///(test:language:solidity
+hello;
+
 ///)
