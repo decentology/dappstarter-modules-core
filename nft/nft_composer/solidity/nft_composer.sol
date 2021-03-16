@@ -7,7 +7,7 @@ import "./interfaces/IERC1155MetadataURI.sol";
 import "./imports/nft_composer/Address.sol";
 import "./imports/nft_composer/Context.sol";
 import "./imports/nft_composer/ERC165.sol";
-///)z
+///)
 
 ///(interfaces
                       ,Context, ERC165, IERC1155, IERC1155MetadataURI
