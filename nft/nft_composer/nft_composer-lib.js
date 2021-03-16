@@ -131,7 +131,9 @@ class nft_composer {
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: "Result is:",
-      result: result.callData,
+      result: {
+        uri: result.callData
+      },
       hint: null,
     };
   }
