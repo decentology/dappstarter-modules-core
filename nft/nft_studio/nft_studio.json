@@ -184,5 +184,9 @@
         "cadence",
         "solidity"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "access_control": [
+            "core-administrator_role"
+        ]
+    }
 }

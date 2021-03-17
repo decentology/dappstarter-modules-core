@@ -31,6 +31,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: 'Transaction Hash',
+      raw: result.callData,
       result: result.callData.transactionId
     }
 
@@ -125,7 +126,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "uri",
+      "getURI",
       data.id
     );
     return {
@@ -222,10 +223,9 @@ class nft_studio {
     );
     let balance = result.callData;
     return {
-      type: DappLib.DAPP_RESULT_BIG_NUMBER,
-      label: DappLib.formatAccount(result.callAccount) + " Account Balance",
-      result: new BN(balance),
-      unitResult: await DappLib._fromSmallestUnit(balance, data),
+      type: DappLib.DAPP_RESULT_OBJECT,
+      label: "Result is:",
+      result: result.callData,
       hint: null,
     };
   }
@@ -301,7 +301,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "_setURI",
+      "setURI",
       data.newURI
     );
     return {
@@ -320,7 +320,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "_mint",
+      "mint",
       data.account,
       data.id,
       data.amount,
@@ -342,7 +342,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "_mintBatch",
+      "mintBatch",
       data.account,
       data.ids,
       data.amounts,
@@ -364,7 +364,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "_burn",
+      "burn",
       data.account,
       data.id,
       data.amount
@@ -385,7 +385,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "_burnBatch",
+      "burnBatch",
       data.account,
       data.ids,
       data.amounts

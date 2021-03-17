@@ -12,7 +12,7 @@ const expect = Chai.expect;
 
 // const { shouldBehaveLikeERC1155 } = require('./nft_studio-behavior-tests');
 
-// npx truffle test ./tests/nft_studio-tests.js
+// truffle test ./tests/nft_studio-tests.js
 
 ///)
 
@@ -128,8 +128,11 @@ describe('NFT Composer', async() => {
 
     const initialURI = 'https://token-cdn-domain/{id}.json';
 
-    beforeEach(async function () {
-        this.token = await DappLib.setURI(initialURI);
+    before(async function () {
+        await DappLib.setURI({
+            from: config.owner,
+            newURI: initialURI
+        });
     });
 
     // shouldBehaveLikeERC1155(otherAccounts);
@@ -146,39 +149,49 @@ describe('NFT Composer', async() => {
         const data = '0x12345678';
 
         describe('_mint', function () {
-        it('reverts with a zero destination address', async function () {
-            let res = await DappLib.mint({
-                account: ZERO_ADDRESS,
-                id: tokenId,
-                amount: mintAmount,
-                data: data
+            it('reverts with a zero destination address', async function () {
+                await expectRevert(
+                    DappLib.mint({
+                        from: config.owner,
+                        account: ZERO_ADDRESS,
+                        id: tokenId,
+                        amount: mintAmount,
+                        data: data
+                    }),
+                'ERC1155: mint to the zero address',
+                );
             });
-            await expectRevert(
-            res,
-            'ERC1155: mint to the zero address',
-            );
+
+            context('with minted tokens', function () {
+                before(async function () {
+                    ({raw: this.logs } = await DappLib.mint({
+                        from: config.owner,
+                        account: tokenHolder,
+                        id: tokenId,
+                        amount: mintAmount,
+                        data: data
+                    }));
+                });
+
+                it('emits a TransferSingle event', function () {
+                    expectEvent(this.logs, 'TransferSingle', {
+                        operator: config.owner,
+                        from: ZERO_ADDRESS,
+                        to: tokenHolder,
+                        id: tokenId,
+                        value: mintAmount,
+                    });
+                });
+
+                it('credits the minted amount of tokens', async function () {
+                    let res = await DappLib.balanceOf({
+                        account: tokenHolder,
+                        id: tokenId
+                    });
+                    expect(res.result).to.be.bignumber.equal(mintAmount);
+                });
+            });
         });
-
-    //     context('with minted tokens', function () {
-    //         beforeEach(async function () {
-    //         ({ logs: this.logs } = await this.token.mint(tokenHolder, tokenId, mintAmount, data, { from: operator }));
-    //         });
-
-    //         it('emits a TransferSingle event', function () {
-    //         expectEvent.inLogs(this.logs, 'TransferSingle', {
-    //             operator,
-    //             from: ZERO_ADDRESS,
-    //             to: tokenHolder,
-    //             id: tokenId,
-    //             value: mintAmount,
-    //         });
-    //         });
-
-    //         it('credits the minted amount of tokens', async function () {
-    //         expect(await this.token.balanceOf(tokenHolder, tokenId)).to.be.bignumber.equal(mintAmount);
-    //         });
-    //     });
-    //     });
 
     //     describe('_mintBatch', function () {
     //     it('reverts with a zero destination address', async function () {
@@ -383,5 +396,4 @@ describe('NFT Composer', async() => {
     //         expect(await this.token.uri(secondTokenID)).to.be.equal(newURI);
     //     });
         });
-    });
 ///)

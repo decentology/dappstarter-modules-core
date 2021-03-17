@@ -12,7 +12,7 @@ import "./IERC165.sol";
  */
 interface IERC1155 is IERC165 {
     /**
-     * @dev Emitted when `value` tokens of token type `id` are transferred from `from` to `to` by `operator`.
+     * @dev Emitted when `amount` tokens of token type `id` are transferred from `from` to `to` by `operator`.
      */
     event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
 
@@ -29,10 +29,10 @@ interface IERC1155 is IERC165 {
     event ApprovalForAll(address indexed account, address indexed operator, bool approved);
 
     /**
-     * @dev Emitted when the URI for token type `id` changes to `value`, if it is a non-programmatic URI.
+     * @dev Emitted when the URI for token type `id` changes to `amount`, if it is a non-programmatic URI.
      *
      * If an {URI} event was emitted for `id`, the standard
-     * https://eips.ethereum.org/EIPS/eip-1155#metadata-extensions[guarantees] that `value` will equal the value
+     * https://eips.ethereum.org/EIPS/eip-1155#metadata-extensions[guarantees] that `amount` will equal the value
      * returned by {IERC1155MetadataURI-uri}.
      */
     event URI(string value, uint256 indexed id);
