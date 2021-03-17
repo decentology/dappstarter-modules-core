@@ -2,7 +2,7 @@
 const t = require('@onflow/types');
 ///)
 
-class nft_composer {
+class nft_studio {
 
 ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

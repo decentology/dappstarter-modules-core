@@ -10,9 +10,9 @@ const { ZERO_ADDRESS } = constants;
 const Chai = require('chai');
 const expect = Chai.expect;
 
-// const { shouldBehaveLikeERC1155 } = require('./nft_composer-behavior-tests');
+// const { shouldBehaveLikeERC1155 } = require('./nft_studio-behavior-tests');
 
-// npx truffle test ./tests/nft_composer-tests.js
+// npx truffle test ./tests/nft_studio-tests.js
 
 ///)
 

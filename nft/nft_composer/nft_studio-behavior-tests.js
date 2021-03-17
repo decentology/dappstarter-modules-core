@@ -8,9 +8,9 @@ const { ZERO_ADDRESS } = constants;
 const Chai = require('chai');
 const expect = Chai.expect;
 
-const { shouldSupportInterfaces } = require('./nft_composer-interface-tests');
+const { shouldSupportInterfaces } = require('./nft_studio-interface-tests');
 
-const ERC1155ReceiverMock = artifacts.require('./solidity/imports/nft_composer/ERC1155Receiver');
+const ERC1155ReceiverMock = artifacts.require('./solidity/imports/nft_studio/ERC1155Receiver');
 
 function shouldBehaveLikeERC1155 ([minter, firstTokenHolder, secondTokenHolder, multiTokenHolder, recipient, proxy]) {
   const firstTokenId = new BN(1);
