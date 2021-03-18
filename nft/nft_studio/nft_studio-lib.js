@@ -176,6 +176,7 @@ class nft_studio {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
       result: DappLib.getTransactionHash(result.callData),
+      raw: result.callData,
       hint: `Verify transfer by using "Balance for Account" to check the balance of ${DappLib.formatAccount(
         data.to
       )}.`,
@@ -263,6 +264,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }
