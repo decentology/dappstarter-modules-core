@@ -31,7 +31,6 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: 'Transaction Hash',
-      raw: result.callData,
       result: result.callData.transactionId
     }
 
@@ -132,9 +131,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: "Result is:",
-      result: {
-        uri: result.callData
-      },
+      result: result.callData,
       hint: null,
     };
   }
@@ -240,14 +237,13 @@ class nft_studio {
         },
       },
       "balanceOfBatch",
-      data.acounts,
+      data.accounts,
       data.ids
     );
     return {
-      type: DappLib.DAPP_RESULT_ARRAY,
+      type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Batch balances',
-      result: result.callData,
-      formatter: ['Text-20-5']
+      result: result.callData
     }
   }
 
@@ -329,6 +325,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }
@@ -340,6 +337,7 @@ class nft_studio {
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
           from: data.from,
+          gas: 2000000
         },
       },
       "mintBatch",
@@ -351,6 +349,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }
@@ -372,6 +371,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }
@@ -393,6 +393,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }
