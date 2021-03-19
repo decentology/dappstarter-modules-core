@@ -8,8 +8,8 @@ import "../../components/number-widget.js";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('nft-composer-page')
-export default class NftComposerPage extends LitElement {
+@customElement('nft-studio-page')
+export default class NFTStudio extends LitElement {
   @property()
   title;
   @property()
@@ -35,7 +35,20 @@ export default class NftComposerPage extends LitElement {
 ///)
 
 ///(functions:language:solidity
-// Solidity actions
+<action-card
+          title="Provision an Account"
+          description="Gives an account the necessary definitions to use NFTs"
+          action="provisionAccount"
+          method="post"
+          fields="account"
+        >
+          <account-widget
+            field="account"
+            label="Account"
+            placeholder="Account address"
+          >
+          </account-widget>
+        </action-card>
 ///)
 ///(functions:language:cadence
         <action-card
