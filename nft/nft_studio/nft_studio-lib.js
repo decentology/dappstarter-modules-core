@@ -202,6 +202,7 @@ class nft_studio {
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
       label: "Transaction Hash",
+      raw: result.callData,
       result: DappLib.getTransactionHash(result.callData)
     };
   }

@@ -912,5 +912,206 @@ describe('like an ERC1155', function () {
           });
         });
       });
+
+      describe('safeBatchTransferFrom', function () {
+        before(async function () {
+            await DappLib.mint({
+                    account: multiTokenHolder, 
+                    id: firstTokenId, 
+                    amount: firstAmount, 
+                    data: '0x',
+                    from: config.owner,
+            });
+        });
+  
+        it('reverts when transferring amount more than any of balances', async function () {
+          await expectRevert(
+            DappLib.safeBatchTransferFrom({
+                authorized: multiTokenHolder,
+                from: multiTokenHolder, 
+                to: recipient,
+                ids: [firstTokenId.toString(), secondTokenId.toString()],
+                amounts: [firstAmount.toString(), secondAmount.addn(1).toString()],
+                data: '0x'
+            }),
+            'ERC1155: insufficient balance for transfer',
+          );
+        });
+  
+        it('reverts when ids array length doesn\'t match amounts array length', async function () {
+          await expectRevert(
+            DappLib.safeBatchTransferFrom({
+                authorized: multiTokenHolder,
+                from: multiTokenHolder, 
+                to: recipient,
+                ids: [firstTokenId.toString()],
+                amounts: [firstAmount.toString(), secondAmount.toString()],
+                data: '0x'
+            }),
+            'ERC1155: ids and amounts length mismatch',
+          );
+
+          await expectRevert(
+            DappLib.safeBatchTransferFrom({
+                authorized: multiTokenHolder,
+                from: multiTokenHolder, 
+                to: recipient,
+                ids: [firstTokenId.toString(), secondTokenId.toString()],
+                amounts: [firstAmount.toString()],
+                data: '0x'
+            }),
+            'ERC1155: ids and amounts length mismatch',
+          );
+        });
+  
+        it('reverts when transferring to zero address', async function () {
+          await expectRevert(
+            DappLib.safeBatchTransferFrom({
+                authorized: multiTokenHolder,
+                from: multiTokenHolder, 
+                to: ZERO_ADDRESS,
+                ids: [firstTokenId.toString(), secondTokenId.toString()],
+                amounts: [firstAmount.toString(), secondAmount.toString()],
+                data:'0x'
+            }),
+            'ERC1155: transfer to the zero address',
+          );
+        });
+  
+        function batchTransferWasSuccessful ({ operator, from, ids, values }) {
+          it('debits transferred balances from sender', async function () {
+            const newBalances = await DappLib.balanceOfBatch({
+                accounts: new Array(ids.length).fill(from),
+                ids: ids
+            });
+
+            for (const newBalance of newBalances.result) {
+              expect(newBalance).to.be.a.bignumber.equal(new BN(0));
+            }
+          });
+  
+          it('credits transferred balances to receiver', async function () {
+            const newBalances = await DappLib.balanceOfBatch({
+                accounts: new Array(ids.length).fill(this.toWhom), 
+                ids: ids
+            });
+
+            for (let i = 0; i < newBalances.length; i++) {
+              expect(newBalances.result[i]).to.be.a.bignumber.equal(values[i]);
+            }
+          });
+  
+          it('emits a TransferBatch log', function () {
+            expectEvent(this.transferLogs, 'TransferBatch', {
+              operator: operator,
+              from: from,
+              to: this.toWhom,
+              ids: ids,
+              values: values
+            });
+          });
+        }
+  
+        context('when called by the multiTokenHolder', async function () {
+          before(async function () {
+            this.toWhom = recipient;
+            ({ raw: this.transferLogs } =
+              await DappLib.safeBatchTransferFrom({
+                authorized: multiTokenHolder,
+                from: multiTokenHolder, 
+                to: recipient,
+                ids: [firstTokenId.toString(), secondTokenId.toString()],
+                amounts: [firstAmount.toString(), secondAmount.toString()],
+                data: '0x'
+              }));
+          });
+  
+          batchTransferWasSuccessful.call(this, {
+            operator: multiTokenHolder,
+            from: multiTokenHolder,
+            ids: [firstTokenId.toString(), secondTokenId.toString()],
+            values: [firstAmount.toString(), secondAmount.toString()],
+          });
+        });
+  
+        context('when called by an operator on behalf of the multiTokenHolder', function () {
+          context('when operator is not approved by multiTokenHolder', function () {
+            before(async function () {
+              await DappLib.setApprovalForAll({
+                  operator: proxy, 
+                  approved: false,
+                  from: multiTokenHolder 
+                });
+            });
+  
+            it('reverts', async function () {
+              await expectRevert(
+                DappLib.safeBatchTransferFrom({
+                    authorized: proxy,
+                    from: multiTokenHolder, 
+                    to: recipient,
+                    ids: [firstTokenId.toString(), secondTokenId.toString()],
+                    amounts: [firstAmount.toString(), secondAmount.toString()],
+                    data:'0x'
+                }),
+                'ERC1155: transfer caller is not owner nor approved',
+              );
+            });
+          });
+  
+          context('when operator is approved by multiTokenHolder', function () {
+            before(async function () {
+              this.toWhom = recipient;
+              await DappLib.setApprovalForAll({
+                  operator: proxy, 
+                  approved: true,
+                  from: multiTokenHolder 
+                });
+
+                await DappLib.mintBatch({
+                    from: config.owner,
+                    account: multiTokenHolder,
+                    ids: [firstTokenId.toString(), secondTokenId.toString()],
+                    amounts: [firstAmount.toString(), secondAmount.toString()],
+                    data: '0x'
+                });
+
+              ({ raw: this.transferLogs } =
+                await DappLib.safeBatchTransferFrom({
+                    authorized: proxy,
+                    from: multiTokenHolder, 
+                    to: recipient,
+                    ids: [firstTokenId.toString(), secondTokenId.toString()],
+                    amounts: [firstAmount.toString(), secondAmount.toString()],
+                    data: '0x'
+                }));
+            });
+  
+            batchTransferWasSuccessful.call(this, {
+              operator: proxy,
+              from: multiTokenHolder,
+              ids: [firstTokenId.toString(), secondTokenId.toString()],
+              values: [firstAmount.toString(), secondAmount.toString()],
+            });
+  
+            it('preserves operator\'s balances not involved in the transfer', async function () {
+              const balance1 = await DappLib.balanceOf({
+                  account: proxy, 
+                  id: firstTokenId
+                });
+
+              expect(balance1.result).to.be.a.bignumber.equal(new BN(0));
+
+              const balance2 = await DappLib.balanceOf({
+                  account: proxy, 
+                  id: secondTokenId
+              });
+
+              expect(balance2.result).to.be.a.bignumber.equal(new BN(0));
+            });
+          });
+        });
+    });
+
 });
 ///)
