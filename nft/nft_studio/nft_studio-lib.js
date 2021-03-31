@@ -129,8 +129,8 @@ class nft_studio {
       data.id
     );
     return {
-      type: DappLib.DAPP_RESULT_OBJECT,
-      label: "Result is:",
+      type: DappLib.DAPP_RESULT_STRING,
+      label: "Result is",
       result: result.callData,
       hint: null,
     };
@@ -184,19 +184,23 @@ class nft_studio {
   }
 
   static async safeBatchTransferFrom(data) {
+    let idsArray = [data.id1, data.id2, data.id3];
+    let amountsArray = [data.amount1, data.amount2, data.amount3];
+
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
           from: data.authorized,
+          gas: 2000000
         },
       },
       "safeBatchTransferFrom",
       data.from,
       data.to,
-      data.ids,
-      data.amounts,
+      idsArray,
+      amountsArray,
       data.data
     );
     return {
@@ -222,14 +226,17 @@ class nft_studio {
     );
     let balance = result.callData;
     return {
-      type: DappLib.DAPP_RESULT_OBJECT,
-      label: "Result is:",
+      type: DappLib.DAPP_RESULT_STRING,
+      label: "Result is",
       result: result.callData,
       hint: null,
     };
   }
 
   static async balanceOfBatch(data) {
+    let accountsArray = [data.account1, data.account2, data.account3];
+    let idsArray = [data.id1, data.id2, data.id3];
+
     let result = await Blockchain.get(
       {
         config: DappLib.getConfig(),
@@ -239,11 +246,11 @@ class nft_studio {
         },
       },
       "balanceOfBatch",
-      data.accounts,
-      data.ids
+      accountsArray,
+      idsArray
     );
     return {
-      type: DappLib.DAPP_RESULT_OBJECT,
+      type: DappLib.DAPP_RESULT_ARRAY,
       label: 'Batch balances',
       result: result.callData
     }
@@ -297,7 +304,7 @@ class nft_studio {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.from,
+          from: data.authorized,
         },
       },
       "setURI",
@@ -316,7 +323,7 @@ class nft_studio {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.from,
+          from: data.authorized,
         },
       },
       "mint",
@@ -334,19 +341,22 @@ class nft_studio {
   }
 
   static async mintBatch(data) {
+    let idsArray = [data.id1, data.id2, data.id3];
+    let amountsArray = [data.amount1, data.amount2, data.amount3];
+
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.from,
+          from: data.authorized,
           gas: 2000000
         },
       },
       "mintBatch",
       data.account,
-      data.ids,
-      data.amounts,
+      idsArray,
+      amountsArray,
       data.data
     );
     return {
@@ -363,7 +373,7 @@ class nft_studio {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.from,
+          from: data.authorized,
         },
       },
       "burn",
@@ -380,18 +390,22 @@ class nft_studio {
   }
 
   static async burnBatch(data) {
+    let idsArray = [data.id1, data.id2, data.id3];
+    let amountsArray = [data.amount1, data.amount2, data.amount3];
+
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
         contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
-          from: data.from,
+          from: data.authorized,
+          gas: 2000000
         },
       },
       "burnBatch",
       data.account,
-      data.ids,
-      data.amounts
+      idsArray,
+      amountsArray
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
