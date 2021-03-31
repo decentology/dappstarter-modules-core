@@ -187,6 +187,14 @@ class nft_studio {
     let idsArray = [data.id1, data.id2, data.id3];
     let amountsArray = [data.amount1, data.amount2, data.amount3];
 
+    if (typeof data.ids === "undefined") {
+      data.ids = idsArray;
+    }
+
+    if (typeof data.amounts === "undefined") {
+      data.amounts = amountsArray;
+    }
+
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -199,8 +207,8 @@ class nft_studio {
       "safeBatchTransferFrom",
       data.from,
       data.to,
-      idsArray,
-      amountsArray,
+      data.ids,
+      data.amounts,
       data.data
     );
     return {
@@ -237,6 +245,14 @@ class nft_studio {
     let accountsArray = [data.account1, data.account2, data.account3];
     let idsArray = [data.id1, data.id2, data.id3];
 
+    if (typeof data.ids === "undefined") {
+      data.ids = idsArray;
+    }
+
+    if (typeof data.accounts === "undefined") {
+      data.accounts = accountsArray;
+    }
+
     let result = await Blockchain.get(
       {
         config: DappLib.getConfig(),
@@ -246,8 +262,8 @@ class nft_studio {
         },
       },
       "balanceOfBatch",
-      accountsArray,
-      idsArray
+      data.accounts,
+      data.ids
     );
     return {
       type: DappLib.DAPP_RESULT_ARRAY,
@@ -341,8 +357,17 @@ class nft_studio {
   }
 
   static async mintBatch(data) {
+
     let idsArray = [data.id1, data.id2, data.id3];
     let amountsArray = [data.amount1, data.amount2, data.amount3];
+
+    if (typeof data.ids === "undefined") {
+      data.ids = idsArray;
+    }
+
+    if (typeof data.amounts === "undefined") {
+      data.amounts= amountsArray;
+    }
 
     let result = await Blockchain.post(
       {
@@ -355,8 +380,8 @@ class nft_studio {
       },
       "mintBatch",
       data.account,
-      idsArray,
-      amountsArray,
+      data.ids,
+      data.amounts,
       data.data
     );
     return {
@@ -393,6 +418,14 @@ class nft_studio {
     let idsArray = [data.id1, data.id2, data.id3];
     let amountsArray = [data.amount1, data.amount2, data.amount3];
 
+    if (typeof data.ids === "undefined") {
+      data.ids = idsArray;
+    }
+
+    if (typeof data.amounts === "undefined") {
+      data.amounts = amountsArray;
+    }
+
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
@@ -404,8 +437,8 @@ class nft_studio {
       },
       "burnBatch",
       data.account,
-      idsArray,
-      amountsArray
+      data.ids,
+      data.amounts
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
