@@ -57,7 +57,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
      * Clients calling this function must replace the `\{id\}` substring with the
      * actual token type ID.
      */
-    function getURI(uint256) public view virtual override returns (string memory) {
+    function getURI() public view virtual override returns (string memory) {
         return uri;
     }
 

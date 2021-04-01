@@ -66,13 +66,7 @@ export default class NFTStudio extends LitElement {
             description="Get metadata URI"
             action="getURI"
             method="get"
-            fields="id">
-
-            <text-widget
-              field="id"
-              label="ID: "
-              placeholder="Enter the ID of the NFT here">
-            </text-widget>
+            fields="">
           </action-card>
         </div>
         <!-- END: SET URI and GET URI !-->

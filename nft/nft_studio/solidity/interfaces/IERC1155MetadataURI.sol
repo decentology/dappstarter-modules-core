@@ -17,5 +17,5 @@ interface IERC1155MetadataURI is IERC1155 {
      * If the `\{id\}` substring is present in the URI, it must be replaced by
      * clients with the actual token type ID.
      */
-    function getURI(uint256 id) external view returns (string memory);
+    function getURI() external view returns (string memory);
 }

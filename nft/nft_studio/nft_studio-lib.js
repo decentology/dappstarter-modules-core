@@ -125,8 +125,7 @@ class nft_studio {
           from: data.from,
         },
       },
-      "getURI",
-      data.id
+      "getURI"
     );
     return {
       type: DappLib.DAPP_RESULT_STRING,

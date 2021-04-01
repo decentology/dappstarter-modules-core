@@ -434,13 +434,13 @@ describe('ERC1155MetadataURI', function () {
 
     it('sets the initial URI for all token types', async function () {
         let res = await DappLib.getURI({
-            id: firstTokenID
+            from: config.owner
         });
 
         expect(res.result).to.be.equal(initialURI);
 
         res = await DappLib.getURI({
-            id: secondTokenID
+          from: config.owner
         });
         
         expect(res.result).to.be.equal(initialURI);
@@ -455,13 +455,13 @@ describe('ERC1155MetadataURI', function () {
             });
 
             let res = await DappLib.getURI({
-                id: firstTokenID
+              from: config.owner
             });
 
             expect(res.result).to.be.equal(newURI);
 
             res = await DappLib.getURI({
-                id: secondTokenID
+              from: config.owner
             });
             
             expect(res.result).to.be.equal(newURI);
