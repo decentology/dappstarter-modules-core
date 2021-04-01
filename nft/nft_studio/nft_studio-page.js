@@ -41,7 +41,7 @@ export default class NFTStudio extends LitElement {
         <div>
           <action-card
             title="Set URI"
-            description="Set URI of NFT"
+            description="Set metadata URI"
             action="setURI"
             method="post"
             fields="authorized newURI">
@@ -63,7 +63,7 @@ export default class NFTStudio extends LitElement {
         <div>
           <action-card
             title="Get URI"
-            description="Get URI of NFT"
+            description="Get metadata URI"
             action="getURI"
             method="get"
             fields="id">
