@@ -80,8 +80,8 @@ export default class NFTStudio extends LitElement {
         <!-- Start: Mint !-->
         <div>
           <action-card
-            title="Mint a single NFT/FT"
-            description="If quantity is set to 1, it will be an NFT. If quantity is more than 1, it will be a FT."
+            title="Mint"
+            description="Create NFT or FT"
             action="mint"
             method="post"
             fields="authorized account id amount data">
@@ -106,8 +106,8 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="amount"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
+              label="Amount: "
+              placeholder="Enter the amount of the NFT/FT here">
             </text-widget>
 
             <text-widget
@@ -120,8 +120,8 @@ export default class NFTStudio extends LitElement {
 
         <div>
           <action-card
-            title="Mint a batch of NFT/FT"
-            description="If quantity is set to 1, it will be an NFT. If quantity is more than 1, it will be a FT."
+            title="Mint Batch"
+            description="Create NFT or FT"
             action="mintBatch"
             method="post"
             fields="authorized account id1 id2 id3 amount1 amount2 amount3 data">
@@ -138,41 +138,57 @@ export default class NFTStudio extends LitElement {
               placeholder="Account address">
             </account-widget>
 
-            <text-widget
-              field="id1"
-              label="ID 1: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="font-extrabold">ID</div>
+              <div class="font-extrabold">Amount</div>
+              <div>
+                <text-widget
+                  field="id1"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount1"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount1"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id2"
-              label="ID 2: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id2"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount2"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount2"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id3"
-              label="ID 3: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id3"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount3"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount3"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
+            </div>
 
             <text-widget
               field="data"
@@ -186,7 +202,7 @@ export default class NFTStudio extends LitElement {
         <!-- START: Balance !-->
         <div>
           <action-card
-            title="Get balance of an account for an ID"
+            title="Get Balance"
             description="Get balance of an account for an ID"
             action="balanceOf"
             method="get"
@@ -208,8 +224,8 @@ export default class NFTStudio extends LitElement {
 
         <div>
           <action-card
-            title="Get balance of a batch of multiple accounts for multiple IDs"
-            description="Get balance of a batch of multiple accounts for multiple IDs"
+            title="Get Balance of Batch"
+            description="Get balance of multiple accounts for multiple IDs"
             action="balanceOfBatch"
             method="get"
             fields="account1 account2 account3 id1 id2 id3">
@@ -222,7 +238,7 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="id1"
-              label="ID 1: "
+              label="ID: "
               placeholder="Enter the ID of the NFT/FT here">
             </text-widget>
 
@@ -234,7 +250,7 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="id2"
-              label="ID 2: "
+              label="ID: "
               placeholder="Enter the ID of the NFT/FT here">
             </text-widget>
 
@@ -246,7 +262,7 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="id3"
-              label="ID 3: "
+              label="ID: "
               placeholder="Enter the ID of the NFT/FT here">
             </text-widget>
           </action-card>
@@ -257,7 +273,7 @@ export default class NFTStudio extends LitElement {
         <div>
           <action-card
             title="Set Approval"
-            description="Give approval to a proxy to transfer funds on behalf of the main account"
+            description="Give approval to a proxy to transfer funds on behalf of the authorizing account"
             action="setApprovalForAll"
             method="post"
             fields="from operator approved">
@@ -284,7 +300,7 @@ export default class NFTStudio extends LitElement {
 
         <div>
           <action-card
-            title="Check if the proxy is authorized"
+            title="Check Approval"
             description="Check if the proxy is authorized"
             action="isApprovedForAll"
             method="get"
@@ -308,7 +324,7 @@ export default class NFTStudio extends LitElement {
         <!-- Start: Transfer !-->
         <div>
           <action-card
-            title="Transfer NFT/FT"
+            title="Transfer"
             description="Transfer tokens from one account to another"
             action="safeTransferFrom"
             method="post"
@@ -340,8 +356,8 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="amount"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
+              label="Amount: "
+              placeholder="Enter the amount of the NFT/FT here">
             </text-widget>
 
             <text-widget
@@ -354,8 +370,8 @@ export default class NFTStudio extends LitElement {
 
         <div>
           <action-card
-            title="Transfer a batch of NFT/FT"
-            description="Transfer multiple kinds of tokens from one account to another"
+            title="Transfer Batch"
+            description="Transfer batch of tokens from one account to another"
             action="safeBatchTransferFrom"
             method="post"
             fields="authorized from to id1 id2 id3 amount1 amount2 amount3 data">
@@ -378,41 +394,57 @@ export default class NFTStudio extends LitElement {
               placeholder="Recipient's account">
             </account-widget>
 
-            <text-widget
-              field="id1"
-              label="ID 1: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="font-extrabold">ID</div>
+              <div class="font-extrabold">Amount</div>
+              <div>
+                <text-widget
+                  field="id1"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount1"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount1"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id2"
-              label="ID 2: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id2"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount2"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount2"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id3"
-              label="ID 3: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id3"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount3"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount3"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
+            </div>
 
             <text-widget
               field="data"
@@ -426,8 +458,8 @@ export default class NFTStudio extends LitElement {
         <!-- Start: Burn !-->
         <div>
           <action-card
-            title="Burn a single NFT/FT"
-            description="If quantity is set to 1, it will be an NFT. If quantity is more than 1, it will be a FT."
+            title="Burn"
+            description="Burn NFT or FT"
             action="burn"
             method="post"
             fields="authorized account id amount">
@@ -452,16 +484,16 @@ export default class NFTStudio extends LitElement {
 
             <text-widget
               field="amount"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
+              label="Amount: "
+              placeholder="Enter the amount of the NFT/FT here">
             </text-widget>
           </action-card>
         </div>
 
         <div>
           <action-card
-            title="Burn a batch of NFT/FT"
-            description="If quantity is set to 1, it will be an NFT. If quantity is more than 1, it will be a FT."
+            title="Burn Batch"
+            description="Burn a batch of NFT or FT"
             action="burnBatch"
             method="post"
             fields="authorized account id1 id2 id3 amount1 amount2 amount3">
@@ -478,41 +510,57 @@ export default class NFTStudio extends LitElement {
               placeholder="Account address">
             </account-widget>
 
-            <text-widget
-              field="id1"
-              label="ID 1: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="font-extrabold">ID</div>
+              <div class="font-extrabold">Amount</div>
+              <div>
+                <text-widget
+                  field="id1"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount1"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount1"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id2"
-              label="ID 2: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id2"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount2"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount2"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="id3"
-              label="ID 3: "
-              placeholder="Enter the ID of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="id3"
+                  label="ID: "
+                  placeholder="">
+                </text-widget>
+              </div>
 
-            <text-widget
-              field="amount3"
-              label="Quantity: "
-              placeholder="Enter the quanity of the NFT/FT here">
-            </text-widget>
+              <div>
+                <text-widget
+                  field="amount3"
+                  label="Amount: "
+                  placeholder="">
+                </text-widget>
+              </div>
+            </div>
           </action-card>
         </div>
         <!-- End: Burn !-->
