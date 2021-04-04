@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 import "./interfaces/IERC1155.sol";
 import "./interfaces/IERC1155Receiver.sol";
 import "./interfaces/IERC1155MetadataURI.sol";
-import "./imports/nft_studio/Address.sol";
-import "./imports/nft_studio/Context.sol";
-import "./imports/nft_studio/ERC165.sol";
+import "./imports/nft_base/Address.sol";
+import "./imports/nft_base/Context.sol";
+import "./imports/nft_base/ERC165.sol";
 ///)
 
 ///(interfaces

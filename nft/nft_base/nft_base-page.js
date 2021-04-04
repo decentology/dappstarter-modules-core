@@ -9,8 +9,8 @@ import "../../components/switch-widget.js";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('nft-studio-page')
-export default class NFTStudio extends LitElement {
+@customElement('nft-base-page')
+export default class NFTBase extends LitElement {
   @property()
   title;
   @property()
