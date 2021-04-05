@@ -14,164 +14,25 @@
     },
     "parameters": [
         {
-            "name": "foundation",
+            "name": "template",
             "type": "choice",
-            "description": "Define what platform the NFT is for",
-            "title": "Foundation",
+            "description": "Define the NFT template to use",
+            "title": "Template",
             "multiple": false,
             "ui": "radio",
             "options": [
                 {
+                    "name": "none",
+                    "title": "None",
+                    "description": ""
+                },
+                {
                     "name": "collectible",
                     "title": "Collectible",
-                    "description": ""
-                },
-                {
-                    "name": "unlock",
-                    "title": "Unlock",
-                    "description": ""
-                },
-                {
-                    "name": "rpg",
-                    "title": "Role-playing Game",
                     "description": ""
                 }
             ],
             "default": "collectible"
-        },
-        {
-            "name": "minting",
-            "type": "choice",
-            "description": "Define how the NFTs will be minted",
-            "title": "Minting",
-            "multiple": false,
-            "ui": "radio",
-            "options": [
-                {
-                    "name": "grant",
-                    "title": "Grant",
-                    "description": ""
-                },
-                {
-                    "name": "earn",
-                    "title": "Earn",
-                    "description": ""
-                },
-                {
-                    "name": "buy",
-                    "title": "Buy",
-                    "description": ""
-                }
-            ],
-            "default": "grant"
-        },
-        {
-            "name": "metadata",
-            "type": "choice",
-            "description": "Metadata definition",
-            "title": "Metadata",
-            "multiple": false,
-            "ui": "radio",
-            "options": [
-                {
-                    "name": "basic",
-                    "title": "Basic",
-                    "description": ""
-                },
-                {
-                    "name": "game_asset",
-                    "title": "Game Asset",
-                    "description": ""
-                },
-                {
-                    "name": "digital_asset",
-                    "title": "Digital Asset",
-                    "description": ""
-                },
-                {
-                    "name": "collectible",
-                    "title": "Collectible",
-                    "description": ""
-                },
-                {
-                    "name": "encrypt_metadata",
-                    "title": "Encrypt Metadata",
-                    "description": ""
-                },
-                {
-                    "name": "encrypt_assets",
-                    "title": "Encrypt Assets",
-                    "description": ""
-                }
-            ],
-            "default": "basic"
-        },
-        {
-            "name": "generator",
-            "type": "choice",
-            "description": "Define how the NFTs will be generated",
-            "title": "Generator",
-            "multiple": false,
-            "ui": "radio",
-            "options": [
-                {
-                    "name": "uniqueid_ns",
-                    "title": "Unique ID: Numeric Sequence",
-                    "description": ""
-                },
-                {
-                    "name": "uniqueid_ac",
-                    "title": "Unique ID: Alphanumeric Code",
-                    "description": ""
-                },
-                {
-                    "name": "uniqueid_c",
-                    "title": "Unique ID: Custom",
-                    "description": ""
-                },
-                {
-                    "name": "set_s",
-                    "title": "Set: Subsets",
-                    "description": ""
-                },
-                {
-                    "name": "set_p",
-                    "title": "Set: Pack",
-                    "description": ""
-                },
-                {
-                    "name": "designer_jag",
-                    "title": "Designer: Code (JavaScript Art Generator)",
-                    "description": ""
-                },
-                {
-                    "name": "designer_c",
-                    "title": "Designer: Custom",
-                    "description": ""
-                }
-            ],
-            "default": "uniqueid_ns"
-        },
-        {
-            "name": "marketplace",
-            "type": "choice",
-            "description": "Generate marketplace pages",
-            "title": "Marketplace",
-            "multiple": false,
-            "ui": "radio",
-            "options": [
-                {
-                    "name": "multiswap",
-                    "title": "Multi-swap",
-                    "description": ""
-                },
-                {
-                    "name": "swap",
-                    "title": "Swap",
-                    "description": ""
-                }
-            ],
-            "default": "swap"
         }
     ],
     "blockchains": [
