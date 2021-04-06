@@ -1,6 +1,6 @@
 {
-    "name": "nft_base",
-    "title": "NFT Base",
+    "name": "composable_nft",
+    "title": "Composable NFT",
     "description": "Interactively select options to build an NFT application.",
     "imageUrl": "",
     "help": {
@@ -36,9 +36,7 @@
         }
     ],
     "blockchains": [
-        "flow",
         "ethereum",
-        "matic",
         "conflux"
     ],
     "languages": [

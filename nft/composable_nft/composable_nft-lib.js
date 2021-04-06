@@ -2,7 +2,7 @@
 const t = require('@onflow/types');
 ///)
 
-class nft_base {
+class composable_nft {
 
 ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
