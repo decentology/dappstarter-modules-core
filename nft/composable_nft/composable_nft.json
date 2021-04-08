@@ -36,7 +36,6 @@
         }
     ],
     "blockchains": [
-        "ethereum",
         "conflux"
     ],
     "languages": [
