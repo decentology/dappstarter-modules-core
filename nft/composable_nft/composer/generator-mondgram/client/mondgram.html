@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Mondgram</title>
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+        }
+
+        button {
+            padding: 5px;
+        }
+
+        #main {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin-top: 40px;
+        }
+
+        #main>div {
+            display: inline-block;
+            margin: 20px;
+            margin-bottom: 40px;
+            overflow-wrap: break-word;
+        }
+
+        article>div {
+            margin-bottom: 20px;
+        }
+
+        b {
+            font-size: 24px;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <article>
+        <div>
+            Count: <select id="count">
+                <option>1</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+                <option>60</option>
+                <option>70</option>
+                <option>80</option>
+                <option>90</option>
+                <option>100</option>
+            </select>
+        </div>
+        <div>
+            Scale: <select id="scale">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <div>
+            Palette: <select id="color">
+                <option>white, red, blue, yellow</option>
+                <option>green, purple, orange</option>
+                <option>crimson, aquamarine, deeppink</option>
+                <option>fuchsia, greenyellow, lightslategray</option>
+                <option>maroon, tan, steelblue</option>
+            </select>
+        </div>
+        <div>
+            <a href="https://mathpickle.com/mondrian-art-puzzles-solutions/" target="_new">Mondrian Art Puzzle</a>
+        </div>
+    </article>
+
+    <button class="btn btn-success" onclick="generate(false)">Generate</button>
+    <button class="btn btn-success" onclick="reset()">Reset</button>
+    <button class="btn btn-success" onclick="generate(true)">Playback</button>
+
+    <div id="main"></div>
+
+    <script src="mondgram.js"></script>
+    <script>
+
+        var mondgrams = null;
+        function generate(playback) {
+            let main = document.getElementById('main');
+            reset();
+            if (!playback) {
+                mondgrams = [];
+            }
+            let options = getOptions();
+
+
+            for (let c = 0; c < options.count; c++) {
+
+                let id = 'asset' + String(c);
+                let mdiv = document.createElement('div');
+                mdiv.id = id;
+                main.appendChild(mdiv);
+
+                let mondrian = new Mondgram(id, options.scale, options.color, playback ? mondgrams[c] : null);
+                let mondgram = mondrian.mondgram();
+
+                let adiv = document.createElement('p');
+                adiv.innerHTML = mondgram.asset;
+                mdiv.appendChild(adiv);
+
+                let sdiv = document.createElement('p');
+                sdiv.innerHTML = '<b>' + mondgram.score + ' &#x' + mondgram.emoji + '</b>';
+                mdiv.appendChild(sdiv);
+
+                mondgram.id = id;
+                mondgrams.push(mondgram);
+            }
+        }
+
+        function reset() {
+            document.getElementById('main').innerHTML = '';
+        }
+
+        function playback() {
+            reset();
+            let options = getOptions();
+            let mondrian = new Mondgram('main', options.scale, options.color, mondgram);
+        }
+
+
+        function getOptions() {
+            let countEl = document.getElementById('count');
+            let count = Number(countEl.options[countEl.selectedIndex].text);
+
+            let scaleEl = document.getElementById('scale');
+            let scale = Number(scaleEl.options[scaleEl.selectedIndex].text);
+
+            let colorEl = document.getElementById('color');
+            let color = colorEl.options[colorEl.selectedIndex].text.split(',');
+
+            return {
+                count,
+                scale,
+                color
+            }
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

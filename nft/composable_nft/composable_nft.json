@@ -12,6 +12,7 @@
         "enabled": true,
         "children": "form"
     },
+    "composable": true,
     "parameters": [
         {
             "name": "template",

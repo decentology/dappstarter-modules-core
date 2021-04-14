@@ -7,6 +7,8 @@ import "./interfaces/IERC1155MetadataURI.sol";
 import "./imports/composable_nft/Address.sol";
 import "./imports/composable_nft/Context.sol";
 import "./imports/composable_nft/ERC165.sol";
+import "./imports/composable_nft/generator/generator.sol";
+
 ///)
 
 ///(interfaces
@@ -33,6 +35,9 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
 
     // Mapping from account to operator approvals
     mapping (address => mapping(address => bool)) private operatorApprovals;
+
+    // Mapping from token ID to metadata    
+    mapping (uint256 => mapping(address => Generator.MetaData)) public metadata;
 
     // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
     string private uri;
