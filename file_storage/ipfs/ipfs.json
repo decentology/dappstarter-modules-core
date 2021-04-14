@@ -42,7 +42,8 @@
     ],
     "blockchains": [
         "ethereum",
-        "matic"
+        "matic",
+        "avalanche"
     ],
     "languages": [
         "solidity"
