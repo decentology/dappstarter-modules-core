@@ -8,8 +8,7 @@ class composable_nft {
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 ///)
 
-  //TODO: Add NFT Composer library functions
-
+ 
   ///(functions:language:cadence
   static async mintNFT(data) {
 

@@ -37,7 +37,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
     mapping (address => mapping(address => bool)) private operatorApprovals;
 
     // Mapping from token ID to metadata    
-    mapping (uint256 => mapping(address => Generator.MetaData)) public metadata;
+    mapping (uint256 => Generator.MetaData) public metadata;
 
     // Used as the URI for all token types by relying on ID substitution, e.g. https://token-cdn-domain/{id}.json
     string private uri;
@@ -260,7 +260,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
      * - If `account` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the
      * acceptance magic value.
      */
-    function mint(address account, uint256 id, uint256 amount, bytes memory data) external virtual requireContractAdmin {
+    function mint(address account, uint256 id, uint256 amount, bytes memory data) public virtual requireContractAdmin {
         require(account != address(0), "ERC1155: mint to the zero address");
 
         address operator = msgSender();
@@ -271,6 +271,11 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
         emit TransferSingle(operator, address(0), account, id, amount);
 
         doSafeTransferAcceptanceCheck(operator, address(0), account, id, amount, data);
+    }
+
+    function mintAsset(address account, uint256 id, uint256 amount, Generator.MetaData metadata) external virtual requireContractAdmin {
+        mint(account, id, amount, "");
+        metadata[id] = metadata;
     }
 
     /**

@@ -6,6 +6,8 @@ import "../../components/account-widget.js";
 import "../../components/text-widget.js";
 import "../../components/number-widget.js";
 import "../../components/switch-widget.js";
+import "../../components/composable_nft/generator/generator.js";
+
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
@@ -192,6 +194,11 @@ export default class ComposableNFT extends LitElement {
           </action-card>
         </div>
         <!-- End: Mint !-->
+  </div>
+
+  <composable-nft-generator></composable-nft-generator>
+
+  <div class="grid grid-cols-2 gap-6">
 
         <!-- START: Balance !-->
         <div>

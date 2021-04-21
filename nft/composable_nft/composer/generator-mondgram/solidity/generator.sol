@@ -5,7 +5,9 @@ pragma solidity ^0.8.0;
 library Generator {
 
     struct MetaData {
-        uint256 mondgram;
+        uint256 scale;
+        string mDna;
+        string color;
     }
 
 }
