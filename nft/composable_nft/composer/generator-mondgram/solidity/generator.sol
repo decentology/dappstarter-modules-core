@@ -6,7 +6,7 @@ library Generator {
 
     struct MetaData {
         uint256 scale;
-        string mDna;
+        string mdna;
         string color;
     }
 

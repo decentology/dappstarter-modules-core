@@ -60,7 +60,7 @@ export default class Mondgram {
     }
 
     static _toRandoms(mondgramData) {
-        let rndData = mondgramData.asset;
+        let rndData = mondgramData;
         var binary_string = window.atob(rndData + '==');
         var len = binary_string.length;
         var bytes = [];
@@ -85,9 +85,7 @@ export default class Mondgram {
             for (var i = 0; i < len; i++) {
                 binary += String.fromCharCode(bytes[i]);
             }
-            return {
-                asset: window.btoa(binary).replace('==', '')
-            }
+            return window.btoa(binary).replace('==', '');
         } else {
             throw new Error('No image has been generated');
         }

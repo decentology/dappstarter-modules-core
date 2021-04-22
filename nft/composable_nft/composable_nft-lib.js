@@ -32,8 +32,8 @@ class composable_nft {
       label: 'Transaction Hash',
       result: result.callData.transactionId
     }
-
   }
+
 
   static async provisionAccount(data) {
 
@@ -345,6 +345,30 @@ class composable_nft {
       data.id,
       data.amount,
       data.data
+    );
+    return {
+      type: DappLib.DAPP_RESULT_TX_HASH,
+      label: "Transaction Hash",
+      raw: result.callData,
+      result: DappLib.getTransactionHash(result.callData)
+    };
+  }
+
+
+  static async mintAsset(data) {
+    let result = await Blockchain.post(
+      {
+        config: DappLib.getConfig(),
+        contract: DappLib.DAPP_STATE_CONTRACT,
+        params: {
+          from: data.authorized,
+        },
+      },
+      "mintAsset",
+      data.account,
+      data.id,
+      1,
+      data.mdna
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,
