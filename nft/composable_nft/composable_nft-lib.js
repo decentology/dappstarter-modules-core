@@ -355,20 +355,21 @@ class composable_nft {
   }
 
 
-  static async mintAsset(data) {
+  static async mintNFT(data) {
+    console.log("DappLib Input: ", {data});
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT,
+        contract: DappLib.DAPP_STATE_CONTRACT, 
         params: {
           from: data.authorized,
         },
       },
-      "mintAsset",
+      "mintNFT",
       data.account,
       data.id,
       1,
-      data.mdna
+      data.metaData
     );
     return {
       type: DappLib.DAPP_RESULT_TX_HASH,

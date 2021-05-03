@@ -73,7 +73,7 @@ export default class ComposableNftGenerator extends LitElement {
             </div>
             <action-button
                 source="#mondgram-input"
-                action="mintAsset"
+                action="mintNFT"
                 method="post"
                 fields="scale color mdna"
                 return="${this.return}"

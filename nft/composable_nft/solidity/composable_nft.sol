@@ -273,9 +273,9 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI
         doSafeTransferAcceptanceCheck(operator, address(0), account, id, amount, data);
     }
 
-    function mintAsset(address account, uint256 id, uint256 amount, Generator.MetaData memory data) external virtual requireContractAdmin {
+    function mintNFT(address account, uint256 id, uint256 amount, Generator.MetaData memory metaData) external virtual requireContractAdmin {
         mint(account, id, amount, "");
-        metadata[id] = data;
+        metadata[id] = metaData;
     }
 
     /**
