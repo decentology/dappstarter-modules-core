@@ -363,6 +363,7 @@ class composable_nft {
         contract: DappLib.DAPP_STATE_CONTRACT, 
         params: {
           from: data.authorized,
+          gas: 2000000
         },
       },
       "mintNFT",
