@@ -24,9 +24,8 @@ export default class ComposableNftGenerator extends LitElement {
     let color = document.getElementById('color').value; 
     // id, scale, color
     let mondgram = new Mondgram('preview-area', this.metaData.scale, color.split(', '));
-    let mdna = mondgram.generate();
 
-    this.metaData.mdna = mdna;
+    this.metaData.mdna = mondgram.generate();
     this.metaData.color = color;
 
     console.log("Preview Handler", this.metaData);
@@ -124,7 +123,7 @@ export default class ComposableNftGenerator extends LitElement {
                 source="#mondgram-input"
                 action="mintNFT"
                 method="post"
-                fields="authorized account id amount metaData-scale metaData-mdna metaData-color"
+                fields="authorized account id metaData-scale metaData-mdna metaData-color"
                 return="${this.return}"
                 .click=${this.actionHandler}
               />
