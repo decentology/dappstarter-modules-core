@@ -13,68 +13,35 @@ export default class ComposableNftGenerator extends LitElement {
 
   constructor(args) {
     super(args);
-    this.scale = 3;
-    this.metaData = {}
+    this.metaData = {
+      scale: 3,
+      mdna: "ASADaABYAkgCGAMAAQICEAAAACgBcAFgAjgCAgAAAFgBQABAAgIAaAAAAFgDQAICA2gDAw",
+      color: "white, red, blue, yellow"
+    }
   }
 
   previewHandler() {
     let color = document.getElementById('color').value; 
     // id, scale, color
-    let mondgram = new Mondgram('preview-area', this.scale, color.split(', '));
-    let mDna = mondgram.generate();
-    document.getElementById('mdna').value = mDna;
+    let mondgram = new Mondgram('preview-area', this.metaData.scale, color.split(', '));
+    let mdna = mondgram.generate();
 
-    this.metaData = {
-      scale: this.scale,
-      mdna,
-      color
-    }
-    console.log(this.metaData);
+    this.metaData.mdna = mdna;
+    this.metaData.color = color;
+
+    console.log("Preview Handler", this.metaData);
   }
 
-  async actionHandler(e) {
-    let authorized = document.getElementById('authorized').value;
-    let account = document.getElementById('to-account').value;
-    let id = document.getElementById('id-nft').value;
-    let scale = document.getElementById('scale').value;
-    let mdna = document.getElementById('mdna').value;
-    let color = document.getElementById('color').value;
-
-    // id = new BN(parseInt(id));
-    // scale = new BN(parseInt(scale));
-
-    console.log(id);
-    console.log(scale);
-
-    // let data = {
-    //   authorized: authorized,
-    //   account: account,
-    //   id: id,
-    //   metaData: {
-    //     scale: scale,
-    //     mdna: mdna,
-    //     color: color
-    //   }
-    // };
-    // let retVal = await DappLib[this.action].call(null, data);
-    await DappLib.mintNFT({
-      from: authorized,
-      account: account,
-      id: id,
-      metaData: {
-        scale: scale,
-        mdna: mdna,
-        color: color
-      }
-    });
+  actionHandler() {
+    console.log("NFT is minting...");
   }
 
   render() {
     let content = html`
 
     <div class="shadow rounded-md bg-white mb-10 p-1" id="mondgram-input">
-        <input type="hidden" id="scale" data-field="scale" value="${this.scale}" />
-        <input type="hidden" id="mdna" data-field="mdna" value="" />
+        <input type="hidden" id="scale" data-field="metaData-scale" value="${this.metaData.scale}" />
+        <input type="hidden" id="mdna" data-field="metaData-mdna" value="${this.metaData.mdna}" />
         <div
           class="text-white p-3 bg-blue-400 flex justify-between items-center rounded-md rounded-b-none"
         >
@@ -136,7 +103,7 @@ export default class ComposableNftGenerator extends LitElement {
       
         <div class="input-group flex mb-3 pl-5 pt-5">
             <label class="bg-gray-200 p-2 block rounded rounded-r-none text-gray-500">Palette:</label>
-            <select id="color" data-field="color" class="shadow-inner border rounded rounded-l-none w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <select id="color" data-field="metaData-color" class="shadow-inner border rounded rounded-l-none w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <option>white, red, blue, yellow</option>
                 <option>green, purple, orange</option>
                 <option>crimson, aquamarine, deeppink</option>
@@ -157,7 +124,7 @@ export default class ComposableNftGenerator extends LitElement {
                 source="#mondgram-input"
                 action="mintNFT"
                 method="post"
-                fields="authorized account id amount scale mdna color"
+                fields="authorized account id amount metaData-scale metaData-mdna metaData-color"
                 return="${this.return}"
                 .click=${this.actionHandler}
               />
@@ -173,5 +140,3 @@ export default class ComposableNftGenerator extends LitElement {
   }
 
 }
-
-
