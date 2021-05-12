@@ -35,7 +35,7 @@ class composable_nft {
             ]
           },
           // the layout of the struct
-          type: t.Struct('A.{address of Generator.cdc}.Generator.Metadata', [
+          type: t.Struct('A.{address of Generator.cdc WITHOUT "0x"}.Generator.Metadata', [
             { name: 'scale', value: t.UInt64 },
             { name: 'mdna', value: t.String },
             { name: 'color', value: t.String },
