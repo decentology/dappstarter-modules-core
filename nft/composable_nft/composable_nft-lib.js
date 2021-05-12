@@ -4,11 +4,11 @@ const t = require('@onflow/types');
 
 class composable_nft {
 
-///(functions
+  ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-///)
+  ///)
 
- 
+
   ///(functions:language:cadence
   static async mintNFT(data) {
 
@@ -25,6 +25,22 @@ class composable_nft {
       'mint_nft',
       {
         recipient: { value: data.recipient, type: t.Address },
+        metadata: {
+          // the actual values of the struct
+          value: {
+            fields: [
+              { name: 'scale', value: 3 },
+              { name: 'mdna', value: 'noidea' },
+              { name: 'color', value: 'red' },
+            ]
+          },
+          // the layout of the struct
+          type: t.Struct('A.{address of Generator.cdc}.Generator.Metadata', [
+            { name: 'scale', value: t.UInt64 },
+            { name: 'mdna', value: t.String },
+            { name: 'color', value: t.String },
+          ])
+        }
       }
     );
     return {
@@ -356,11 +372,11 @@ class composable_nft {
 
 
   static async mintNFT(data) {
-    console.log("DappLib Input: ", {data});
+    console.log("DappLib Input: ", { data });
     let result = await Blockchain.post(
       {
         config: DappLib.getConfig(),
-        contract: DappLib.DAPP_STATE_CONTRACT, 
+        contract: DappLib.DAPP_STATE_CONTRACT,
         params: {
           from: data.authorized,
           gas: 2000000
@@ -390,7 +406,7 @@ class composable_nft {
     }
 
     if (typeof data.amounts === "undefined") {
-      data.amounts= amountsArray;
+      data.amounts = amountsArray;
     }
 
     let result = await Blockchain.post(

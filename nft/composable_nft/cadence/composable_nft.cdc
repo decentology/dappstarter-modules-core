@@ -1,4 +1,7 @@
+///(import
+import Generator from "./imports/composable_nft/generator/Generator.cdc"
 
+///)
 
 ///(initialize
 
@@ -45,55 +48,28 @@
     //
     pub event Deposit(id: UInt64, to: Address?)
 
-    // Interface that the NFTs have to conform to
-    //
     pub resource interface INFT {
         // The unique ID that each NFT has
         pub let id: UInt64
     }
 
-    // Requirement that all conforming NFT smart contracts have
-    // to define a resource called NFT that conforms to INFT
+    // ChromataNFT
     pub resource NFT: INFT {
-
         pub let id: UInt64
-        init(initID: UInt64) {
-            self.id = initID;
+
+        pub let metadata: Generator.Metadata
+
+        init(_id: UInt64, _metadata: Generator.Metadata) {
+             self.id = _id
+             self.metadata = _metadata
         }
     }
-
-    pub resource ChromataNFT: INFT {
-
-        pub let id: UInt64
-        pub let style: String
-
-        init(initID: UInt64) {
-            self.id = initID;
-            self.style = "demo";
-        }
-    }
-
-    pub resource MandalaNFT: INFT {
-
-        pub let id: UInt64
-        pub let color: String
-        pub let thickness: UInt64
-
-        init(initID: UInt64) {
-            self.id = initID;
-            self.color = "#cc0000";
-            self.thickness = 44;
-        }
-    }
-
-
-   
 
     // Interface to mediate withdraws from the Collection
     //
     pub resource interface Provider {
         // withdraw removes an NFT from the collection and moves it to the caller
-        pub fun withdraw(withdrawID: UInt64): @AnyResource{DappState.INFT} {
+        pub fun withdraw(withdrawID: UInt64): @GeneratorNFT.NFT {
             post {
                 result.id == withdrawID: "The ID of the withdrawn token must be the same as the requested ID"
             }
@@ -106,27 +82,28 @@
 
         // deposit takes an NFT as an argument and adds it to the Collection
         //
-		pub fun deposit(token: @AnyResource{DappState.INFT})
+        pub fun deposit(token: @GeneratorNFT.NFT)
     }
 
     // Interface that an account would commonly 
     // publish for their collection
     pub resource interface CollectionPublic {
-        pub fun deposit(token: @AnyResource{DappState.INFT})
+        pub fun deposit(token: @GeneratorNFT.NFT)
         pub fun getIDs(): [UInt64]
-        pub fun borrowNFT(id: UInt64): &AnyResource{DappState.INFT}
+        pub fun borrowNFT(id: UInt64): &GeneratorNFT.NFT
     }
 
-    // Requirement for the the concrete resource type
-    // to be declared in the implementing contract
-    //
     pub resource Collection: Provider, Receiver, CollectionPublic {
+        // dictionary of NFT conforming tokens
+        // NFT is a resource type with an `UInt64` ID field
+        pub var ownedNFTs: @{UInt64: GeneratorNFT.NFT}
 
-        // Dictionary to hold the NFTs in the Collection
-        pub var ownedNFTs: @{UInt64: AnyResource{DappState.INFT}}
+        init () {
+            self.ownedNFTs <- {}
+        }
 
         // withdraw removes an NFT from the collection and moves it to the caller
-        pub fun withdraw(withdrawID: UInt64): @AnyResource{DappState.INFT} {
+        pub fun withdraw(withdrawID: UInt64): @GeneratorNFT.NFT {
             let token <- self.ownedNFTs.remove(key: withdrawID) ?? panic("missing NFT")
 
             emit Withdraw(id: token.id, from: self.owner?.address)
@@ -136,13 +113,13 @@
 
         // deposit takes a NFT and adds it to the collections dictionary
         // and adds the ID to the id array
-        pub fun deposit(token: @AnyResource{DappState.INFT}) {
-            let token <- token as! @AnyResource{DappState.INFT}
+        pub fun deposit(token: @GeneratorNFT.NFT) {
+            let token <- token as! @GeneratorNFT.NFT
 
             let id: UInt64 = token.id
 
             // add the new token to the dictionary which removes the old one
-            let oldToken <- self.ownedNFTs[id] <- token as! @AnyResource{DappState.INFT}
+            let oldToken <- self.ownedNFTs[id] <- token
 
             emit Deposit(id: id, to: self.owner?.address)
 
@@ -154,17 +131,10 @@
             return self.ownedNFTs.keys
         }
 
-        // Returns a borrowed reference to an NFT in the collection
-        // so that the caller can read data and call methods from it
-        pub fun borrowNFT(id: UInt64): &AnyResource{DappState.INFT} {
-            pre {
-                self.ownedNFTs[id] != nil: "NFT does not exist in the collection!"
-            }
-            return &self.ownedNFTs[id] as &AnyResource{DappState.INFT}
-        }
-
-        init () {
-            self.ownedNFTs <- {}
+        // borrowNFT gets a reference to an NFT in the collection
+        // so that the caller can read its metadata and call its methods
+        pub fun borrowNFT(id: UInt64): &GeneratorNFT.NFT {
+            return &self.ownedNFTs[id] as &GeneratorNFT.NFT
         }
 
         destroy() {
@@ -172,32 +142,28 @@
         }
     }
 
-    // createEmptyCollection creates an empty Collection
-    // and returns it to the caller so that they can own NFTs
+    // public function that anyone can call to create a new empty collection
     pub fun createEmptyCollection(): @Collection {
-        post {
-            result.getIDs().length == 0: "The created collection must be empty!"
-        }
         return <- create Collection()
     }
 
     // Resource that an admin or something similar would own to be
     // able to mint new NFTs
-	pub resource NFTMinter {
+    //
+    pub resource NFTMinter {
 
-		// mintNFT mints a new NFT with a new ID
-		// and deposit it in the recipients collection using their collection reference
-		pub fun mintNFT(recipient: &{CollectionPublic}, generator: String) {
+        // mintNFT mints a new NFT with a new ID
+        // and deposit it in the recipients collection using their collection reference
+        pub fun mintNFT(recipient: &{CollectionPublic}, metadata: Generator.Metadata) {
 
+            // create a new NFT
+            var newNFT <- create NFT(_initID: NFTContract.totalSupply, _metadata: metadata)
 
-            switch generator {
-                case "mandala": recipient.deposit(token: <- create MandalaNFT(initID: DappState.totalSupply))
-                case "chromata": recipient.deposit(token: <- create ChromataNFT(initID: DappState.totalSupply))
-                default: recipient.deposit(token: <- create NFT(initID: DappState.totalSupply))
-            }			
+            // deposit it in the recipient's account using their reference
+            recipient.deposit(token: <-newNFT)
 
-            DappState.totalSupply = DappState.totalSupply + (1 as UInt64)
-		}
-	}
+            NFTContract.totalSupply = NFTContract.totalSupply + (1 as UInt64)
+        }
+    }
 
 ///)
