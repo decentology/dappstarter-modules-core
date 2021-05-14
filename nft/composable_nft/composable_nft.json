@@ -44,8 +44,11 @@
         "solidity"
     ],
     "dependencies": {
-        "access_control": [
-            "core-administrator_role"
-        ]
+        "solidity": {
+            "access_control": [
+                "core-administrator_role"
+            ]
+        },
+        "cadence": {}
     }
 }

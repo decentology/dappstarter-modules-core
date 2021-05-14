@@ -1,86 +1,141 @@
 ///(import
 const fcl = require('@onflow/fcl');
+const t = require('@onflow/types');
 ///)
 
 class basic_nft {
-    
-///(functions
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: BASIC  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-static async getAccountInfo(data) {
-    let address = data.account.replace(/^0x/, '');
-    let result = await Blockchain.getAccount(DappLib.getConfig(), address); 
+    ///(functions
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: BASIC  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-    result.data = Object.assign({}, {
-        address: result.address,
-        balance: result.balance,
-    }, result.keys[0]);
-    return {
-        type: DappLib.DAPP_RESULT_OBJECT,
-        label: 'Account Information',
-        result: result.data
-    }
-}
+    /*>>>>> TRANSACTIONS <<<<<*/
+    static async setupAccount(data) {
 
-static async initializeAccount(data) {
-
-    let result = await Blockchain.post({
-            config: DappLib.getConfig(),
-            imports: {
-                DappState: data.account
-            },
+        let config = DappLib.getConfig();
+        let result = await Blockchain.post({
+            config: config,
             roles: {
-                proposer: data.account
+                proposer: data.acct,
             }
         },
-        'basic_nft_initializeAccount'
-    );
+            'setup_account'
+        );
 
-    // TODO: Event handling not fully implemented
-    // DappLib.onInitializeAccount(result => {
-    //     let resultPanel = this.querySelector("#resultPanel");
-    //     resultPanel.prepend(DappLib.getFormattedResultNode(result));
-    //     resultPanel.open();
-    // });
-
-    return {
-        type: DappLib.DAPP_RESULT_TX_HASH,
-        label: 'Transaction Hash',
-        result: result.callData.transactionId
-    }
-
-}
-
-
-static async getIDs(data) {
-
-    let result = await Blockchain.get({
-            config: DappLib.getConfig(),
-            imports: {
-                DappState: data.account
-            },
-            roles: {
-                proposer: data.account
-            }
-        },
-        'basic_nft_getIDs',
-        {
-            account: '0x' + data.account
+        return {
+            type: DappLib.DAPP_RESULT_TX_HASH,
+            label: 'Transaction Hash',
+            result: result.callData.transactionId
         }
-    );
-
-    return {
-        type: DappLib.DAPP_RESULT_ARRAY,
-        label: 'NFT IDs',
-        result: result.callData || []
     }
 
-}
+    static async mintNFT(data) {
 
-static async onInitializeAccount(callback) {
-    let params = {};
-    DappLib.addEventHandler(null, 'DappState.InitializeAccount', params, callback);
-}
+        let config = DappLib.getConfig();
+        let result = await Blockchain.post({
+            config: config,
+            roles: {
+                proposer: config.accounts[0],
+            }
+        },
+            'mint_nft',
+            {
+                recipient: { value: data.recipient, type: t.Address }
+            }
+        );
 
-///)
+        return {
+            type: DappLib.DAPP_RESULT_TX_HASH,
+            label: 'Transaction Hash',
+            result: result.callData.transactionId
+        }
+    }
+
+    static async transferNFT(data) {
+
+        let config = DappLib.getConfig();
+        let result = await Blockchain.post({
+            config: config,
+            roles: {
+                proposer: data.acct,
+            }
+        },
+            'transfer_nft',
+            {
+                recipient: { value: data.recipient, type: t.Address },
+                withdrawID: { value: parseInt(data.withdrawID), type: t.UInt64 }
+            }
+        );
+
+        return {
+            type: DappLib.DAPP_RESULT_TX_HASH,
+            label: 'Transaction Hash',
+            result: result.callData.transactionId
+        }
+    }
+
+    /*>>>>> SCRIPTS <<<<<*/
+    static async readCollectionIDs(data) {
+
+        let config = DappLib.getConfig();
+        let result = await Blockchain.get({
+            config: config,
+            roles: {
+            }
+        },
+            'read_collection_ids',
+            {
+                account: { value: data.account, type: t.Address }
+            }
+        );
+
+        return {
+            type: DappLib.DAPP_RESULT_ARRAY,
+            label: 'Collection IDs',
+            result: result.callData
+        }
+    }
+
+    static async readCollectionLength(data) {
+
+        let config = DappLib.getConfig();
+        let result = await Blockchain.get({
+            config: config,
+            roles: {
+            }
+        },
+            'read_collection_length',
+            {
+                account: { value: data.account, type: t.Address }
+            }
+        );
+
+        return {
+            type: DappLib.DAPP_RESULT_BIG_NUMBER,
+            label: 'Collection Length',
+            result: result.callData
+        }
+    }
+
+    static async readNFTID(data) {
+
+        let config = DappLib.getConfig();
+        let result = await Blockchain.get({
+            config: config,
+            roles: {
+            }
+        },
+            'read_nft_id',
+            {
+                account: { value: data.account, type: t.Address }
+            }
+        );
+
+        return {
+            type: DappLib.DAPP_RESULT_BIG_NUMBER,
+            label: 'NFT ID',
+            result: result.callData
+        }
+    }
+
+    ///)
 }
