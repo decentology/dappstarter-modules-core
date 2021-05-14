@@ -1,4 +1,5 @@
-import Generator from './Generator'
+import Generator from Project.Generator
+import DappState from Project.DappState
 
 transaction(recipient: Address, metadata: Generator.Metadata) {
 

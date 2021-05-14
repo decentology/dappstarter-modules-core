@@ -1,109 +1,41 @@
 ///(import
-import Generator from "./imports/composable_nft/generator/Generator.cdc"
-
+import Generator from Project.Generator
+import NonFungibleToken from Flow.NonFungibleToken
 ///)
 
-///(initialize
-
-    // Initialize the total supply
-    self.totalSupply = 0
-
-    // Create a Collection resource and save it to storage
-    let collection <- create Collection()
-    self.account.save(<-collection, to: /storage/NFTCollection)
-
-    // create a public capability for the collection
-    self.account.link<&{CollectionPublic}>(
-        /public/NFTCollection,
-        target: /storage/NFTCollection
-    )
-
-    // Create a Minter resource and save it to storage
-    let minter <- create NFTMinter()
-    self.account.save(<-minter, to: /storage/NFTMinter)
-
-    emit ContractInitialized()
-    
+///(interface
+                    : NonFungibleToken // for additional interfaces, separate with a comma
 ///)
 
 ///(functions
-
-    // The total number of tokens of this type in existence
     pub var totalSupply: UInt64
 
-    // Event that emitted when the NFT contract is initialized
-    //
     pub event ContractInitialized()
-
-    // Event that is emitted when a token is withdrawn,
-    // indicating the owner of the collection that it was withdrawn from.
-    //
-    // If the collection is not in an account's storage, `from` will be `nil`.
-    //
     pub event Withdraw(id: UInt64, from: Address?)
-
-    // Event that emitted when a token is deposited to a collection.
-    //
-    // It indicates the owner of the collection that it was deposited to.
-    //
     pub event Deposit(id: UInt64, to: Address?)
 
-    pub resource interface INFT {
-        // The unique ID that each NFT has
-        pub let id: UInt64
-    }
-
-    // ChromataNFT
-    pub resource NFT: INFT {
+    pub resource NFT: NonFungibleToken.INFT {
         pub let id: UInt64
 
-        pub let metadata: Generator.Metadata
+        pub var metadata: Generator.Metadata
 
-        init(_id: UInt64, _metadata: Generator.Metadata) {
-             self.id = _id
-             self.metadata = _metadata
+        init(_initID: UInt64, _metadata: Generator.Metadata) {
+            self.id = _initID
+            self.metadata = _metadata
         }
     }
 
-    // Interface to mediate withdraws from the Collection
-    //
-    pub resource interface Provider {
-        // withdraw removes an NFT from the collection and moves it to the caller
-        pub fun withdraw(withdrawID: UInt64): @GeneratorNFT.NFT {
-            post {
-                result.id == withdrawID: "The ID of the withdrawn token must be the same as the requested ID"
-            }
-        }
-    }
-
-    // Interface to mediate deposits to the Collection
-    //
-    pub resource interface Receiver {
-
-        // deposit takes an NFT as an argument and adds it to the Collection
-        //
-        pub fun deposit(token: @GeneratorNFT.NFT)
-    }
-
-    // Interface that an account would commonly 
-    // publish for their collection
-    pub resource interface CollectionPublic {
-        pub fun deposit(token: @GeneratorNFT.NFT)
-        pub fun getIDs(): [UInt64]
-        pub fun borrowNFT(id: UInt64): &GeneratorNFT.NFT
-    }
-
-    pub resource Collection: Provider, Receiver, CollectionPublic {
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
-        pub var ownedNFTs: @{UInt64: GeneratorNFT.NFT}
+        pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
 
         init () {
             self.ownedNFTs <- {}
         }
 
         // withdraw removes an NFT from the collection and moves it to the caller
-        pub fun withdraw(withdrawID: UInt64): @GeneratorNFT.NFT {
+        pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
             let token <- self.ownedNFTs.remove(key: withdrawID) ?? panic("missing NFT")
 
             emit Withdraw(id: token.id, from: self.owner?.address)
@@ -113,8 +45,8 @@ import Generator from "./imports/composable_nft/generator/Generator.cdc"
 
         // deposit takes a NFT and adds it to the collections dictionary
         // and adds the ID to the id array
-        pub fun deposit(token: @GeneratorNFT.NFT) {
-            let token <- token as! @GeneratorNFT.NFT
+        pub fun deposit(token: @NonFungibleToken.NFT) {
+            let token <- token as! @DappState.NFT
 
             let id: UInt64 = token.id
 
@@ -133,8 +65,8 @@ import Generator from "./imports/composable_nft/generator/Generator.cdc"
 
         // borrowNFT gets a reference to an NFT in the collection
         // so that the caller can read its metadata and call its methods
-        pub fun borrowNFT(id: UInt64): &GeneratorNFT.NFT {
-            return &self.ownedNFTs[id] as &GeneratorNFT.NFT
+        pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
+            return &self.ownedNFTs[id] as &NonFungibleToken.NFT
         }
 
         destroy() {
@@ -143,7 +75,7 @@ import Generator from "./imports/composable_nft/generator/Generator.cdc"
     }
 
     // public function that anyone can call to create a new empty collection
-    pub fun createEmptyCollection(): @Collection {
+    pub fun createEmptyCollection(): @NonFungibleToken.Collection {
         return <- create Collection()
     }
 
@@ -154,16 +86,36 @@ import Generator from "./imports/composable_nft/generator/Generator.cdc"
 
         // mintNFT mints a new NFT with a new ID
         // and deposit it in the recipients collection using their collection reference
-        pub fun mintNFT(recipient: &{CollectionPublic}, metadata: Generator.Metadata) {
+        pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: Generator.Metadata) {
 
             // create a new NFT
-            var newNFT <- create NFT(_initID: NFTContract.totalSupply, _metadata: metadata)
+            var newNFT <- create NFT(_initID: DappState.totalSupply, _metadata: metadata)
 
             // deposit it in the recipient's account using their reference
             recipient.deposit(token: <-newNFT)
 
-            NFTContract.totalSupply = NFTContract.totalSupply + (1 as UInt64)
+            DappState.totalSupply = DappState.totalSupply + UInt64(1)
         }
     }
+///)
 
+///(initialize
+    // Initialize the total supply
+    self.totalSupply = 0
+
+    // Create a Collection resource and save it to storage
+    let collection <- create Collection()
+    self.account.save(<-collection, to: /storage/NFTCollection)
+
+    // create a public capability for the collection
+    self.account.link<&{NonFungibleToken.CollectionPublic}>(
+        /public/NFTCollection,
+        target: /storage/NFTCollection
+    )
+
+    // Create a Minter resource and save it to storage
+    let minter <- create NFTMinter()
+    self.account.save(<-minter, to: /storage/NFTMinter)
+
+    emit ContractInitialized()
 ///)

@@ -1,3 +1,5 @@
+import DappState from Project.DappState
+
 pub fun main(accountAddr: Address): [UInt64] {
     // Get the public collection of the owner of the token
     let collectionRef = getAccount(accountAddr)

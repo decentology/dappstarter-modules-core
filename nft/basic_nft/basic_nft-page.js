@@ -34,9 +34,68 @@ export default class BasicNftPage extends LitElement {
       >
 
         <action-card
-          title="Account Query Example"
-          description="An example of how to query an account during development"
-          action="getAccountInfo"
+          title="Setup Account"
+          description="Setup an Account"
+          action="setupAccount"
+          method="post"
+          fields="acct"
+        >
+          <account-widget
+            field="acct"
+            label="Account"
+            placeholder="Account address"
+          >
+          </account-widget>
+        </action-card>
+
+        <action-card
+          title="Mint NFT"
+          description="Mint an NFT into an account"
+          action="mintNFT"
+          method="post"
+          fields="recipient"
+        >
+          <account-widget
+            field="recipient"
+            label="Account"
+            placeholder="Account receiving the NFT"
+          >
+          </account-widget>
+        </action-card>
+
+        <action-card
+          title="Transfer NFT"
+          description="Transfer an NFT from one account to another"
+          action="transferNFT"
+          method="post"
+          fields="acct recipient withdrawID"
+        >
+          <account-widget
+            field="acct"
+            label="Account"
+            placeholder="Account giving the NFT"
+          >
+          </account-widget>
+
+          <account-widget
+            field="recipient"
+            label="Account"
+            placeholder="Account receiving the NFT"
+          >
+          </account-widget>
+
+          <text-widget
+              field="withdrawID"
+              label="Withdraw ID"
+              placeholder="ID of the NFT to be transfered"
+          >
+          </text-widget>
+        </action-card>
+
+        <action-card
+          title="Read Collection IDs"
+          description="Read the NFT IDs in an account"
+          action="readCollectionIDs"
           method="get"
           fields="account"
         >
@@ -48,12 +107,11 @@ export default class BasicNftPage extends LitElement {
           </account-widget>
         </action-card>
 
-
         <action-card
-          title="Initialize Account"
-          description="Initializes an account so it can receive a NFT"
-          action="initializeAccount"
-          method="post"
+          title="Read Collection Length"
+          description="Read the length of a collection in an account"
+          action="readCollectionLength"
+          method="get"
           fields="account"
         >
           <account-widget
@@ -65,9 +123,9 @@ export default class BasicNftPage extends LitElement {
         </action-card>
 
         <action-card
-          title="Get NFT IDs"
-          description="Get NFT IDs for Account"
-          action="getIDs"
+          title="Read NFT ID"
+          description="Example script to read the ID of an NFT"
+          action="readNFTID"
           method="get"
           fields="account"
         >
