@@ -1,7 +1,7 @@
 {
     "name": "basic_nft",
-    "title": "Basic Non-fungible Token",
-    "description": "Create a simple non-fungible token for tracking unique assets associated with your dapp.",
+    "title": "Basic Non-Fungible Token",
+    "description": "Create a simple non-fungible token that can be minted and transferred.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -12,9 +12,13 @@
         "enabled": true,
         "children": "form"
     },
-    "parameters": [
+    "composable": false,
+    "parameters": [],
+    "blockchains": [
+        "flow"
     ],
-    "blockchains": ["flow"],
-    "languages": ["cadence"],
+    "languages": [
+        "cadence"
+    ],
     "dependencies": {}
 }
