@@ -14,7 +14,7 @@
     },
     "blockchains": [
         "ethereum",
-        "matic",
+        "polygon",
         "avalanche"
     ],
     "languages": [
