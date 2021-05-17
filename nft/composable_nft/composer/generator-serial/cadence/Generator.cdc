@@ -3,7 +3,7 @@ pub contract Generator {
         pub var serial: UInt64
 
         init(_metadata: Generator.Metadata) {
-            self.serial: _metadata.serial
+            self.serial = _metadata.serial
         }
     }
 }
