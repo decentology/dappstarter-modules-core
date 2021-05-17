@@ -11,15 +11,16 @@ class composable_nft {
 
   ///(functions:language:cadence
   static async mintNFT(data) {
-
+    if (data.account) {
+      data.recipient = data.account
+    }
+    console.log(data)
     let config = DappLib.getConfig();
+    let addressOfGenerator = config.accounts[0].replace('0x', '')
     let result = await Blockchain.post({
       config: config,
-      imports: {
-        DappState: config.contracts.DappState
-      },
       roles: {
-        proposer: config.contracts.DappState,
+        proposer: config.accounts[0],
       }
     },
       'mint_nft',
@@ -29,13 +30,13 @@ class composable_nft {
           // the actual values of the struct
           value: {
             fields: [
-              { name: 'scale', value: 3 },
-              { name: 'mdna', value: 'noidea' },
-              { name: 'color', value: 'red' },
+              { name: 'scale', value: parseInt(data.metaData.scale) },
+              { name: 'mdna', value: data.metaData.mdna },
+              { name: 'color', value: data.metaData.color },
             ]
           },
           // the layout of the struct
-          type: t.Struct('A.{address of Generator.cdc WITHOUT "0x"}.Generator.Metadata', [
+          type: t.Struct(`A.${addressOfGenerator}.Generator.Metadata`, [
             { name: 'scale', value: t.UInt64 },
             { name: 'mdna', value: t.String },
             { name: 'color', value: t.String },
@@ -56,9 +57,6 @@ class composable_nft {
     let config = DappLib.getConfig();
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
-      imports: {
-        DappState: config.contracts.DappState
-      },
       roles: {
         proposer: data.account,
       }
@@ -80,9 +78,6 @@ class composable_nft {
     let nftToGiveInt = parseInt(data.nftToGive)
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
-      imports: {
-        DappState: config.contracts.DappState
-      },
       roles: {
         proposer: data.accountGiver
       }
@@ -107,9 +102,6 @@ class composable_nft {
     let config = DappLib.getConfig();
     let result = await Blockchain.get({
       config: DappLib.getConfig(),
-      imports: {
-        DappState: config.contracts.DappState
-      },
       roles: {
       }
     },
@@ -125,6 +117,28 @@ class composable_nft {
       result: result.callData
     }
 
+  }
+
+  static async readNFTMetadata(data) {
+
+    let config = DappLib.getConfig();
+    let result = await Blockchain.get({
+      config: DappLib.getConfig(),
+      roles: {
+      }
+    },
+      'read_metadata',
+      {
+        accountAddr: { value: data.account, type: t.Address },
+        id: { value: parseInt(data.id), type: t.UInt64 }
+      }
+    );
+
+    return {
+      type: DappLib.DAPP_RESULT_OBJECT,
+      label: 'NFT Metadata',
+      result: result.callData
+    }
   }
 
 

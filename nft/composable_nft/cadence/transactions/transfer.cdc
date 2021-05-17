@@ -1,4 +1,5 @@
 import DappState from Project.DappState
+import NonFungibleToken from Flow.NonFungibleToken
 
 transaction(receiverAddr: Address, withdrawID: UInt64) {
 
@@ -12,8 +13,8 @@ transaction(receiverAddr: Address, withdrawID: UInt64) {
             ?? panic("Could not borrow a reference to the owner's collection")
 
         // borrow a public reference to the receivers collection
-        let depositRef = recipient.getCapability(/public/NFTCollection)!
-            .borrow<&{DappState.CollectionPublic}>()
+        let depositRef = recipient.getCapability(/public/NFTCollection)
+            .borrow<&{NonFungibleToken.CollectionPublic}>()
             ?? panic("Could not borrow a reference to the receiver's collection")
 
         // withdraw the NFT from the owner's collection

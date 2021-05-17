@@ -25,7 +25,21 @@ import NonFungibleToken from Flow.NonFungibleToken
         }
     }
 
-    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
+    pub resource interface DappStateCollectionPublic {
+        pub fun deposit(token: @NonFungibleToken.NFT)
+        pub fun getIDs(): [UInt64]
+        pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+        pub fun borrowNFTMetadata(id: UInt64): &DappState.NFT? {
+            // If the result isn't nil, the id of the returned reference
+            // should be the same as the argument to the function
+            post {
+                (result == nil) || (result?.id == id): 
+                    "Cannot borrow Card reference: The ID of the returned reference is incorrect"
+            }
+        }
+    }
+
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, DappStateCollectionPublic {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
         pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
@@ -69,6 +83,17 @@ import NonFungibleToken from Flow.NonFungibleToken
             return &self.ownedNFTs[id] as &NonFungibleToken.NFT
         }
 
+        // borrowNFTMetadata gets a reference to an NFT in the collection
+        // so that the caller can read its id and metadata
+        pub fun borrowNFTMetadata(id: UInt64): &DappState.NFT? {
+            if self.ownedNFTs[id] != nil {
+                let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
+                return ref as! &DappState.NFT
+            } else {
+                return nil
+            }
+        }
+
         destroy() {
             destroy self.ownedNFTs
         }
@@ -102,16 +127,6 @@ import NonFungibleToken from Flow.NonFungibleToken
 ///(initialize
     // Initialize the total supply
     self.totalSupply = 0
-
-    // Create a Collection resource and save it to storage
-    let collection <- create Collection()
-    self.account.save(<-collection, to: /storage/NFTCollection)
-
-    // create a public capability for the collection
-    self.account.link<&{NonFungibleToken.CollectionPublic}>(
-        /public/NFTCollection,
-        target: /storage/NFTCollection
-    )
 
     // Create a Minter resource and save it to storage
     let minter <- create NFTMinter()

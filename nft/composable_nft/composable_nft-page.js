@@ -588,7 +588,7 @@ export default class ComposableNFT extends LitElement {
           description="Mint an NFT into an account"
           action="mintNFT"
           method="post"
-          fields="recipient"
+          fields="recipient metaData-scale metaData-mdna metaData-color"
         >
 
           <account-widget
@@ -597,7 +597,28 @@ export default class ComposableNFT extends LitElement {
             placeholder="Recipient address"
           >
           </account-widget>
+
+          <text-widget
+            field="metaData-scale"
+            label="Scale"
+            placeholder="3"
+          ></text-widget>
+
+          <text-widget
+            field="metaData-mdna"
+            label="mdna"
+            placeholder="ASADaABYAkgCGAMAAQICEAAAACgBcAFgAjgCAgAAAFgBQABAAgIAaAAAAFgDQAICA2gDAw"
+          ></text-widget>
+
+          <text-widget
+            field="metaData-color"
+            label="Color"
+            placeholder="white, red, blue, yellow"
+          ></text-widget>
+
         </action-card>
+
+        <composable-nft-generator></composable-nft-generator>
 
         <action-card
           title="Read NFTs"
@@ -612,6 +633,27 @@ export default class ComposableNFT extends LitElement {
             placeholder="Account address"
           >
           </account-widget>
+        </action-card>
+
+        <action-card
+          title="Read NFT Metadata"
+          description="Read the Metadata for this NFT"
+          action="readNFTMetadata"
+          method="get"
+          fields="account id"
+        >
+          <account-widget
+            field="account"
+            label="Account"
+            placeholder="Account address"
+          >
+          </account-widget>
+
+          <text-widget
+            field="id"
+            label="NFT ID"
+            placeholder="ID of the NFT you wish to read"
+          ></text-widget>
         </action-card>
 
         <action-card
