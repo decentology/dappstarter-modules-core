@@ -1,4 +1,5 @@
 import "../../action-button.js";
+import "../../account-widget.js"
 import { LitElement, html, customElement, property } from "lit-element";
 import DappLib from "@decentology/dappstarter-dapplib";
 import Mondgram from './mondgram.js';
@@ -95,6 +96,15 @@ export default class ComposableNftGenerator extends LitElement {
                 <option>0xf3fcd2c1a78f5eee</option>
             </select>
         </div>
+
+        <!-- Account Widget for Flow
+        <account-widget
+            field="account"
+            label="Account"
+            placeholder="Account address"
+          >
+        </account-widget>
+        -->
 
         <div class="input-group flex mb-3">
           <label

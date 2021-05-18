@@ -18,7 +18,7 @@ export default class ComposableNftGenerator extends LitElement {
     let account = document.getElementById('to-account').value;
     let id = document.getElementById('id').value;
     let serial = document.getElementById('serial').value;
-    
+
     let data = {
       authorized: authorized,
       account: account,
@@ -59,6 +59,10 @@ export default class ComposableNftGenerator extends LitElement {
                 <option>0x71b9b9bd7b6f72d7c0841f38fa7cdb840282267d</option>
                 <option>0x7f54a3318b2a728738cce36fc7bb1b927281c24e</option>
                 <option>0x56fa40dd1edb0eddd7e5fb40fada372486e4fd58</option>
+
+                <option>0x01cf0e2f2f715450</option>
+                <option>0x179b6b1cb6755e31</option>
+                <option>0xf3fcd2c1a78f5eee</option>
             </select>
         </div>
 
@@ -75,6 +79,10 @@ export default class ComposableNftGenerator extends LitElement {
                 <option>0x71b9b9bd7b6f72d7c0841f38fa7cdb840282267d</option>
                 <option>0x7f54a3318b2a728738cce36fc7bb1b927281c24e</option>
                 <option>0x56fa40dd1edb0eddd7e5fb40fada372486e4fd58</option>
+
+                <option>0x01cf0e2f2f715450</option>
+                <option>0x179b6b1cb6755e31</option>
+                <option>0xf3fcd2c1a78f5eee</option>
             </select>
         </div>
 

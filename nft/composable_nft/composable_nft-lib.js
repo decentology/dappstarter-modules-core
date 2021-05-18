@@ -1,5 +1,6 @@
 ///(import:language:cadence
 const t = require('@onflow/types');
+const Metadata = require('../contracts/project/imports/Metadata.js')
 ///)
 
 class composable_nft {
@@ -14,9 +15,12 @@ class composable_nft {
     if (data.account) {
       data.recipient = data.account
     }
-    console.log(data)
+
     let config = DappLib.getConfig();
     let addressOfGenerator = config.accounts[0].replace('0x', '')
+
+    let metadataStruct = Metadata.getCadenceType(data.metaData, addressOfGenerator)
+
     let result = await Blockchain.post({
       config: config,
       roles: {
@@ -26,22 +30,7 @@ class composable_nft {
       'mint_nft',
       {
         recipient: { value: data.recipient, type: t.Address },
-        metadata: {
-          // the actual values of the struct
-          value: {
-            fields: [
-              { name: 'scale', value: parseInt(data.metaData.scale) },
-              { name: 'mdna', value: data.metaData.mdna },
-              { name: 'color', value: data.metaData.color },
-            ]
-          },
-          // the layout of the struct
-          type: t.Struct(`A.${addressOfGenerator}.Generator.Metadata`, [
-            { name: 'scale', value: t.UInt64 },
-            { name: 'mdna', value: t.String },
-            { name: 'color', value: t.String },
-          ])
-        }
+        metadata: metadataStruct
       }
     );
     return {

@@ -583,41 +583,6 @@ export default class ComposableNFT extends LitElement {
           </account-widget>
         </action-card>
 
-        <action-card
-          title="Mint NFT"
-          description="Mint an NFT into an account"
-          action="mintNFT"
-          method="post"
-          fields="recipient metaData-scale metaData-mdna metaData-color"
-        >
-
-          <account-widget
-            field="recipient"
-            label="Recipient"
-            placeholder="Recipient address"
-          >
-          </account-widget>
-
-          <text-widget
-            field="metaData-scale"
-            label="Scale"
-            placeholder="3"
-          ></text-widget>
-
-          <text-widget
-            field="metaData-mdna"
-            label="mdna"
-            placeholder="ASADaABYAkgCGAMAAQICEAAAACgBcAFgAjgCAgAAAFgBQABAAgIAaAAAAFgDQAICA2gDAw"
-          ></text-widget>
-
-          <text-widget
-            field="metaData-color"
-            label="Color"
-            placeholder="white, red, blue, yellow"
-          ></text-widget>
-
-        </action-card>
-
         <composable-nft-generator></composable-nft-generator>
 
         <action-card
