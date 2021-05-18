@@ -58,6 +58,41 @@ export default class TokenPage extends LitElement {
             </number-widget>
 
           </action-card>
+
+          <action-card
+            title="Mint Fungible Token"
+            description="Mint FT"
+            action="mintFT"
+            method="post"
+            fields="tokenAccount recipientAccount mintAuthority amount">
+
+            <text-widget
+              field="tokenAccount"
+              label="Token Account"
+              placeholder="Account address">
+            </text-widget>
+
+            <account-widget
+              field="mintAuthority"
+              label="Mint Authority Account"
+              placeholder="Account address">
+            </account-widget>
+
+            <account-widget
+              field="recipientAccount"
+              label="Recipient Account"
+              placeholder="Account address">
+            </account-widget>
+
+            <number-widget
+              field="amount"
+              label="Amount: "
+              placeholder="Mint amount"
+              value="1000">
+            </number-widget>
+
+          </action-card>
+
         </div>
 
         <action-card
