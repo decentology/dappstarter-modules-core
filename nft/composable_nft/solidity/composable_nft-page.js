@@ -37,7 +37,7 @@ export default class ComposableNFT extends LitElement {
       >
 ///)
 
-///(functions:language:solidity
+///(functions
       <div class="grid grid-cols-2 gap-6">
         <!-- START: SET URI and GET URI !-->
         <div>
@@ -566,88 +566,6 @@ export default class ComposableNFT extends LitElement {
         </div>
         <!-- End: Burn !-->
       </div> 
-///)
-///(functions:language:cadence
-        <action-card
-          title="Provision an Account"
-          description="Gives an account the necessary definitions to use NFTs"
-          action="provisionAccount"
-          method="post"
-          fields="account"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
-        </action-card>
-
-        <composable-nft-generator></composable-nft-generator>
-
-        <action-card
-          title="Read NFTs"
-          description="Read the NFTs in an account"
-          action="readNFTs"
-          method="get"
-          fields="account"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
-        </action-card>
-
-        <action-card
-          title="Read NFT Metadata"
-          description="Read the Metadata for this NFT"
-          action="readNFTMetadata"
-          method="get"
-          fields="account id"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
-
-          <text-widget
-            field="id"
-            label="NFT ID"
-            placeholder="ID of the NFT you wish to read"
-          ></text-widget>
-        </action-card>
-
-        <action-card
-          title="Transfer NFT"
-          description="Transfer an NFT from one account to another"
-          action="transfer"
-          method="post"
-          fields="accountGiver accountReceiver nftToGive"
-        >
-          <account-widget
-            field="accountGiver"
-            label="Account Giver"
-            placeholder="Account address to give"
-          >
-          </account-widget>
-          <account-widget
-            field="accountReceiver"
-            label="Account Receiver"
-            placeholder="Account address to receive"
-          >
-          </account-widget>
-          <text-widget
-            field="nftToGive"
-            label="NFT ID"
-            placeholder="ID of the NFT you wish to trade"
-          ></text-widget>
-        </action-card>
-
-
 ///)
 
 ///(page-post-content

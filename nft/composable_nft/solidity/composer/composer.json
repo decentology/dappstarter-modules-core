@@ -1,0 +1,19 @@
+{
+    "generator": {
+        "title": "Generator",
+        "description": "",
+        "default": "serial",
+        "options": [
+            {
+                "name": "serial",
+                "title": "Serial",
+                "description": "NFT with auto-incrementing serial number"
+            },
+            {
+                "name": "mondgram",
+                "title": "Mondgram",
+                "description": "NFT with Mondgram"
+            }
+        ]
+    }
+}
