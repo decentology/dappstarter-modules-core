@@ -15,7 +15,8 @@
     "blockchains": [
         "ethereum",
         "polygon",
-        "avalanche"
+        "avalanche",
+        "conflux"
     ],
     "languages": [
         "solidity"
