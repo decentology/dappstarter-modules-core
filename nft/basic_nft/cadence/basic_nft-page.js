@@ -122,22 +122,6 @@ export default class BasicNftPage extends LitElement {
           </account-widget>
         </action-card>
 
-        <action-card
-          title="Read NFT ID"
-          description="Example script to read the ID of an NFT"
-          action="readNFTID"
-          method="get"
-          fields="account"
-        >
-          <account-widget
-            field="account"
-            label="Account"
-            placeholder="Account address"
-          >
-          </account-widget>
-        </action-card>
-
-
       </page-body>
       <page-panel id="resultPanel"></page-panel>
     `;

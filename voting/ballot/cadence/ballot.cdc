@@ -12,25 +12,6 @@
 
 ///(functions
 
-    // https://play.onflow.org/8a1987ad-f5b3-4548-a460-56faef700221
-    /*
-    *   In this example, we want to create a simple approval voting contract 
-    *   where a polling place issues ballots to addresses. 
-    *   
-    *   The run a vote, the Admin deploys the smart contract,
-    *   then initializes the proposals 
-    *   using the initialize_proposals.cdc transaction.
-    *   The array of proposals cannot be modified after it has been initialized.
-    *
-    *   Then they will give ballots to users by 
-    *   using the issue_ballot.cdc transaction.
-    *
-    *   Every user with a ballot is allowed to approve any number of proposals. 
-    *   A user can choose their votes and cast them 
-    *   with the cast_vote.cdc transaction.
-    * 
-    */
-
     //list of proposals to be approved
     pub var proposals: [String]
 
@@ -108,14 +89,14 @@
                 // tally the vote if it is approved
                 self.votes[index] = self.votes[index]! + 1
             }
-            index = index + 1;
+            index = index + 1
         }
         // Destroy the ballot because it has been tallied
         destroy ballot
     }
 
     pub fun proposalList(): [String] {
-        return self.proposals;
+        return self.proposals
     }
 
 ///)

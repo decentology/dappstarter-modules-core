@@ -116,26 +116,5 @@ class basic_nft {
         }
     }
 
-    static async readNFTID(data) {
-
-        let config = DappLib.getConfig();
-        let result = await Blockchain.get({
-            config: config,
-            roles: {
-            }
-        },
-            'read_nft_id',
-            {
-                account: { value: data.account, type: t.Address }
-            }
-        );
-
-        return {
-            type: DappLib.DAPP_RESULT_BIG_NUMBER,
-            label: 'NFT ID',
-            result: result.callData
-        }
-    }
-
     ///)
 }

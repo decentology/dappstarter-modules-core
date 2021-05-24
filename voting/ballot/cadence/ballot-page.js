@@ -27,7 +27,7 @@ export default class BallotPage extends LitElement {
   }
 
   render() {
-    
+
     let content = html`
       <page-body
         title="${this.title}"
@@ -105,7 +105,14 @@ export default class BallotPage extends LitElement {
 
         </action-card>
 
-
+        <action-card
+          title="Proposal List"
+          description="Proposal List"
+          action="getProposalList"
+          method="get"
+          fields=""
+        >
+        </action-card>
 
       </page-body>
       <page-panel id="resultPanel"></page-panel>

@@ -1,3 +1,5 @@
+import DappState from Project.DappState
+
 transaction(proposals: [String]) {
 
     prepare(admin: AuthAccount) {
