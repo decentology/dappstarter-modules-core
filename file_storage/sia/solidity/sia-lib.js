@@ -53,14 +53,20 @@ class sia {
             data.id
         );
 
+        if (result.callData && result.callData.docId) {            
+            result.callData.docUrl = DappLib.formatSiaHash(result.callData.docId);
+            result.callData.label = DappLib.toAscii(result.callData.label);
+        } else {
+            result.callData = {
+                docId: '',
+                docUrl: '',
+                label: ''
+            }
+        }
         return {
             type: DappLib.DAPP_RESULT_OBJECT,
             label: 'Document Information',
-            result: {
-                docId: result.callData?.docId,
-                docUrl: result.callData ? DappLib.formatSiaHash(result.callData?.docId) : null,
-                label: result.callData ? DappLib.toAscii(result.callData.label) : null
-            }
+            result: result.callData
         }
     }
 
