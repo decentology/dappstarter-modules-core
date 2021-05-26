@@ -60,15 +60,16 @@ class entity {
                 data.account
             );
 
+            let resultArray = [];
             if (result.callData && Array.isArray(result.callData)) {
-                for(let i=0; i< result.callData.length; i++) {
-                    result.callData[i] = DappLib.toAscii(result.callData[i]);
-                }
+                result.callData.forEach((item) => {
+                    resultArray.push(DappLib.toAscii(item));
+                });
             }
             return {
                 type: DappLib.DAPP_RESULT_ARRAY,
                 label: 'Entities',
-                result: result.callData,
+                result: resultArray,
                 formatter: ['Text-20-5'] 
             }
         }
@@ -87,11 +88,11 @@ class entity {
             );
 
             let resultArray = [];
-            for(let i = 0; i < result.callData.length; i ++){
-                if(result.callData[i] != "0x0000000000000000000000000000000000000000000000000000000000000000"){
-                    resultArray.push(result.callData[i]);
+            result.callData.forEach((item) => {
+                if(item != "0x0000000000000000000000000000000000000000000000000000000000000000"){
+                    resultArray.push(item);
                 };
-            };
+            });
 
             return {
                 type: DappLib.DAPP_RESULT_ARRAY,
