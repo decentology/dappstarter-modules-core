@@ -37,6 +37,9 @@
         }
     ],
     "blockchains": [
+        "ethereum",
+        "polygon",
+        "avalanche",
         "conflux"
     ],
     "languages": [
