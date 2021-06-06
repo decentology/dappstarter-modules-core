@@ -5,7 +5,7 @@ transaction(proposalVote: Int) {
     prepare(voter: AuthAccount) {
 
         // take the voter's ballot our of storage
-        let ballot <- voter.load<@Ballot.Ballot>(from: /storage/Ballot)
+        let ballot <- voter.load<@Ballot.BallotItem>(from: /storage/Ballot)
             ?? panic("A Ballot does not exist in this voter's storage")
 
         // Vote on the proposal 

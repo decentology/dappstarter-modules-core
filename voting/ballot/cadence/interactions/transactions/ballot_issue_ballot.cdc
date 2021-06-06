@@ -8,7 +8,7 @@ transaction {
         
         // create a new Ballot by calling the issueBallot
         // function of the admin Reference
-        let ballot <- adminRef.issueBallot()
+        let ballot <- adminRef.issueBallotItem()
 
         // store that ballot in the voter's account storage
         voter.save(<-ballot, to: /storage/Ballot)
