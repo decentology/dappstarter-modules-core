@@ -1,16 +1,13 @@
+pub contract Ballot {
 
+    init() {
+        // initializes the contract by setting the proposals and votes to empty 
+        // and creating a new Admin resource to put in storage
+        self.proposals = []
+        self.votes = {}
+        self.account.save(<-create Administrator(), to: /storage/VotingAdmin)
+    }
 
-///(initialize
-
-    // initializes the contract by setting the proposals and votes to empty 
-    // and creating a new Admin resource to put in storage
-    self.proposals = []
-    self.votes = {}
-    self.account.save(<-create Administrator(), to: /storage/VotingAdmin)
-
-///)
-
-///(functions
 
     //list of proposals to be approved
     pub var proposals: [String]
@@ -19,10 +16,10 @@
     pub let votes: {Int: Int}
 
     // This is the resource that is issued to users.
-    // When a user gets a Ballot object, they call the `vote` function
+    // When a user gets a BallotItem object, they call the `vote` function
     // to include their votes, and then cast it in the smart contract 
     // using the `cast` function to have their vote included in the polling
-    pub resource Ballot {
+    pub resource BallotItem {
 
         // array of all the proposals 
         pub let proposals: [String]
@@ -31,7 +28,7 @@
         pub var choices: {Int: Bool}
 
         init() {
-            self.proposals = DappState.proposals
+            self.proposals = Ballot.proposals
             self.choices = {}
             
             // Set each choice to false
@@ -59,29 +56,29 @@
         // function to initialize all the proposals for the voting
         pub fun initializeProposals(_ proposals: [String]) {
             pre {
-                DappState.proposals.length == 0: "Proposals can only be initialized once"
+                Ballot.proposals.length == 0: "Proposals can only be initialized once"
                 proposals.length > 0: "Cannot initialize with no proposals"
             }
-            DappState.proposals = proposals
+            Ballot.proposals = proposals
 
             // Set each tally of votes to zero
             var i = 0
             while i < proposals.length {
-                DappState.votes[i] = 0
+                Ballot.votes[i] = 0
                 i = i + 1
             }
         }
 
-        // The admin calls this function to create a new Ballot
+        // The admin calls this function to create a new BallotItem
         // that can be transferred to another user
-        pub fun issueBallot(): @Ballot {
-            return <-create Ballot()
+        pub fun issueBallotItem(): @BallotItem {
+            return <-create BallotItem()
         }
     }
 
     // A user moves their ballot to this function in the contract where 
     // its votes are tallied and the ballot is destroyed
-    pub fun cast(ballot: @Ballot) {
+    pub fun cast(ballot: @BallotItem) {
         var index = 0
         // look through the ballot
         while index < self.proposals.length {
@@ -98,5 +95,4 @@
     pub fun proposalList(): [String] {
         return self.proposals
     }
-
-///)
+}
