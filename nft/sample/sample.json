@@ -1,0 +1,28 @@
+{
+    "name": "sample",
+    "title": "Sample",
+    "description": "Sample",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": true,
+        "enabled": true,
+        "children": "form"
+    },
+    "parameters": [],
+    "blockchains": [
+        "flow"
+    ],
+    "languages": [
+        "cadence"
+    ],
+    "dependencies": {
+        "cadence": {
+            "common": [
+                "core-nft_marketplace"
+            ]
+        }}
+}

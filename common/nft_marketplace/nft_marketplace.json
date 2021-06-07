@@ -1,0 +1,30 @@
+{
+    "name": "nft_marketplace",
+    "title": "NFT Marketplace",
+    "description": "NFT Marketplace functionality add-on to NFT modules",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": true,
+        "enabled": true,
+        "children": "form"
+    },
+    "composable": false,
+    "parameters": [
+        {
+        }
+    ],
+    "blockchains": [
+        "flow"
+    ],
+    "languages": [
+        "cadence"
+    ],
+    "dependencies": {
+        "solidity": {},
+        "cadence": {}
+    }
+}

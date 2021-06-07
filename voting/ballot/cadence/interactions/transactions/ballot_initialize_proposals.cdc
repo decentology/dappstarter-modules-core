@@ -1,4 +1,4 @@
-import Ballot from Project.Ballot
+import Ballot from Project.BallotContract
 
 transaction(proposals: [String]) {
 

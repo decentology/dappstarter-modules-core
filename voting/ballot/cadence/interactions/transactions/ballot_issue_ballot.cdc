@@ -1,4 +1,4 @@
-import Ballot from Project.Ballot
+import Ballot from Project.BallotContract
 
 transaction {
     prepare(admin: AuthAccount, voter: AuthAccount) {
@@ -8,7 +8,7 @@ transaction {
         
         // create a new Ballot by calling the issueBallot
         // function of the admin Reference
-        let ballot <- adminRef.issueBallotItem()
+        let ballot <- adminRef.issueBallot()
 
         // store that ballot in the voter's account storage
         voter.save(<-ballot, to: /storage/Ballot)

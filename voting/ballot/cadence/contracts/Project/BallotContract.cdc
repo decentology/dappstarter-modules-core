@@ -1,4 +1,4 @@
-pub contract Ballot {
+pub contract BallotContract {
 
     init() {
         // initializes the contract by setting the proposals and votes to empty 
@@ -16,10 +16,10 @@ pub contract Ballot {
     pub let votes: {Int: Int}
 
     // This is the resource that is issued to users.
-    // When a user gets a BallotItem object, they call the `vote` function
+    // When a user gets a Ballot object, they call the `vote` function
     // to include their votes, and then cast it in the smart contract 
     // using the `cast` function to have their vote included in the polling
-    pub resource BallotItem {
+    pub resource Ballot {
 
         // array of all the proposals 
         pub let proposals: [String]
@@ -69,16 +69,16 @@ pub contract Ballot {
             }
         }
 
-        // The admin calls this function to create a new BallotItem
+        // The admin calls this function to create a new Ballot
         // that can be transferred to another user
-        pub fun issueBallotItem(): @BallotItem {
-            return <-create BallotItem()
+        pub fun issueBallot(): @Ballot {
+            return <-create Ballot()
         }
     }
 
     // A user moves their ballot to this function in the contract where 
     // its votes are tallied and the ballot is destroyed
-    pub fun cast(ballot: @BallotItem) {
+    pub fun cast(ballot: @Ballot) {
         var index = 0
         // look through the ballot
         while index < self.proposals.length {
