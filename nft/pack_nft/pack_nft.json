@@ -1,0 +1,23 @@
+{
+    "name": "pack_nft",
+    "title": "Pack NFT",
+    "description": "Pack NFT",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "parameters": [],
+    "blockchains": [
+        "flow"
+    ],
+    "languages": [
+        "cadence"
+    ],
+    "dependencies": {}
+}

@@ -46,14 +46,14 @@ export default class KittyItems extends LitElement {
           fields="recipient amount">
           <account-widget field="recipient" label="Recipient" placeholder="Recipient">
           </account-widget>
-          <text-widget field="amount" label="Amount" placeholder="Amount"></text-widget>
+          <text-widget field="amount" label="Amount" placeholder="30.0"></text-widget>
         </action-card>
       
         <action-card title="Kibble - Transfer Tokens" description="Transfer Tokens" action="kibbleTransferTokens"
           method="post" fields="signer amount to">
           <account-widget field="signer" label="Signer" placeholder="Signer">
           </account-widget>
-          <text-widget field="amount" label="Amount" placeholder="Amount"></text-widget>
+          <text-widget field="amount" label="Amount" placeholder="30.0"></text-widget>
           <account-widget field="to" label="To" placeholder="To">
           </account-widget>
         </action-card>
@@ -79,7 +79,7 @@ export default class KittyItems extends LitElement {
           method="post" fields="recipient typeID">
           <account-widget field="recipient" label="Recipient" placeholder="Recipient">
           </account-widget>
-          <text-widget field="typeID" label="Type ID" placeholder="Type ID"></text-widget>
+          <text-widget field="typeID" label="Type ID" placeholder="5"></text-widget>
         </action-card>
       
         <action-card title="Kitty Items - Transfer Kitty Item" description="Transfer Kitty Item"
@@ -88,7 +88,7 @@ export default class KittyItems extends LitElement {
           </account-widget>
           <account-widget field="recipient" label="Recipient" placeholder="Recipient">
           </account-widget>
-          <text-widget field="withdrawID" label="Withdraw ID" placeholder="Withdraw ID"></text-widget>
+          <text-widget field="withdrawID" label="Withdraw ID" placeholder="0"></text-widget>
         </action-card>
       
         <action-card title="Kitty Items - Read Collection IDs" description="Read Collection IDs"
@@ -107,7 +107,7 @@ export default class KittyItems extends LitElement {
           action="kittyItemsReadKittyItemTypeID" method="get" fields="address itemID">
           <account-widget field="address" label="Address" placeholder="Address">
           </account-widget>
-          <text-widget field="itemID" label="Item ID" placeholder="Item ID"></text-widget>
+          <text-widget field="itemID" label="Item ID" placeholder="0"></text-widget>
         </action-card>
       
         <action-card title="Kitty Items - Read Kitty Items Supply" description="Read Kitty Items Supply"
@@ -116,45 +116,45 @@ export default class KittyItems extends LitElement {
       
         <!-- Market-->
       
-        <action-card title="Market - Setup Account" description="Setup Account" action="marketSetupAccount" method="post"
-          fields="signer">
+        <action-card title="Kitty Items Market - Setup Account" description="Setup Account"
+          action="kittyItemsMarketSetupAccount" method="post" fields="signer">
           <account-widget field="signer" label="Signer" placeholder="Signer">
           </account-widget>
         </action-card>
       
-        <action-card title="Market - Buy Market Item" description="Buy Market Item" action="marketBuyMarketItem" method="post"
-          fields="signer itemID marketCollectionAddress">
+        <action-card title="Kitty Items Market - Sell Market Item" description="Sell Market Item"
+          action="kittyItemsMarketSellMarketItem" method="post" fields="signer itemID price">
           <account-widget field="signer" label="Signer" placeholder="Signer">
           </account-widget>
-          <text-widget field="itemID" label="Item ID" placeholder="Item ID"></text-widget>
+          <text-widget field="itemID" label="Item ID" placeholder="0"></text-widget>
+          <text-widget field="price" label="Price" placeholder="30.0"></text-widget>
+        </action-card>
+      
+        <action-card title="Kitty Items Market - Remove Market Item" description="Remove Market Item"
+          action="kittyItemsMarketRemoveMarketItem" method="post" fields="signer itemID">
+          <account-widget field="signer" label="Signer" placeholder="Signer">
+          </account-widget>
+          <text-widget field="itemID" label="Item ID" placeholder="0"></text-widget>
+        </action-card>
+      
+        <action-card title="Kitty Items Market - Buy Market Item" description="Buy Market Item"
+          action="kittyItemsMarketBuyMarketItem" method="post" fields="signer itemID marketCollectionAddress">
+          <account-widget field="signer" label="Signer" placeholder="Signer">
+          </account-widget>
+          <text-widget field="itemID" label="Item ID" placeholder="0"></text-widget>
           <account-widget field="marketCollectionAddress" label="Market Collection Address"
             placeholder="Market Collection Address">
           </account-widget>
         </action-card>
       
-        <action-card title="Market - Remove Market Item" description="Remove Market Item" action="marketRemoveMarketItem"
-          method="post" fields="signer itemID">
-          <account-widget field="signer" label="Signer" placeholder="Signer">
-          </account-widget>
-          <text-widget field="itemID" label="Item ID" placeholder="Item ID"></text-widget>
-        </action-card>
-      
-        <action-card title="Market - Sell Market Item" description="Sell Market Item" action="marketSellMarketItem"
-          method="post" fields="signer itemID price">
-          <account-widget field="signer" label="Signer" placeholder="Signer">
-          </account-widget>
-          <text-widget field="itemID" label="Item ID" placeholder="Item ID"></text-widget>
-          <text-widget field="price" label="Price" placeholder="Price"></text-widget>
-        </action-card>
-      
-        <action-card title="Market - Read Collection IDs" description="Read Collection IDs" action="marketReadCollectionIDs"
-          method="get" fields="address">
+        <action-card title="Kitty Items Market - Read Collection IDs" description="Read Collection IDs"
+          action="kittyItemsMarketReadCollectionIDs" method="get" fields="address">
           <account-widget field="address" label="Address" placeholder="Address">
           </account-widget>
         </action-card>
       
-        <action-card title="Market - Read Collection Length" description="Read Collection Length"
-          action="marketReadCollectionLength" method="get" fields="marketCollectionAddress">
+        <action-card title="Kitty Items Market - Read Collection Length" description="Read Collection Length"
+          action="kittyItemsMarketReadCollectionLength" method="get" fields="marketCollectionAddress">
           <account-widget field="marketCollectionAddress" label="Market Collection Address"
             placeholder="Market Collection Address">
           </account-widget>

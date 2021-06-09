@@ -121,7 +121,7 @@ class kitty_items {
         proposer: config.accounts[0]
       }
     },
-      'kittyitem_mint_kitty_item',
+      'kittyitems_mint_kitty_item',
       {
         recipient: { value: data.recipient, type: t.Address },
         typeID: { value: parseInt(data.typeID), type: t.UInt64 }
@@ -143,7 +143,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'kittyitem_setup_account'
+      'kittyitems_setup_account'
     );
 
     return {
@@ -162,7 +162,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'kittyitem_transfer_kitty_item',
+      'kittyitems_transfer_kitty_item',
       {
         recipient: { value: data.recipient, type: t.Address },
         withdrawID: { value: parseInt(data.withdrawID), type: t.UInt64 }
@@ -184,7 +184,7 @@ class kitty_items {
       roles: {
       }
     },
-      'kittyitem_read_collection_ids',
+      'kittyitems_read_collection_ids',
       {
         address: { value: data.address, type: t.Address }
       }
@@ -205,7 +205,7 @@ class kitty_items {
       roles: {
       }
     },
-      'kittyitem_read_collection_length',
+      'kittyitems_read_collection_length',
       {
         address: { value: data.address, type: t.Address }
       }
@@ -225,7 +225,7 @@ class kitty_items {
       roles: {
       }
     },
-      'kittyitem_read_kitty_item_type_id',
+      'kittyitems_read_kitty_item_type_id',
       {
         address: { value: data.address, type: t.Address },
         itemID: { value: parseInt(data.itemID), type: t.UInt64 }
@@ -246,7 +246,7 @@ class kitty_items {
       roles: {
       }
     },
-      'kittyitem_read_kitty_items_supply'
+      'kittyitems_read_kitty_items_supply'
     );
 
     return {
@@ -258,7 +258,7 @@ class kitty_items {
 
   /********** MARKET **********/
 
-  static async marketBuyMarketItem(data) {
+  static async kittyItemsMarketBuyMarketItem(data) {
 
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
@@ -266,7 +266,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'market_buy_market_item',
+      'kittyitemsmarket_buy_market_item',
       {
         itemID: { value: parseInt(data.itemID), type: t.UInt64 },
         marketCollectionAddress: { value: data.marketCollectionAddress, type: t.Address }
@@ -280,7 +280,7 @@ class kitty_items {
   }
 
 
-  static async marketRemoveMarketItem(data) {
+  static async kittyItemsMarketRemoveMarketItem(data) {
 
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
@@ -288,7 +288,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'market_remove_market_item',
+      'kittyitemsmarket_remove_market_item',
       {
         itemID: { value: parseInt(data.itemID), type: t.UInt64 }
       }
@@ -302,7 +302,7 @@ class kitty_items {
 
   }
 
-  static async marketSellMarketItem(data) {
+  static async kittyItemsMarketSellMarketItem(data) {
 
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
@@ -310,7 +310,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'market_sell_market_item',
+      'kittyitemsmarket_sell_market_item',
       {
         itemID: { value: parseInt(data.itemID), type: t.UInt64 },
         price: { value: data.price, type: t.UFix64 }
@@ -325,7 +325,7 @@ class kitty_items {
 
   }
 
-  static async marketSetupAccount(data) {
+  static async kittyItemsMarketSetupAccount(data) {
 
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
@@ -333,7 +333,7 @@ class kitty_items {
         proposer: data.signer
       }
     },
-      'market_setup_account'
+      'kittyitemsmarket_setup_account'
     );
 
     return {
@@ -344,14 +344,14 @@ class kitty_items {
 
   }
 
-  static async marketReadCollectionIDs(data) {
+  static async kittyItemsMarketReadCollectionIDs(data) {
 
     let result = await Blockchain.get({
       config: DappLib.getConfig(),
       roles: {
       }
     },
-      'market_read_collection_ids',
+      'kittyitemsmarket_read_collection_ids',
       {
         address: { value: data.address, type: t.Address }
       }
@@ -365,14 +365,14 @@ class kitty_items {
 
   }
 
-  static async marketReadCollectionLength(data) {
+  static async kittyItemsMarketReadCollectionLength(data) {
 
     let result = await Blockchain.get({
       config: DappLib.getConfig(),
       roles: {
       }
     },
-      'market_read_collection_length',
+      'kittyitemsmarket_read_collection_length',
       {
         marketCollectionAddress: { value: data.marketCollectionAddress, type: t.Address }
       }
