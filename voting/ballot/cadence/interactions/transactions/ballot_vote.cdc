@@ -1,17 +1,17 @@
-import Ballot from Project.BallotContract
+import BallotContract from Project.BallotContract
 
 transaction(proposalVote: Int) {
 
     prepare(voter: AuthAccount) {
 
         // take the voter's ballot our of storage
-        let ballot <- voter.load<@Ballot.Ballot>(from: /storage/Ballot)
+        let ballot <- voter.load<@BallotContract.Ballot>(from: /storage/Ballot)
             ?? panic("A Ballot does not exist in this voter's storage")
 
         // Vote on the proposal 
         ballot.vote(proposal: proposalVote)
 
         // Cast the vote by submitting it to the smart contract
-        Ballot.cast(ballot: <-ballot)
+        BallotContract.cast(ballot: <-ballot)
     }
 }

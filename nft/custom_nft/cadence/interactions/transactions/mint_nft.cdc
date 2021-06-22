@@ -1,5 +1,5 @@
 import Generator from Project.Generator
-import DappState from Project.DappState
+import CustomNFTContract from Project.CustomNFTContract
 import NonFungibleToken from Flow.NonFungibleToken
 
 // This script uses the NFTMinter resource to mint a new NFT
@@ -9,11 +9,11 @@ import NonFungibleToken from Flow.NonFungibleToken
 transaction(recipient: Address, metadata: Generator.Metadata) {
 
     // The reference to the Minter resource stored in account storage
-    let minterRef: &DappState.NFTMinter
+    let minterRef: &CustomNFTContract.NFTMinter
 
     prepare(acct: AuthAccount) {
         // borrow a reference to the NFTMinter resource in storage
-        self.minterRef = acct.borrow<&DappState.NFTMinter>(from: /storage/NFTMinter)
+        self.minterRef = acct.borrow<&CustomNFTContract.NFTMinter>(from: /storage/NFTMinter)
             ?? panic("Could not borrow a reference to the NFT minter")
         // Borrow the recipient's public NFT collection reference
         let receiver = getAccount(recipient)

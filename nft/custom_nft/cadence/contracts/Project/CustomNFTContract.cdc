@@ -1,7 +1,7 @@
 import Generator from Project.Generator
 import NonFungibleToken from Flow.NonFungibleToken
 
-pub contract AdminContract: NonFungibleToken {
+pub contract CustomNFTContract: NonFungibleToken {
 
     pub var totalSupply: UInt64
 
@@ -31,11 +31,11 @@ pub contract AdminContract: NonFungibleToken {
         }
     }
 
-    pub resource interface DappStateCollectionPublic {
+    pub resource interface CustomNFTCollectionPublic {
         pub fun deposit(token: @NonFungibleToken.NFT)
         pub fun getIDs(): [UInt64]
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
-        pub fun borrowNFTMetadata(id: UInt64): &DappState.NFT? {
+        pub fun borrowNFTMetadata(id: UInt64): &CustomNFTContract.NFT? {
             // If the result isn't nil, the id of the returned reference
             // should be the same as the argument to the function
             post {
@@ -45,7 +45,7 @@ pub contract AdminContract: NonFungibleToken {
         }
     }
 
-    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, DappStateCollectionPublic {
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CustomNFTCollectionPublic {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
         pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
@@ -66,7 +66,7 @@ pub contract AdminContract: NonFungibleToken {
         // deposit takes a NFT and adds it to the collections dictionary
         // and adds the ID to the id array
         pub fun deposit(token: @NonFungibleToken.NFT) {
-            let token <- token as! @DappState.NFT
+            let token <- token as! @CustomNFTContract.NFT
 
             let id: UInt64 = token.id
 
@@ -91,10 +91,10 @@ pub contract AdminContract: NonFungibleToken {
 
         // borrowNFTMetadata gets a reference to an NFT in the collection
         // so that the caller can read its id and metadata
-        pub fun borrowNFTMetadata(id: UInt64): &DappState.NFT? {
+        pub fun borrowNFTMetadata(id: UInt64): &CustomNFTContract.NFT? {
             if self.ownedNFTs[id] != nil {
                 let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
-                return ref as! &DappState.NFT
+                return ref as! &CustomNFTContract.NFT
             } else {
                 return nil
             }
@@ -120,12 +120,12 @@ pub contract AdminContract: NonFungibleToken {
         pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: Generator.Metadata) {
 
             // create a new NFT
-            var newNFT <- create NFT(_initID: DappState.totalSupply, _metadata: metadata)
+            var newNFT <- create NFT(_initID: CustomNFTContract.totalSupply, _metadata: metadata)
 
             // deposit it in the recipient's account using their reference
             recipient.deposit(token: <-newNFT)
 
-            DappState.totalSupply = DappState.totalSupply + UInt64(1)
+            CustomNFTContract.totalSupply = CustomNFTContract.totalSupply + UInt64(1)
         }
     }
 }
