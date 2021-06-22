@@ -3,7 +3,7 @@ const t = require('@onflow/types');
 const Metadata = require('../contracts/project/imports/Metadata.js')
 ///)
 
-class composable_nft {
+class custom_nft {
 
   ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

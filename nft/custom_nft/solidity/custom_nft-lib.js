@@ -1,4 +1,4 @@
-class composable_nft {
+class custom_nft {
 
   ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/

@@ -4,10 +4,10 @@ pragma solidity ^0.8.0;
 import "./interfaces/IERC1155.sol";
 import "./interfaces/IERC1155Receiver.sol";
 import "./interfaces/IERC1155MetadataURI.sol";
-import "./imports/composable_nft/Address.sol";
-import "./imports/composable_nft/Context.sol";
-import "./imports/composable_nft/ERC165.sol";
-import "./imports/composable_nft/generator/generator.sol";
+import "./imports/custom_nft/Address.sol";
+import "./imports/custom_nft/Context.sol";
+import "./imports/custom_nft/ERC165.sol";
+import "./imports/custom_nft/generator/generator.sol";
 
 ///)
 

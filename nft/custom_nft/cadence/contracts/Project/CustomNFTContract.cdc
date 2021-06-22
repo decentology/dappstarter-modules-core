@@ -1,18 +1,24 @@
-///(import
 import Generator from Project.Generator
 import NonFungibleToken from Flow.NonFungibleToken
-///)
 
-///(interface
-                    : NonFungibleToken // for additional interfaces, separate with a comma
-///)
+pub contract AdminContract: NonFungibleToken {
 
-///(functions
     pub var totalSupply: UInt64
 
     pub event ContractInitialized()
     pub event Withdraw(id: UInt64, from: Address?)
     pub event Deposit(id: UInt64, to: Address?)
+
+    init() {
+        // Initialize the total supply
+        self.totalSupply = 0
+
+        // Create a Minter resource and save it to storage
+        let minter <- create NFTMinter()
+        self.account.save(<-minter, to: /storage/NFTMinter)
+
+        emit ContractInitialized()        
+    }
 
     pub resource NFT: NonFungibleToken.INFT {
         pub let id: UInt64
@@ -122,15 +128,5 @@ import NonFungibleToken from Flow.NonFungibleToken
             DappState.totalSupply = DappState.totalSupply + UInt64(1)
         }
     }
-///)
+}
 
-///(initialize
-    // Initialize the total supply
-    self.totalSupply = 0
-
-    // Create a Minter resource and save it to storage
-    let minter <- create NFTMinter()
-    self.account.save(<-minter, to: /storage/NFTMinter)
-
-    emit ContractInitialized()
-///)

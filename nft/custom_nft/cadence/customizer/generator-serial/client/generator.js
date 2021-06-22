@@ -5,8 +5,8 @@ import "../../account-widget.js"
 import { LitElement, html, customElement, property } from "lit-element";
 import DappLib from "@decentology/dappstarter-dapplib";
 
-@customElement('composable-nft-generator')
-export default class ComposableNftGenerator extends LitElement {
+@customElement('custom-nft-generator')
+export default class CustomNftGenerator extends LitElement {
 
   createRenderRoot() {
     return this;

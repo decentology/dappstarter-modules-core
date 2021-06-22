@@ -1,7 +1,7 @@
 {
-    "name": "composable_nft",
-    "title": "Composable NFT",
-    "description": "Full-featured NFT application with composable options.",
+    "name": "custom_nft",
+    "title": "Custom NFT",
+    "description": "Full-featured NFT application with customizable options.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -12,7 +12,7 @@
         "enabled": true,
         "children": "form"
     },
-    "composable": true,
+    "customizable": true,
     "parameters": [
         {
             "name": "template",

@@ -11,7 +11,7 @@ const Chai = require('chai');
 const expect = Chai.expect;
 
 
-// truffle test ./tests/composable_nft-tests.js
+// truffle test ./tests/custom_nft-tests.js
 
 ///)
 

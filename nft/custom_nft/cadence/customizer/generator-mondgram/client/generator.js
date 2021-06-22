@@ -6,8 +6,8 @@ import DappLib from "@decentology/dappstarter-dapplib";
 import Mondgram from './mondgram.js';
 import BN from 'bn.js';
 
-@customElement('composable-nft-generator')
-export default class ComposableNftGenerator extends LitElement {
+@customElement('custom-nft-generator')
+export default class CustomNftGenerator extends LitElement {
 
   createRenderRoot() {
     return this;

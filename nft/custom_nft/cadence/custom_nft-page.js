@@ -6,13 +6,13 @@ import "../../components/account-widget.js";
 import "../../components/text-widget.js";
 import "../../components/number-widget.js";
 import "../../components/switch-widget.js";
-import "../../components/composable_nft/generator/generator.js";
+import "../../components/custom_nft/generator/generator.js";
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('composable-nft-page')
-export default class ComposableNFT extends LitElement {
+@customElement('custom-nft-page')
+export default class CustomNFT extends LitElement {
   @property()
   title;
   @property()
@@ -53,7 +53,7 @@ export default class ComposableNFT extends LitElement {
           </account-widget>
         </action-card>
 
-        <composable-nft-generator></composable-nft-generator>
+        <custom-nft-generator></custom-nft-generator>
 
         <action-card
           title="Read NFTs"
