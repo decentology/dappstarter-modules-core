@@ -1,14 +1,14 @@
 ///(page-pre-content
-import "../../components/action-card.js";
-import "../../components/page-body.js";
-import "../../components/page-panel.js";
-import "../../components/account-widget.js";
-import "../../components/number-widget.js";
+import "../components/action-card.js";
+import "../components/page-body.js";
+import "../components/page-panel.js";
+import "../components/account-widget.js";
+import "../components/number-widget.js";
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('token-page')
-export default class TokenPage extends LitElement {
+@customElement('token-harness')
+export default class TokenHarness extends LitElement {
   @property()
   title;
   @property()

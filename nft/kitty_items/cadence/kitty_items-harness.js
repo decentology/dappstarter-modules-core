@@ -1,17 +1,17 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/page-body.js";
-import "../../components/action-card.js";
-import "../../components/account-widget.js";
-import "../../components/text-widget.js";
-import "../../components/number-widget.js";
-import "../../components/switch-widget.js";
+import "../components/page-panel.js";
+import "../components/page-body.js";
+import "../components/action-card.js";
+import "../components/account-widget.js";
+import "../components/text-widget.js";
+import "../components/number-widget.js";
+import "../components/switch-widget.js";
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('kitty-items-page')
-export default class KittyItems extends LitElement {
+@customElement('kitty-items-harness')
+export default class KittyItemsHarness extends LitElement {
   @property()
   title;
   @property()

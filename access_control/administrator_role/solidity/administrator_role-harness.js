@@ -1,12 +1,12 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/action-card.js";
-import "../../components/page-body.js";
-import "../../components/account-widget.js";
+import "../components/page-panel.js";
+import "../components/action-card.js";
+import "../components/page-body.js";
+import "../components/account-widget.js";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement("administrator-role-page")
-export default class AdministratorRolePage extends LitElement {
+@customElement("administrator-role-harness")
+export default class AdministratorRoleHarness extends LitElement {
   @property()
   category;
   @property()

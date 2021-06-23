@@ -1,17 +1,17 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/page-body.js";
-import "../../components/action-card.js";
-import "../../components/account-widget.js";
-import "../../components/text-widget.js";
-import "../../components/number-widget.js";
-import "../../components/switch-widget.js";
+import "../components/page-panel.js";
+import "../components/page-body.js";
+import "../components/action-card.js";
+import "../components/account-widget.js";
+import "../components/text-widget.js";
+import "../components/number-widget.js";
+import "../components/switch-widget.js";
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('pack-nft-page')
-export default class PackNFT extends LitElement {
+@customElement('pack-nft-harness')
+export default class PackNFTHarness extends LitElement {
   @property()
   title;
   @property()

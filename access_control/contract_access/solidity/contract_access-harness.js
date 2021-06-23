@@ -1,12 +1,12 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/action-card.js";
-import "../../components/page-body.js";
-import "../../components/account-widget.js";
+import "../components/page-panel.js";
+import "../components/action-card.js";
+import "../components/page-body.js";
+import "../components/account-widget.js";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement("contract-access-page")
-export default class ContractAccessPage extends LitElement {
+@customElement("contract-access-harness")
+export default class ContractAccessHarness extends LitElement {
   @property()
   title;
   @property()

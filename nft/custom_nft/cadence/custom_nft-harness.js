@@ -1,18 +1,18 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/page-body.js";
-import "../../components/action-card.js";
-import "../../components/account-widget.js";
-import "../../components/text-widget.js";
-import "../../components/number-widget.js";
-import "../../components/switch-widget.js";
-import "../../components/custom_nft/generator/generator.js";
+import "../components/page-panel.js";
+import "../components/page-body.js";
+import "../components/action-card.js";
+import "../components/account-widget.js";
+import "../components/text-widget.js";
+import "../components/number-widget.js";
+import "../components/switch-widget.js";
+import "../components/custom_nft/generator/generator.js";
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('custom-nft-page')
-export default class CustomNFT extends LitElement {
+@customElement('custom-nft-harness')
+export default class CustomNFTHarness extends LitElement {
   @property()
   title;
   @property()

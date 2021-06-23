@@ -1,17 +1,17 @@
 ///(page-pre-content
-import "../../components/page-panel.js";
-import "../../components/page-body.js";
-import "../../components/action-card.js";
-import "../../components/account-widget.js";
-import "../../components/text-widget.js";
-import "../../components/number-widget.js";
-import "../../components/switch-widget.js";
+import "../components/page-panel.js";
+import "../components/page-body.js";
+import "../components/action-card.js";
+import "../components/account-widget.js";
+import "../components/text-widget.js";
+import "../components/number-widget.js";
+import "../components/switch-widget.js";
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
-@customElement('sample-page')
-export default class Sample extends LitElement {
+@customElement('sample-harness')
+export default class SampleHarness extends LitElement {
   @property()
   title;
   @property()
