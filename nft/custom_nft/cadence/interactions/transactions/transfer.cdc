@@ -1,4 +1,4 @@
-import DappState from Project.DappState
+import CustomNFTContract from Project.CustomNFTContract
 import NonFungibleToken from Flow.NonFungibleToken
 
 transaction(receiverAddr: Address, withdrawID: UInt64) {
@@ -9,7 +9,7 @@ transaction(receiverAddr: Address, withdrawID: UInt64) {
         let recipient = getAccount(receiverAddr)
 
         // borrow a reference to the signer's NFT collection
-        let collectionRef = acct.borrow<&DappState.Collection>(from: /storage/NFTCollection)
+        let collectionRef = acct.borrow<&CustomNFTContract.Collection>(from: /storage/NFTCollection)
             ?? panic("Could not borrow a reference to the owner's collection")
 
         // borrow a public reference to the receivers collection

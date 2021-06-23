@@ -1,13 +1,13 @@
 ///(import
 const t = require('@onflow/types');
-const Metadata = require('../contracts/project/imports/Metadata.js')
+const Metadata = require('../contracts/Project/imports/Metadata.js')
 ///)
 
 class custom_nft {
 
   ///(functions
   /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT: COMPOSER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-  
+
   static async mintNFT(data) {
     if (data.account) {
       data.recipient = data.account

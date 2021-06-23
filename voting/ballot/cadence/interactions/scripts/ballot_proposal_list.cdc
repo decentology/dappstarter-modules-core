@@ -1,6 +1,6 @@
-import Ballot from Project.BallotContract
+import BallotContract from Project.BallotContract
 
 pub fun main(): [String] {
-    return Ballot.proposalList()
+    return BallotContract.proposalList()
 }
 

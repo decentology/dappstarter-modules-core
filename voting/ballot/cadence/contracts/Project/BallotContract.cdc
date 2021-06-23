@@ -28,7 +28,7 @@ pub contract BallotContract {
         pub var choices: {Int: Bool}
 
         init() {
-            self.proposals = Ballot.proposals
+            self.proposals = BallotContract.proposals
             self.choices = {}
             
             // Set each choice to false
