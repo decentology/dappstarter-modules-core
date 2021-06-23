@@ -56,15 +56,15 @@ pub contract BallotContract {
         // function to initialize all the proposals for the voting
         pub fun initializeProposals(_ proposals: [String]) {
             pre {
-                Ballot.proposals.length == 0: "Proposals can only be initialized once"
+                BallotContract.proposals.length == 0: "Proposals can only be initialized once"
                 proposals.length > 0: "Cannot initialize with no proposals"
             }
-            Ballot.proposals = proposals
+            BallotContract.proposals = proposals
 
             // Set each tally of votes to zero
             var i = 0
             while i < proposals.length {
-                Ballot.votes[i] = 0
+                BallotContract.votes[i] = 0
                 i = i + 1
             }
         }
