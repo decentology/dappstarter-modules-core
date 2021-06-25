@@ -1,7 +1,7 @@
 {
     "name": "hello_dev",
     "title": "Hello Dev",
-    "description": "Simple read and write example. This module is required for the Beta.",
+    "description": "Simple read and write example.",
     "imageUrl": "",
     "help": {
         "title": "",

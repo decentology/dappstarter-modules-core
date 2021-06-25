@@ -1,7 +1,7 @@
 {
     "name": "pack_nft",
     "title": "Pack NFT",
-    "description": "Pack NFT",
+    "description": "Pack-based NFTs (like NBATopShot) with Admin and Marketplace contracts.",
     "imageUrl": "",
     "help": {
         "title": "",
