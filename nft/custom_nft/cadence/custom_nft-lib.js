@@ -40,7 +40,6 @@ class custom_nft {
 
   static async provisionAccount(data) {
 
-    let config = DappLib.getConfig();
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
       roles: {
@@ -60,8 +59,6 @@ class custom_nft {
 
   static async transfer(data) {
 
-    let config = DappLib.getConfig();
-    let nftToGiveInt = parseInt(data.nftToGive)
     let result = await Blockchain.post({
       config: DappLib.getConfig(),
       roles: {
@@ -71,7 +68,7 @@ class custom_nft {
       'transfer',
       {
         receiverAddr: { value: data.accountReceiver, type: t.Address },
-        withdrawID: { value: nftToGiveInt, type: t.UInt64 }
+        withdrawID: { value: parseInt(data.withdrawID), type: t.UInt64 }
       }
     );
 
@@ -85,7 +82,6 @@ class custom_nft {
 
   static async readNFTs(data) {
 
-    let config = DappLib.getConfig();
     let result = await Blockchain.get({
       config: DappLib.getConfig(),
       roles: {
@@ -93,10 +89,10 @@ class custom_nft {
     },
       'read_nfts',
       {
-        accountAddr: { value: data.account, type: t.Address }
+        account: { value: data.account, type: t.Address }
       }
     );
-    console.log("Tokens...", result)
+
     return {
       type: DappLib.DAPP_RESULT_ARRAY,
       label: 'NFT Array',
@@ -107,7 +103,6 @@ class custom_nft {
 
   static async readNFTMetadata(data) {
 
-    let config = DappLib.getConfig();
     let result = await Blockchain.get({
       config: DappLib.getConfig(),
       roles: {
@@ -115,7 +110,7 @@ class custom_nft {
     },
       'read_metadata',
       {
-        accountAddr: { value: data.account, type: t.Address },
+        account: { value: data.account, type: t.Address },
         id: { value: parseInt(data.id), type: t.UInt64 }
       }
     );

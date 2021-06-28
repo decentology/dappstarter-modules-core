@@ -1,9 +1,9 @@
 import CustomNFTContract from Project.CustomNFTContract
 import Generator from Project.Generator
 
-pub fun main(accountAddr: Address, id: UInt64): Generator.Metadata {
+pub fun main(account: Address, id: UInt64): Generator.Metadata {
     // Get the public collection of the owner of the token
-    let collectionRef = getAccount(accountAddr)
+    let collectionRef = getAccount(account)
         .getCapability(/public/NFTCollection)
         .borrow<&{CustomNFTContract.CustomNFTCollectionPublic}>()
         ?? panic("Could not borrow capability from public collection")

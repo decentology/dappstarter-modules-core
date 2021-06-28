@@ -1,8 +1,8 @@
 import NonFungibleToken from Flow.NonFungibleToken
 
-pub fun main(accountAddr: Address): [UInt64] {
+pub fun main(account: Address): [UInt64] {
     // Get the public collection of the owner of the token
-    let collectionRef = getAccount(accountAddr)
+    let collectionRef = getAccount(account)
         .getCapability(/public/NFTCollection)
         .borrow<&{NonFungibleToken.CollectionPublic}>()
         ?? panic("Could not borrow capability from public collection")

@@ -189,7 +189,7 @@ class kitty_items {
         address: { value: data.address, type: t.Address }
       }
     );
-    console.log("Tokens...", result)
+
     return {
       type: DappLib.DAPP_RESULT_ARRAY,
       label: 'Kitty Items IDs',
@@ -356,7 +356,7 @@ class kitty_items {
         address: { value: data.address, type: t.Address }
       }
     );
-    console.log("Tokens...", result)
+
     return {
       type: DappLib.DAPP_RESULT_ARRAY,
       label: 'Market Collection IDs',
