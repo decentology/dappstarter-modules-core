@@ -1,5 +1,4 @@
 const assert = require('chai').assert;
-const spawn = require("cross-spawn");
 const DappLib = require('../src/dapp-lib.js');
 
 describe('Flow Dapp Tests', async () => {
