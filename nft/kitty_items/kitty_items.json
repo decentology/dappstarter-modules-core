@@ -1,7 +1,7 @@
 {
-    "name": "hello_dev",
-    "title": "Hello Dev",
-    "description": "Simple read and write example.",
+    "name": "kitty_items",
+    "title": "Kitty Items",
+    "description": "DappStarter implementation of Flow sample project.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -12,13 +12,12 @@
         "enabled": true,
         "children": "form"
     },
+    "parameters": [],
     "blockchains": [
-        "solana"
+        "flow"
     ],
     "languages": [
-        "rust"
+        "cadence"
     ],
-    "children": [],
-    "dependencies": {
-    }
+    "dependencies": {}
 }

@@ -11,7 +11,7 @@ class ballot {
 
     static async initializeProposals(data) {
 
-        let folder = true;
+        let folder = false;
         let config = DappLib.getConfig();
 
         config.ipfs = {

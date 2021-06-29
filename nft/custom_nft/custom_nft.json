@@ -1,0 +1,57 @@
+{
+    "name": "custom_nft",
+    "title": "Custom NFT",
+    "description": "User created NFT with customizable metadata options.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "customizable": true,
+    "parameters": [
+        {
+            "name": "template",
+            "type": "choice",
+            "description": "Define the NFT template to use",
+            "title": "Template",
+            "multiple": false,
+            "ui": "radio",
+            "options": [
+                {
+                    "name": "none",
+                    "title": "None",
+                    "description": ""
+                },
+                {
+                    "name": "collectible",
+                    "title": "Collectible",
+                    "description": ""
+                }
+            ],
+            "default": "collectible"
+        }
+    ],
+    "blockchains": [
+        "ethereum",
+        "polygon",
+        "avalanche",
+        "conflux"
+    ],
+    "languages": [
+        "cadence",
+        "solidity"
+    ],
+    "dependencies": {
+        "solidity": {
+            "access_control": [
+                "core-administrator_role"
+            ]
+        },
+        "cadence": {}
+    }
+}
