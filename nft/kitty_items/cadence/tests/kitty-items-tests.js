@@ -52,6 +52,48 @@ describe('Flow Dapp Tests', async () => {
             assert.equal(res2.result, 30.0, "Incorrect total number of Kibble")
         })
 
+        it(`cannot mint 0 kibble and doesn't affect supply`, async () => {
+            let testData1 = {
+                amount: "0.0",
+                recipient: config.accounts[0]
+            }
+
+            try {
+                await DappLib.kibbleMintTokens(testData1)
+            } catch (e) {
+                let res = await DappLib.kibbleGetSupply({})
+                assert.equal(res.result, 30.0, "Incorrect total number of Kibble")
+            }
+        })
+
+        it(`cannot withdraw more than vault has but balances and supply remain the same`, async () => {
+            let testData1 = {
+                signer: config.accounts[0],
+                amount: "100.0",
+                to: config.accounts[1]
+            }
+            let testData2 = {
+                address: config.accounts[0]
+            }
+            let testData3 = {
+                address: config.accounts[1]
+            }
+
+            try {
+                await DappLib.kibbleTransferTokens(testData1)
+            } catch (e) {
+                let res1 = await DappLib.kibbleGetBalance(testData2)
+                let res2 = await DappLib.kibbleGetBalance(testData3)
+
+                let res3 = await DappLib.kibbleGetSupply({})
+
+                assert.equal(res1.result, 30.0, "Admin has incorrect balance")
+                assert.equal(res2.result, 0.0, "User has incorrect balance")
+
+                assert.equal(res3.result, 30.0, "Incorrect total number of Kibble")
+            }
+        })
+
         it(`transfers kibble from admin to user`, async () => {
             let testData1 = {
                 signer: config.accounts[0],
@@ -75,7 +117,13 @@ describe('Flow Dapp Tests', async () => {
             assert.equal(res1.result, 20.0, "Admin has incorrect balance")
             assert.equal(res2.result, 10.0, "User has incorrect balance")
 
-            assert.equal(res3.result, 30.0, "Incorrect total number of Doubloons")
+            assert.equal(res3.result, 30.0, "Incorrect total number of Kibble")
+        })
+
+        it(`has 0 initial kittyitems in the supply`, async () => {
+            let res = await DappLib.kittyItemsReadKittyItemsSupply({})
+
+            assert.equal(res.result, 0, "There should be 0 initial KittyItems")
         })
 
         it(`mints 2 kittyitems into admin account and has correct collection information`, async () => {
@@ -111,6 +159,31 @@ describe('Flow Dapp Tests', async () => {
             assert.equal(res1.result, 2, "Incorrect total number of KittyItems")
 
             assert.equal(res2.result, 5, "KittyItem has incorrect typeID")
+        })
+
+        it(`safely fails when withdrawing kittyitem with wrong id`, async () => {
+            let testData1 = {
+                signer: config.accounts[0],
+                recipient: config.accounts[1],
+                withdrawID: "10"
+            }
+
+            let testData2 = {
+                address: config.accounts[0]
+            }
+            let testData3 = {
+                address: config.accounts[1]
+            }
+
+            try {
+                await DappLib.kittyItemsTransferKittyItem(testData1)
+            } catch (e) {
+                let res1 = await DappLib.kittyItemsReadCollectionLength(testData2)
+                let res2 = await DappLib.kittyItemsReadCollectionLength(testData3)
+
+                assert.equal(res1.result, 2, "Admin should have 2 KittyItems after fail")
+                assert.equal(res2.result, 0, "User should have 0 KittyItems after fail")
+            }
         })
 
         it(`transfers 2 kittyitems from admin to user and has correct collection information`, async () => {
