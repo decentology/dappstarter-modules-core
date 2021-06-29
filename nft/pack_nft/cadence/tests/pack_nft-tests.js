@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
-const spawn = require("cross-spawn");
 const DappLib = require('../src/dapp-lib.js');
+const fkill = require('fkill');
 
 describe('Flow Dapp Tests', async () => {
 
@@ -10,7 +10,9 @@ describe('Flow Dapp Tests', async () => {
         config = DappLib.getConfig();
     });
 
-    beforeEach(done => setTimeout(done, 500));
+    after(() => {
+        fkill(':3570');
+    });
 
     describe('\nPack NFT', async () => {
 

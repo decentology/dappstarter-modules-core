@@ -1,5 +1,6 @@
 const assert = require('chai').assert;
 const DappLib = require('../src/dapp-lib.js');
+const fkill = require('fkill');
 
 describe('Flow Dapp Tests', async () => {
 
@@ -19,7 +20,9 @@ describe('Flow Dapp Tests', async () => {
         await DappLib.provisionAccount(testData2);
     });
 
-    beforeEach(done => setTimeout(done, 500));
+    after(() => {
+        fkill(':3570');
+    });
 
     describe('Custom NFT', async () => {
 
@@ -31,21 +34,19 @@ describe('Flow Dapp Tests', async () => {
             assert.equal(res.result.length, 0, "Account provisioned incorrectly");
         });
 
-        it(`mint NFT into user account`, async () => {
+        it(`mints NFT into user account`, async () => {
             let testData = {
                 recipient: config.accounts[1],
                 metaData: { serial: "3" }
             }
             await DappLib.mintNFT(testData);
-        });
 
-        it(`user account has minted NFT`, async () => {
-            let testData = {
+            testData = {
                 account: config.accounts[1]
             }
             let res = await DappLib.readNFTs(testData);
 
-            assert.equal(res.result.length, 1, "Admin did not mint correctly or into the right account");
+            assert.equal(res.result.length, 1, "NFT did not mint correctly");
             assert.equal(res.result[0], 0, "Minted NFT has the wrong ID");
         });
 
@@ -72,7 +73,6 @@ describe('Flow Dapp Tests', async () => {
 
             assert.equal(res1.result.length, 1, "Account 1 has wrong number of NFTs");
             assert.equal(res2.result.length, 0, "Account 2 has wrong number of NFTs");
-
         });
 
         it(`transfer NFT between accounts`, async () => {
@@ -100,5 +100,7 @@ describe('Flow Dapp Tests', async () => {
             assert.equal(res2.result.length, 1, "Account 2 has wrong number of NFTs");
         });
     });
+
 });
+
 

@@ -1,6 +1,6 @@
 const assert = require('chai').assert;
-const spawn = require("cross-spawn");
 const DappLib = require('../src/dapp-lib.js');
+const fkill = require('fkill');
 
 describe('Flow Dapp Tests', async () => {
 
@@ -8,6 +8,10 @@ describe('Flow Dapp Tests', async () => {
     before('setup contract', async () => {
        // Setup tasks for tests
        config = DappLib.getConfig();
+    });
+
+    after(() => {
+        fkill(':3570');
     });
 
     describe('Voting — Ballot', async () => {
