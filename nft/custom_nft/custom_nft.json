@@ -40,11 +40,9 @@
         "ethereum",
         "polygon",
         "avalanche",
-        "conflux",
-        "flow"
+        "conflux"
     ],
     "languages": [
-        "cadence",
         "solidity"
     ],
     "dependencies": {

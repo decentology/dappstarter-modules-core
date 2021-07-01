@@ -1,0 +1,32 @@
+{
+    "name": "custom_nft",
+    "title": "Custom NFT",
+    "description": "User created NFT with customizable metadata options.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "customizable": true,
+    "parameters": [
+    ],
+    "blockchains": [
+        "flow"
+    ],
+    "languages": [
+        "cadence"
+    ],
+    "dependencies": {
+        "solidity": {
+            "access_control": [
+                "core-administrator_role"
+            ]
+        },
+        "cadence": {}
+    }
+}
