@@ -290,7 +290,7 @@ class pack_nft {
         acct: { value: data.acct, type: t.Address }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack Info',
@@ -312,7 +312,7 @@ class pack_nft {
         packType: { value: parseInt(data.packType), type: t.UInt64 }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack Type Info',
@@ -397,7 +397,7 @@ class pack_nft {
         adminAddr: { value: config.accounts[0], type: t.Address }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack ID | Price',
