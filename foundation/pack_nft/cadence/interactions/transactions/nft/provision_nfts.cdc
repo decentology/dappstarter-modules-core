@@ -1,6 +1,9 @@
 import NFTContract from Project.NFTContract
 import NonFungibleToken from Flow.NonFungibleToken
 
+// Sets up an account to handle NFTs. Must be called by an account before
+// interacting with NFTs or an error will be thrown.
+
 transaction {
 
   prepare(acct: AuthAccount) {

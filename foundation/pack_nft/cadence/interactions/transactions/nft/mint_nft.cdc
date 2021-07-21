@@ -1,16 +1,20 @@
 import AdminContract from Project.AdminContract
 
+// To be called by the admin to mint NFT(s)
+
 transaction(numberOfNFTs: UInt64) {
 
-  let minterRef: &AdminContract.Admin
+  let adminRef: &AdminContract.Admin
 
-  prepare(acct: AuthAccount) {
-    self.minterRef = acct.borrow<&AdminContract.Admin>(from: /storage/admin)
+  prepare(admin: AuthAccount) {
+    // Borrow a Admin resource reference
+    self.adminRef = admin.borrow<&AdminContract.Admin>(from: /storage/admin)
         ?? panic("Could not borrow the minter reference from the admin")
   }
 
   execute {
-    self.minterRef.mintNFTs(numberOfNFTs: numberOfNFTs)
+    // Calls mintNFTs on the Admin resource reference
+    self.adminRef.mintNFTs(numberOfNFTs: numberOfNFTs)
 
     log("Minted an NFT")
   }

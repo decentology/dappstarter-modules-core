@@ -62,6 +62,8 @@ pub contract AdminContract {
         }
 
         // mintNFTs
+        // a function that mints new NFT(s) and deposits
+        // them into the admin's NFT Collection.
         //
         pub fun mintNFTs(numberOfNFTs: UInt64) {
             // Gets the admin's Pack Collection

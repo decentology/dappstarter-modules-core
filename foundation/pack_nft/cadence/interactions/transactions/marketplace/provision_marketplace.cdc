@@ -2,6 +2,8 @@ import MarketplaceContract from Project.MarketplaceContract
 import FungibleToken from Flow.FungibleToken
 import NonFungibleToken from Flow.NonFungibleToken
 
+// Sets up the admin to list Packs for sale by giving them a SaleCollection
+
 transaction {
 
   prepare(acct: AuthAccount) {

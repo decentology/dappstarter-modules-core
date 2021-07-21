@@ -156,7 +156,7 @@ class pack_nft {
     );
 
     return {
-      type: DappLib.DAPP_RESULT_ARRAY,
+      type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Collectible Type',
       result: result.callData
     }
@@ -329,7 +329,7 @@ class pack_nft {
     },
       'packs_get_owned_packs',
       {
-        accountAddr: { value: data.account, type: t.Address }
+        acct: { value: data.account, type: t.Address }
       }
     );
 
@@ -394,7 +394,7 @@ class pack_nft {
     },
       'marketplace_get_packs_available',
       {
-        adminAddr: { value: config.accounts[0], type: t.Address }
+        admin: { value: config.accounts[0], type: t.Address }
       }
     );
 
@@ -417,7 +417,7 @@ class pack_nft {
       'marketplace_buy_pack',
       {
         id: { value: parseInt(data.id), type: t.UInt64 },
-        adminAddr: { value: config.accounts[0], type: t.Address }
+        admin: { value: config.accounts[0], type: t.Address }
       }
     );
 

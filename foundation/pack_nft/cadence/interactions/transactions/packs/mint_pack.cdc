@@ -1,16 +1,20 @@
 import AdminContract from Project.AdminContract
 
+// Called by the admin to mint a Pack.
+
 transaction(packType: UInt64, numberOfPacks: UInt64) {
 
-  let minterRef: &AdminContract.Admin
+  let adminRef: &AdminContract.Admin
 
-  prepare(acct: AuthAccount) {
-    self.minterRef = acct.borrow<&AdminContract.Admin>(from: /storage/admin)
+  prepare(admin: AuthAccount) {
+    // Borrows an Admin resource reference
+    self.adminRef = admin.borrow<&AdminContract.Admin>(from: /storage/admin)
         ?? panic("Could not borrow the minter reference from the admin")
   }
 
   execute {
-    self.minterRef.mintPacks(packType: packType, numberOfPacks: numberOfPacks)
+    // Calls mintPacks on the Admin resource reference
+    self.adminRef.mintPacks(packType: packType, numberOfPacks: numberOfPacks)
 
     log("Minted a pack")
   }
