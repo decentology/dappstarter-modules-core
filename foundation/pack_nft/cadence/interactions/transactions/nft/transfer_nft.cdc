@@ -6,7 +6,7 @@ import NonFungibleToken from Flow.NonFungibleToken
 transaction(id: UInt64, recipient: Address) {
   let nftCollectionRef: &NFTContract.Collection
 
-  let recipientNFTCollectionRef: &{NonFungibleToken.CollectionPublic}
+  let recipientNFTCollectionRef: &NFTContract.Collection{NonFungibleToken.CollectionPublic}
 
   prepare(giver: AuthAccount) {
       // Borrows the giver's NFT Collection
@@ -15,7 +15,7 @@ transaction(id: UInt64, recipient: Address) {
 
       // Borrows the recipient's NFT Collection
       self.recipientNFTCollectionRef = getAccount(recipient).getCapability(/public/nftCollection)
-          .borrow<&{NonFungibleToken.CollectionPublic}>()
+          .borrow<&NFTContract.Collection{NonFungibleToken.CollectionPublic}>()
           ?? panic("Could not borrow the public capability for the recipient's account")
     } 
 

@@ -6,8 +6,9 @@ import KittyItems from Project.KittyItemsMarket
 pub fun main(address: Address): [UInt64] {
     let account = getAccount(address)
 
-    let collectionRef = account.getCapability(KittyItems.CollectionPublicPath)!.borrow<&{NonFungibleToken.CollectionPublic}>()
-        ?? panic("Could not borrow capability from public collection")
+    let collectionRef = account.getCapability(KittyItems.CollectionPublicPath)
+                            .borrow<&{NonFungibleToken.CollectionPublic}>()
+                            ?? panic("Could not borrow capability from public collection")
     
     return collectionRef.getIDs()
 }

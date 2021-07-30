@@ -74,28 +74,6 @@ class pack_nft {
     }
   }
 
-  static async mintNFTs(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: config.accounts[0],
-      }
-    },
-      'nft_mint_nft',
-      {
-        numberOfNFTs: { value: parseInt(data.numberOfNFTs), type: t.UInt64 }
-      }
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-  }
-
   static async transferNFT(data) {
 
     let config = DappLib.getConfig();

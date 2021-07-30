@@ -6,7 +6,7 @@ import NonFungibleToken from Flow.NonFungibleToken
 pub fun main(acct: Address, id: UInt64): &NonFungibleToken.NFT {
   // Borrows the user's NFT Collection
   let acctNFTCollectionRef = getAccount(acct).getCapability(/public/nftCollection)
-            .borrow<&{NonFungibleToken.CollectionPublic}>()
+            .borrow<&NFTContract.Collection{NonFungibleToken.CollectionPublic}>()
             ?? panic("Could not borrow the public capability for the recipient's account")
   // Gets the info for the NFT with correct id
   let borrowedNFT = acctNFTCollectionRef.borrowNFT(id: id)

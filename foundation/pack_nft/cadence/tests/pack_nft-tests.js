@@ -224,9 +224,9 @@ describe('Flow Dapp Tests', async () => {
             let res1 = await DappLib.getNFTInfo(testData1)
             let res2 = await DappLib.getNFTInfo(testData2)
             let res3 = await DappLib.getNFTInfo(testData3)
-            assert.equal(res1.result[0], 0, "Newly minted NFT does not have the correct properties.")
-            assert.equal(res2.result[0], 1, "Newly minted NFT does not have the correct properties.")
-            assert.equal(res3.result[0], 2, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res1.result.id, 0, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res2.result.id, 1, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res3.result.id, 2, "Newly minted NFT does not have the correct properties.")
         })
 
         it(`transfers nft and has correct number of nfts in the accounts`, async () => {

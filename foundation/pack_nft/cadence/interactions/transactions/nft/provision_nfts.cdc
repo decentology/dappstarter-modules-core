@@ -17,7 +17,7 @@ transaction {
       acct.save(<-nftCollection, to: /storage/nftCollection)
 
       // create a public capability for the collection
-      acct.link<&{NonFungibleToken.CollectionPublic}>(/public/nftCollection, target: /storage/nftCollection)
+      acct.link<&NFTContract.Collection{NonFungibleToken.CollectionPublic}>(/public/nftCollection, target: /storage/nftCollection)
     
       log("Gave account a NFT collection")
     }

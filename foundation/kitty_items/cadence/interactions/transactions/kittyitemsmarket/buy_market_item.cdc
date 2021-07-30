@@ -1,40 +1,45 @@
-import Kibble from Project.Kibble
-import KittyItems from Project.KittyItems
 import FungibleToken from Flow.FungibleToken
-import NonFungibleToken from Flow.NonFungibleToken
 import KittyItemsMarket from Project.KittyItemsMarket
+import NonFungibleToken from Flow.NonFungibleToken
+import KittyItems from Project.KittyItems
+import Kibble from Project.Kibble
+
+// This transaction allows the signer to purchase a Kitty Item
+// with id == itemID from the marketCollectionAddress
 
 transaction(itemID: UInt64, marketCollectionAddress: Address) {
-    let paymentVault: @FungibleToken.Vault
-    let kittyItemsCollection: &KittyItems.Collection{NonFungibleToken.Receiver}
-    let marketCollection: &KittyItemsMarket.Collection{KittyItemsMarket.CollectionPublic}
 
+    let saleCollection: &KittyItemsMarket.SaleCollection{KittyItemsMarket.SalePublic}
+
+    let signerKibbleVaultRef: &Kibble.Vault
+
+    let buyerKittyItemsCollection: &KittyItems.Collection{NonFungibleToken.CollectionPublic}
+    
     prepare(signer: AuthAccount) {
-        self.marketCollection = getAccount(marketCollectionAddress)
-            .getCapability<&KittyItemsMarket.Collection{KittyItemsMarket.CollectionPublic}>(
-                KittyItemsMarket.CollectionPublicPath
-            )!
-            .borrow()
-            ?? panic("Could not borrow market collection from market address")
+        // Borrows the MarketCollectionAddress' public SaleCollection so we can purchase from it
+        self.saleCollection = getAccount(marketCollectionAddress).getCapability(KittyItemsMarket.MarketPublicPath)
+            .borrow<&KittyItemsMarket.SaleCollection{KittyItemsMarket.SalePublic}>()
+            ?? panic("Could not borrow the SaleCollection")
 
-        let saleItem = self.marketCollection.borrowSaleItem(itemID: itemID)
-                    ?? panic("No item with that ID")
-        let price = saleItem.price
+        // Borrow the signer's Kibble Vault as a reference
+        self.signerKibbleVaultRef = signer.borrow<&Kibble.Vault>(from: Kibble.VaultStoragePath)
+            ?? panic("Could not borrow reference to the owner's Vault!")
 
-        let mainKibbleVault = signer.borrow<&Kibble.Vault>(from: Kibble.VaultStoragePath)
-            ?? panic("Cannot borrow Kibble vault from acct storage")
-        self.paymentVault <- mainKibbleVault.withdraw(amount: price)
+        // Borrows the signer's Kitty Items Collection so we can deposit the newly purchased
+        // Kitty Item into it
+        self.buyerKittyItemsCollection = signer.getCapability(KittyItems.CollectionPublicPath)
+            .borrow<&KittyItems.Collection{NonFungibleToken.CollectionPublic}>()
+            ?? panic("Could not borrow from the signer's Kitty Items Collection")
 
-        self.kittyItemsCollection = signer.borrow<&KittyItems.Collection{NonFungibleToken.Receiver}>(
-            from: KittyItems.CollectionStoragePath
-        ) ?? panic("Cannot borrow KittyItems collection receiver from acct")
     }
 
     execute {
-        self.marketCollection.purchase(
-            itemID: itemID,
-            buyerCollection: self.kittyItemsCollection,
-            buyerPayment: <- self.paymentVault
-        )
+        // Checks the price of the Kitty Item we want to purchase
+        let cost = self.saleCollection.idPrice(itemID: itemID) ?? panic("A Kitty Item with this itemID is not up for sale")
+        // Withdraw the correct amount of tokens from the signer's FlowToken Vault
+        let vault <- self.signerKibbleVaultRef.withdraw(amount: cost)
+
+        // Purchase the Kitty Item
+        self.saleCollection.purchase(itemID: itemID, recipient: self.buyerKittyItemsCollection, buyTokens: <-vault)
     }
 }

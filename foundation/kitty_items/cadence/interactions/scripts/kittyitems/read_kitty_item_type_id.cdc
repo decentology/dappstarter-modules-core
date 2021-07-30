@@ -8,9 +8,9 @@ pub fun main(address: Address, itemID: UInt64): UInt64 {
     // get the public account object for the token owner
     let owner = getAccount(address)
 
-    let collectionBorrow = owner.getCapability(KittyItems.CollectionPublicPath)!
-        .borrow<&{KittyItems.KittyItemsCollectionPublic}>()
-        ?? panic("Could not borrow KittyItemsCollectionPublic")
+    let collectionBorrow = owner.getCapability(KittyItems.CollectionPublicPath)
+                                .borrow<&{KittyItems.KittyItemsCollectionPublic}>()
+                                ?? panic("Could not borrow KittyItemsCollectionPublic")
 
     // borrow a reference to a specific NFT in the collection
     let kittyItem = collectionBorrow.borrowKittyItem(id: itemID)

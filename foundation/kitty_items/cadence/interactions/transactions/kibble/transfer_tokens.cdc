@@ -10,29 +10,28 @@ import Kibble from Project.Kibble
 
 transaction(amount: UFix64, to: Address) {
 
-    // The Vault resource that holds the tokens that are being transferred
-    let sentVault: @FungibleToken.Vault
+    // A reference to the signer's stored vault
+    let vaultRef: &Kibble.Vault
+    // A reference to the recipient's Receiver
+    let receiverRef: &{FungibleToken.Receiver}
 
     prepare(signer: AuthAccount) {
 
         // Get a reference to the signer's stored vault
-        let vaultRef = signer.borrow<&Kibble.Vault>(from: Kibble.VaultStoragePath)
+        self.vaultRef = signer.borrow<&Kibble.Vault>(from: Kibble.VaultStoragePath)
 			?? panic("Could not borrow reference to the owner's Vault!")
 
-        // Withdraw tokens from the signer's stored vault
-        self.sentVault <- vaultRef.withdraw(amount: amount)
+        // Get a reference to the recipient's Receiver
+        self.receiverRef = getAccount(to).getCapability(Kibble.ReceiverPublicPath)
+                            .borrow<&{FungibleToken.Receiver}>()
+			                ?? panic("Could not borrow receiver reference to the recipient's Vault")
     }
 
     execute {
-
-        // Get the recipient's public account object
-        let recipient = getAccount(to)
-
-        // Get a reference to the recipient's Receiver
-        let receiverRef = recipient.getCapability(Kibble.ReceiverPublicPath)!.borrow<&{FungibleToken.Receiver}>()
-			?? panic("Could not borrow receiver reference to the recipient's Vault")
+        // Withdraw tokens from the signer's stored vault
+        let sentVault <- self.vaultRef.withdraw(amount: amount)
 
         // Deposit the withdrawn tokens in the recipient's receiver
-        receiverRef.deposit(from: <-self.sentVault)
+        self.receiverRef.deposit(from: <-sentVault)
     }
 }

@@ -1,40 +1,22 @@
-import Kibble from Project.Kibble
-import KittyItems from Project.KittyItems
-import FungibleToken from Flow.FungibleToken
-import NonFungibleToken from Flow.NonFungibleToken
 import KittyItemsMarket from Project.KittyItemsMarket
 
+// This transaction allows the signer to list a Kitty Item for sale
+// from their Kitty Items Collection
+
 transaction(itemID: UInt64, price: UFix64) {
-    let kibbleVault: Capability<&Kibble.Vault{FungibleToken.Receiver}>
-    let kittyItemsCollection: Capability<&KittyItems.Collection{NonFungibleToken.Provider, KittyItems.KittyItemsCollectionPublic}>
-    let marketCollection: &KittyItemsMarket.Collection
 
-    prepare(signer: AuthAccount) {
-        // we need a provider capability, but one is not provided by default so we create one.
-        let KittyItemsCollectionProviderPrivatePath = /private/kittyItemsCollectionProvider
+  let saleCollection: &KittyItemsMarket.SaleCollection
 
-        self.kibbleVault = signer.getCapability<&Kibble.Vault{FungibleToken.Receiver}>(Kibble.ReceiverPublicPath)!
-        assert(self.kibbleVault.borrow() != nil, message: "Missing or mis-typed Kibble receiver")
+  prepare(signer: AuthAccount) {
+      // Borrows the signer's SaleCollection
+      self.saleCollection = signer.borrow<&KittyItemsMarket.SaleCollection>(from: KittyItemsMarket.MarketStoragePath) 
+          ?? panic("Could not borrow the SaleCollection")
+  }
 
-        if !signer.getCapability<&KittyItems.Collection{NonFungibleToken.Provider, KittyItems.KittyItemsCollectionPublic}>(KittyItemsCollectionProviderPrivatePath)!.check() {
-            signer.link<&KittyItems.Collection{NonFungibleToken.Provider, KittyItems.KittyItemsCollectionPublic}>(KittyItemsCollectionProviderPrivatePath, target: KittyItems.CollectionStoragePath)
-        }
+  execute {
+      // Lists Packs for sale
+      self.saleCollection.listForSale(itemID: itemID, price: price)
 
-        self.kittyItemsCollection = signer.getCapability<&KittyItems.Collection{NonFungibleToken.Provider, KittyItems.KittyItemsCollectionPublic}>(KittyItemsCollectionProviderPrivatePath)!
-        assert(self.kittyItemsCollection.borrow() != nil, message: "Missing or mis-typed KittyItemsCollection provider")
-
-        self.marketCollection = signer.borrow<&KittyItemsMarket.Collection>(from: KittyItemsMarket.CollectionStoragePath)
-            ?? panic("Missing or mis-typed KittyItemsMarket Collection")
-    }
-
-    execute {
-        let offer <- KittyItemsMarket.createSaleOffer (
-            sellerItemProvider: self.kittyItemsCollection,
-            itemID: itemID,
-            typeID: self.kittyItemsCollection.borrow()!.borrowKittyItem(id: itemID)!.typeID,
-            sellerPaymentReceiver: self.kibbleVault,
-            price: price
-        )
-        self.marketCollection.insert(offer: <-offer)
-    }
+      log("Listed Kitty Items for sale")
+  }
 }
