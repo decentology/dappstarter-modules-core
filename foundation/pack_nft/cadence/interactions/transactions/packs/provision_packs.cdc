@@ -1,6 +1,9 @@
 import PackContract from Project.PackContract
 import NonFungibleToken from Flow.NonFungibleToken
 
+// Sets up an account to handle Packs. Must be called by an account before
+// interacting with Packs or an error will be thrown.
+
 transaction {
 
   prepare(acct: AuthAccount) {

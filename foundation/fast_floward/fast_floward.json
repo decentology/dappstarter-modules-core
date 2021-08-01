@@ -1,0 +1,23 @@
+{
+    "name": "fast_floward",
+    "title": "Fast Floward",
+    "description": "Kitty Items for the participants of the Fast Floward bootcamp.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "parameters": [],
+    "blockchains": [
+        "flow"
+    ],
+    "languages": [
+        "cadence"
+    ],
+    "dependencies": {}
+}

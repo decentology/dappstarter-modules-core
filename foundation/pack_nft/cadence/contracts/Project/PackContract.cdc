@@ -11,7 +11,7 @@ pub contract PackContract: NonFungibleToken {
     //
     // It maps the packType # to the 
     // information of that pack type
-    pub var packTypes: {UInt64: PackType}
+    access(account) var packTypes: {UInt64: PackType}
 
     // Event that emitted when the PackContract contract is initialized
     //

@@ -1,28 +1,36 @@
 import PackContract from Project.PackContract
 import MarketplaceContract from Project.MarketplaceContract
-import NonFungibleToken from Flow.NonFungibleToken
+
+// Transfers a Pack from the giver to the recipient.
 
 transaction(id: UInt64, recipient: Address) {
-  let pack: @NonFungibleToken.NFT
 
-  prepare(acct: AuthAccount) {
-    // This is to support peer to peer pack transfers
-    let packCollectionRef = acct.borrow<&PackContract.Collection>(from: /storage/packCollection)
+  let packCollectionRef: &PackContract.Collection
+
+  let recipientPackCollectionRef: &PackContract.Collection{PackContract.IPackCollectionPublic}
+
+  prepare(giver: AuthAccount) {
+    // Borrows the giver's Pack Collection
+    self.packCollectionRef = giver.borrow<&PackContract.Collection>(from: /storage/packCollection)
       ?? panic("Could not borrow the user's pack collection")
-    self.pack <- packCollectionRef.withdraw(withdrawID: id)
 
-    if let packSaleCollectionRef = acct.borrow<&MarketplaceContract.SaleCollection>(from: /storage/packSaleCollection) {
+    // Borrows the recipient's Pack Collection
+    self.recipientPackCollectionRef = getAccount(recipient).getCapability(/public/packCollection)
+      .borrow<&PackContract.Collection{PackContract.IPackCollectionPublic}>()
+      ?? panic("Could not borrow the public capability for the recipient's account")
+
+    // If the Pack owner currently has this Pack up for sale, take it off the market
+    if let packSaleCollectionRef = giver.borrow<&MarketplaceContract.SaleCollection>(from: /storage/packSaleCollection) {
       packSaleCollectionRef.unlistSale(id: id)
     }
   }
 
   execute {
-    let recipientAccount = getAccount(recipient)
-    let recipientPackCollectionRef = recipientAccount.getCapability(/public/packCollection)
-        .borrow<&PackContract.Collection{PackContract.IPackCollectionPublic}>()
-        ?? panic("Could not borrow the public capability for the recipient's account")
+    // Withdraw the Pack from the giver's Pack Collection
+    let pack <- self.packCollectionRef.withdraw(withdrawID: id)
     
-    recipientPackCollectionRef.deposit(token: <- self.pack)
+    // Deposit the Pack into the recipient's Pack Collection
+    self.recipientPackCollectionRef.deposit(token: <- pack)
 
     log("Transfered the pack from the giver to the recipient")
   }

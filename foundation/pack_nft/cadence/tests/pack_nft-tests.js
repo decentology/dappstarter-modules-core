@@ -224,9 +224,9 @@ describe('Flow Dapp Tests', async () => {
             let res1 = await DappLib.getNFTInfo(testData1)
             let res2 = await DappLib.getNFTInfo(testData2)
             let res3 = await DappLib.getNFTInfo(testData3)
-            assert.equal(res1.result[0], 0, "Newly minted NFT does not have the correct properties.")
-            assert.equal(res2.result[0], 1, "Newly minted NFT does not have the correct properties.")
-            assert.equal(res3.result[0], 2, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res1.result.id, 0, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res2.result.id, 1, "Newly minted NFT does not have the correct properties.")
+            assert.equal(res3.result.id, 2, "Newly minted NFT does not have the correct properties.")
         })
 
         it(`transfers nft and has correct number of nfts in the accounts`, async () => {
@@ -267,21 +267,19 @@ describe('Flow Dapp Tests', async () => {
             try {
                 await DappLib.buyPack(testData1)
             } catch (e) {
-
+                let res1 = await DappLib.getOwnedPacks(testData2)
+                let res2 = await DappLib.getOwnedPacks(testData3)
+                let res3 = await DappLib.getFlowBalance(testData3)
+                assert.equal(res1.result.length, 5, "Transferred a pack when it wasn't supposed to.")
+                assert.equal(res2.result.length, 0, "Transferred a pack when it wasn't supposed to.")
+                assert.equal(res3.result, 1030.001, "Money was spent when it wasn't supposed to.")
             }
-
-            let res1 = await DappLib.getOwnedPacks(testData2)
-            let res2 = await DappLib.getOwnedPacks(testData3)
-            let res3 = await DappLib.getFlowBalance(testData3)
-            assert.equal(res1.result.length, 5, "Transferred a pack when it wasn't supposed to.")
-            assert.equal(res2.result.length, 0, "Transferred a pack when it wasn't supposed to.")
-            assert.equal(res3.result, 1030.001, "Money was spent when it wasn't supposed to.")
         })
 
         it(`buys a pack and has correct number of packs in the accounts`, async () => {
             let testData1 = {
                 recipient: config.accounts[1],
-                id: 0
+                id: 5
             }
             let testData2 = {
                 account: config.accounts[0]
@@ -300,7 +298,7 @@ describe('Flow Dapp Tests', async () => {
 
         it(`has correct pack type after buying a pack`, async () => {
             let testData = {
-                id: 0,
+                id: 5,
                 acct: config.accounts[1]
             }
 

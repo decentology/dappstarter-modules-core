@@ -36,7 +36,7 @@ pub contract Kibble: FungibleToken {
     pub let VaultStoragePath: StoragePath
     pub let ReceiverPublicPath: PublicPath
     pub let BalancePublicPath: PublicPath
-    pub let AdminStoragePath: StoragePath
+    pub let MinterStoragePath: StoragePath
 
     // Total supply of Kibbles in existence
     pub var totalSupply: UFix64
@@ -115,26 +115,11 @@ pub contract Kibble: FungibleToken {
         return <-create Vault(balance: 0.0)
     }
 
-    pub resource Administrator {
-
-        // createNewMinter
-        //
-        // Function that creates and returns a new minter resource
-        //
-        pub fun createNewMinter(allowedAmount: UFix64): @Minter {
-            emit MinterCreated(allowedAmount: allowedAmount)
-            return <-create Minter(allowedAmount: allowedAmount)
-        }
-    }
-
     // Minter
     //
-    // Resource object that token admin accounts can hold to mint new tokens.
+    // Resource object to mint new tokens.
     //
     pub resource Minter {
-
-        // The amount of tokens that the minter is allowed to mint
-        pub var allowedAmount: UFix64
 
         // mintTokens
         //
@@ -144,33 +129,31 @@ pub contract Kibble: FungibleToken {
         pub fun mintTokens(amount: UFix64): @Kibble.Vault {
             pre {
                 amount > 0.0: "Amount minted must be greater than zero"
-                amount <= self.allowedAmount: "Amount minted must be less than the allowed amount"
             }
             Kibble.totalSupply = Kibble.totalSupply + amount
-            self.allowedAmount = self.allowedAmount - amount
+            
             emit TokensMinted(amount: amount)
             return <-create Vault(balance: amount)
         }
 
-        init(allowedAmount: UFix64) {
-            self.allowedAmount = allowedAmount
+        init() {
+    
         }
     }
 
     init() {
         // Set our named paths.
-        //FIXME: REMOVE SUFFIX BEFORE RELEASE
-        self.VaultStoragePath = /storage/kibbleVault002
-        self.ReceiverPublicPath = /public/kibbleReceiver002
-        self.BalancePublicPath = /public/kibbleBalance002
-        self.AdminStoragePath = /storage/kibbleAdmin002
+        self.VaultStoragePath = /storage/kibbleVault
+        self.ReceiverPublicPath = /public/kibbleReceiver
+        self.BalancePublicPath = /public/kibbleBalance
+        self.MinterStoragePath = /storage/kibbleMinter
 
         // Initialize contract state.
         self.totalSupply = 0.0
 
-        // Create the one true Admin object and deposit it into the conttract account.
-        let admin <- create Administrator()
-        self.account.save(<-admin, to: self.AdminStoragePath)
+        // Create the one true Minter object and deposit it into the conttract account.
+        let minter <- create Minter()
+        self.account.save(<-minter, to: self.MinterStoragePath)
 
         // Emit an event that shows that the contract was initialized.
         emit TokensInitialized(initialSupply: self.totalSupply)

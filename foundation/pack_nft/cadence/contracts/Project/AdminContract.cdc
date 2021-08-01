@@ -61,23 +61,6 @@ pub contract AdminContract {
             }
         }
 
-        // mintNFTs
-        //
-        pub fun mintNFTs(numberOfNFTs: UInt64) {
-            // Gets the admin's Pack Collection
-            let adminNFTCollection = AdminContract.account.borrow<&{NonFungibleToken.CollectionPublic}>(from: /storage/nftCollection)!
-
-            var i: UInt64 = 0
-            while i < numberOfNFTs {
-                let newPack <- NFTContract.mintNFT()
-            
-                // Adds the new NFT to the admin's NFT Collection
-                adminNFTCollection.deposit(token: <- newPack)
-
-                i = i + (1 as UInt64)
-            }
-        }
-
         // createAdmin
         // only an admin can ever create
         // a new Admin resource
@@ -93,5 +76,28 @@ pub contract AdminContract {
 
     init() {
         self.account.save(<- create Admin(), to: /storage/admin)
+
+        /* store an nft collection */
+
+        // create a new empty collection
+        let nftCollection <- NFTContract.createEmptyCollection()
+                
+        // save it to the account
+        self.account.save(<-nftCollection, to: /storage/nftCollection)
+
+        // create a public capability for the collection
+        self.account.link<&NFTContract.Collection{NonFungibleToken.CollectionPublic}>(/public/nftCollection, target: /storage/nftCollection)
+
+
+        /* store a pack collection */
+
+        // create a new empty collection
+        let packCollection <- PackContract.createEmptyCollection()
+                
+        // save it to the account
+        self.account.save(<-packCollection, to: /storage/packCollection)
+
+        // create a public capability for the collection
+        self.account.link<&PackContract.Collection{PackContract.IPackCollectionPublic, PackContract.IPackCollectionAdminAccessible, NonFungibleToken.CollectionPublic}>(/public/packCollection, target: /storage/packCollection)
     }
 }

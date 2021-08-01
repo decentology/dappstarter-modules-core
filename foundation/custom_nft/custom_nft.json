@@ -13,8 +13,7 @@
         "children": "form"
     },
     "customizable": true,
-    "parameters": [
-    ],
+    "parameters": [],
     "blockchains": [
         "flow"
     ],
@@ -22,11 +21,6 @@
         "cadence"
     ],
     "dependencies": {
-        "solidity": {
-            "access_control": [
-                "core-administrator_role"
-            ]
-        },
         "cadence": {}
     }
 }

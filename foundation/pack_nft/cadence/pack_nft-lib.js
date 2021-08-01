@@ -74,28 +74,6 @@ class pack_nft {
     }
   }
 
-  static async mintNFTs(data) {
-
-    let config = DappLib.getConfig();
-    let result = await Blockchain.post({
-      config: config,
-      roles: {
-        proposer: config.accounts[0],
-      }
-    },
-      'nft_mint_nft',
-      {
-        numberOfNFTs: { value: parseInt(data.numberOfNFTs), type: t.UInt64 }
-      }
-    );
-
-    return {
-      type: DappLib.DAPP_RESULT_TX_HASH,
-      label: 'Transaction Hash',
-      result: result.callData.transactionId
-    }
-  }
-
   static async transferNFT(data) {
 
     let config = DappLib.getConfig();
@@ -156,7 +134,7 @@ class pack_nft {
     );
 
     return {
-      type: DappLib.DAPP_RESULT_ARRAY,
+      type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Collectible Type',
       result: result.callData
     }
@@ -290,7 +268,7 @@ class pack_nft {
         acct: { value: data.acct, type: t.Address }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack Info',
@@ -312,7 +290,7 @@ class pack_nft {
         packType: { value: parseInt(data.packType), type: t.UInt64 }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack Type Info',
@@ -329,7 +307,7 @@ class pack_nft {
     },
       'packs_get_owned_packs',
       {
-        accountAddr: { value: data.account, type: t.Address }
+        acct: { value: data.account, type: t.Address }
       }
     );
 
@@ -394,10 +372,10 @@ class pack_nft {
     },
       'marketplace_get_packs_available',
       {
-        adminAddr: { value: config.accounts[0], type: t.Address }
+        admin: { value: config.accounts[0], type: t.Address }
       }
     );
-    console.log(result.callData)
+
     return {
       type: DappLib.DAPP_RESULT_OBJECT,
       label: 'Pack ID | Price',
@@ -417,7 +395,7 @@ class pack_nft {
       'marketplace_buy_pack',
       {
         id: { value: parseInt(data.id), type: t.UInt64 },
-        adminAddr: { value: config.accounts[0], type: t.Address }
+        admin: { value: config.accounts[0], type: t.Address }
       }
     );
 
