@@ -3,7 +3,7 @@
 
 // This transction uses the NFTMinter resource to mint a new NFT.
 //
-// It must be run with the account that has the minter resource
+// It must be signed by the account that has the minter resource
 // stored at path 'KittyItems.MinterStoragePath'.
 
 transaction(recipient: Address, typeID: UInt64) {
@@ -23,7 +23,7 @@ transaction(recipient: Address, typeID: UInt64) {
 
     execute {
 
-        // 3) mint the NFT and deposit it into the recipient's collection
+        // 3) mint the NFT and deposit it into the recipient's Collection
         
     }
 }

@@ -12,7 +12,7 @@ transaction(recipient: Address, withdrawID: UInt64) {
 
     prepare(signer: AuthAccount) {
 
-        // 1) borrow a reference to the signer's Kitty Items collection
+        // 1) borrow a reference to the signer's Kitty Items Collection
 
         // 2) borrow a public reference to the recipient's Kitty Items Collection
 
@@ -20,9 +20,9 @@ transaction(recipient: Address, withdrawID: UInt64) {
 
     execute {
 
-        // 3) withdraw the Kitty Item from the signer's collection
+        // 3) withdraw the Kitty Item from the signer's Collection
 
-        // 4) deposit the Kitty Item into the recipient's collection
+        // 4) deposit the Kitty Item into the recipient's Collection
        
     }
 }

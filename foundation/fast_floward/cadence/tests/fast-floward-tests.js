@@ -270,7 +270,8 @@ describe('Flow Dapp Tests', async () => {
 
             // 7) assert the result from step 5) shows the SaleCollection has length 1
 
-            // 8) assert the result from step 6) shows the SaleCollection has an itemID == 1 in it
+            // 8) assert the result (an array) from step 6) shows the SaleCollection has 
+            // an itemID == 1 in it at index 0
         })
 
         it(`buys a kittyitem`, async () => {
