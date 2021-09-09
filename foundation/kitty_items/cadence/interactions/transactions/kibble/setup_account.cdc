@@ -1,5 +1,5 @@
-import FungibleToken from Flow.FungibleToken
-import Kibble from Project.Kibble
+import Kibble from "../../../contracts/Project/Kibble.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 // This transaction is a template for a transaction
 // to add a Vault resource to their account

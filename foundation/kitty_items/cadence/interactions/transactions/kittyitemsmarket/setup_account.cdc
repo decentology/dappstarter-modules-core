@@ -1,8 +1,8 @@
-import KittyItemsMarket from Project.KittyItemsMarket
-import FungibleToken from Flow.FungibleToken
-import NonFungibleToken from Flow.NonFungibleToken
-import KittyItems from Project.KittyItems
-import Kibble from Project.Kibble
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
+import Kibble from "../../../contracts/Project/Kibble.cdc"
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import KittyItems from "../../../contracts/Project/KittyItems.cdc"
 
 // This transaction is confusing. But, all it's doing is allowing the signer
 // to setup their account so they can list Kitty Items for sale. This happens in a few steps:

@@ -1,5 +1,5 @@
-import NFTContract from Project.NFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import NFTContract from "../../../contracts/Project/NFTContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
 
 // Sets up an account to handle NFTs. Must be called by an account before
 // interacting with NFTs or an error will be thrown.

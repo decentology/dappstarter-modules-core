@@ -1,7 +1,7 @@
-import FungibleToken from Flow.FungibleToken
-import MarketplaceContract from Project.MarketplaceContract
-import NonFungibleToken from Flow.NonFungibleToken
-import FlowToken from Flow.FlowToken
+import MarketplaceContract from "../../../contracts/Project/MarketplaceContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import FlowToken from "../../../contracts/Flow/FlowToken.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 // Buys a Pack from the admin's Pack Collection
 

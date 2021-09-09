@@ -1,4 +1,4 @@
-import NonFungibleToken from Flow.NonFungibleToken
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract NFTContract: NonFungibleToken {
     // The total number of NFTs in existence

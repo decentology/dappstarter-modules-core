@@ -1,4 +1,4 @@
-import AdminContract from Project.AdminContract
+import AdminContract from "../../../contracts/Project/AdminContract.cdc"
 
 // Should be called by the admin to create a new Pack Type.
 

@@ -1,4 +1,4 @@
-import MarketplaceContract from Project.MarketplaceContract
+import MarketplaceContract from "../../../contracts/Project/MarketplaceContract.cdc"
 
 // This should be called by the admin to list Packs for sale in 
 // their SaleCollection

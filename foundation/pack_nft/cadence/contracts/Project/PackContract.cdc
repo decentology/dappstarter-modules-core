@@ -1,5 +1,5 @@
-import NFTContract from Project.NFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import NFTContract from "./NFTContract.cdc"
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract PackContract: NonFungibleToken {
     // The total number of Packs that have been minted
