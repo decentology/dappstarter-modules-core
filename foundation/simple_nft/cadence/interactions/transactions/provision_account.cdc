@@ -1,5 +1,5 @@
-import CustomNFTContract from Project.CustomNFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import SimpleNFTContract from "../../contracts/Project/SimpleNFTContract.cdc"
+import NonFungibleToken from "../../contracts/Flow/NonFungibleToken.cdc"
 
 // This transaction is what an account would run
 // to set itself up to receive NFTs
@@ -9,23 +9,23 @@ transaction {
     prepare(acct: AuthAccount) {
 
         // Return early if the account already has a collection
-        if acct.borrow<&CustomNFTContract.Collection>(from: /storage/NFTCollection) != nil {
+        if acct.borrow<&SimpleNFTContract.Collection>(from: /storage/NFTCollection) != nil {
             return
         }
 
         // Create a new empty collection
-        let collection <- CustomNFTContract.createEmptyCollection()
+        let collection <- SimpleNFTContract.createEmptyCollection()
 
         // save it to the account
         acct.save(<-collection, to: /storage/NFTCollection)
 
         // create a public capability for the collection
-        acct.link<&{CustomNFTContract.CustomNFTCollectionPublic, NonFungibleToken.CollectionPublic}>(
+        acct.link<&{SimpleNFTContract.SimpleNFTCollectionPublic, NonFungibleToken.CollectionPublic}>(
             /public/NFTCollection,
             target: /storage/NFTCollection
         )
 
-        let collectionRef = acct.getCapability<&{CustomNFTContract.CustomNFTCollectionPublic, NonFungibleToken.CollectionPublic}>(/public/NFTCollection)
+        let collectionRef = acct.getCapability<&{SimpleNFTContract.SimpleNFTCollectionPublic, NonFungibleToken.CollectionPublic}>(/public/NFTCollection)
         assert(collectionRef.borrow() != nil, message: "Missing or mis-typed Collection")
     }
 }

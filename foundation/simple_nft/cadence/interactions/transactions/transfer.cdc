@@ -1,5 +1,5 @@
-import CustomNFTContract from Project.CustomNFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import SimpleNFTContract from "../../contracts/Project/SimpleNFTContract.cdc"
+import NonFungibleToken from "../../contracts/Flow/NonFungibleToken.cdc"
 
 transaction(receiverAddr: Address, withdrawID: UInt64) {
 
@@ -9,7 +9,7 @@ transaction(receiverAddr: Address, withdrawID: UInt64) {
         let recipient = getAccount(receiverAddr)
 
         // borrow a reference to the signer's NFT collection
-        let collectionRef = acct.borrow<&CustomNFTContract.Collection>(from: /storage/NFTCollection)
+        let collectionRef = acct.borrow<&SimpleNFTContract.Collection>(from: /storage/NFTCollection)
             ?? panic("Could not borrow a reference to the owner's collection")
 
         // borrow a public reference to the receivers collection

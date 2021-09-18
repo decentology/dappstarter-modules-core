@@ -6,6 +6,8 @@ import "../components/account-widget.js";
 import "../components/text-widget.js";
 import "../components/number-widget.js";
 import "../components/switch-widget.js";
+import "../components/array-widget.js"
+import "../components/dictionary-widget.js"
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";

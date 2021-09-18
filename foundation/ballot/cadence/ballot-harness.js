@@ -6,6 +6,8 @@ import "../components/account-widget.js";
 import "../components/text-widget.js";
 import "../components/number-widget.js";
 import "../components/upload-widget.js";
+import "../components/array-widget.js"
+import "../components/dictionary-widget.js"
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
 
@@ -29,72 +31,34 @@ export default class BallotHarness extends LitElement {
   render() {
 
     let content = html`
-      <page-body
-        title="${this.title}"
-        category="${this.category}"
-        description="${this.description}"
-      >
-
-        <action-card
-          title="Initialize Proposals"
-          description="Initializes proposals for voting."
-          action="initializeProposals"
-          method="post"
-          fields="admin files"
-        >
-          <account-widget
-              field="admin"
-              label="Administrator"
-              placeholder="Account address"
-            >
-            </account-widget>
-
-            <upload-widget data-field="files"
-                        field="file" label="Ballot Proposals" 
-                        placeholder="Select ballot proposals" 
-                        multiple="true">
-            </upload-widget>
-
+      <page-body title="${this.title}" category="${this.category}" description="${this.description}">
+      
+        <action-card title="Initialize Proposals" description="Initializes proposals for voting." action="initializeProposals"
+          method="post" fields="admin files">
+          <account-widget field="admin" label="Administrator" placeholder="Account address">
+          </account-widget>
+      
+          <upload-widget data-field="files" field="file" label="Ballot Proposals" placeholder="Select ballot proposals"
+            multiple="true">
+          </upload-widget>
+      
         </action-card>
-
-        <action-card
-          title="Issue Ballot"
-          description="Issues a ballot to an account for voting."
-          action="issueBallot"
-          method="post"
-          fields="admin voter"
-        >
-          <account-widget
-            field="admin"
-            label="Administrator"
-            placeholder="Account address"
-          >
+      
+        <action-card title="Issue Ballot" description="Issues a ballot to an account for voting." action="issueBallot"
+          method="post" fields="admin voter">
+          <account-widget field="admin" label="Administrator" placeholder="Account address">
           </account-widget>
-
-          <account-widget
-            field="voter"
-            label="Voter"
-            placeholder="Account address"
-          >
+      
+          <account-widget field="voter" label="Voter" placeholder="Account address">
           </account-widget>
-
+      
         </action-card>
-
-        <action-card
-          title="Vote"
-          description="Vote on an issue"
-          action="vote"
-          method="post"
-          fields="voter proposalIndex"
-        >
-          <account-widget
-            field="voter"
-            label="Voter"
-            placeholder="Account address"
-          >
+      
+        <action-card title="Vote" description="Vote on an issue" action="vote" method="post" fields="voter proposalIndex">
+          <account-widget field="voter" label="Voter" placeholder="Account address">
           </account-widget>
-
-          <label>Proposal</label>: 
+      
+          <label>Proposal</label>:
           <select data-field="proposalIndex">
             <option value="0">1</option>
             <option value="1">2</option>
@@ -102,18 +66,12 @@ export default class BallotHarness extends LitElement {
             <option value="3">4</option>
             <option value="4">5</option>
           </select>
-
+      
         </action-card>
-
-        <action-card
-          title="Proposal List"
-          description="Proposal List"
-          action="getProposalList"
-          method="get"
-          fields=""
-        >
+      
+        <action-card title="Proposal List" description="Proposal List" action="getProposalList" method="get" fields="">
         </action-card>
-
+      
       </page-body>
       <page-panel id="resultPanel"></page-panel>
     `;

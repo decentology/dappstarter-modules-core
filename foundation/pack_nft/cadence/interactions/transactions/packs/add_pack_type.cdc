@@ -2,7 +2,7 @@ import AdminContract from "../../../contracts/Project/AdminContract.cdc"
 
 // Should be called by the admin to create a new Pack Type.
 
-transaction(packType: UInt64, numberOfNFTs: UInt64) {
+transaction(packType: UInt64, numberOfNFTs: UInt64, ipfsHash: String) {
 
   let adminRef: &AdminContract.Admin
   prepare(admin: AuthAccount) {
@@ -13,7 +13,7 @@ transaction(packType: UInt64, numberOfNFTs: UInt64) {
 
   execute {
       // Calls addPackType on the Admin resource reference
-      self.adminRef.addPackType(packType: packType, numberOfNFTs: numberOfNFTs)
+      self.adminRef.addPackType(packType: packType, numberOfNFTs: numberOfNFTs, ipfsHash: ipfsHash)
       
       log("Added new pack type")
   }

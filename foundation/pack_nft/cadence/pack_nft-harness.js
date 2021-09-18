@@ -6,6 +6,9 @@ import "../components/account-widget.js";
 import "../components/text-widget.js";
 import "../components/number-widget.js";
 import "../components/switch-widget.js";
+import "../components/array-widget.js"
+import "../components/dictionary-widget.js"
+import "../components/upload-widget.js"
 
 import DappLib from "@decentology/dappstarter-dapplib";
 import { LitElement, html, customElement, property } from "lit-element";
@@ -79,13 +82,16 @@ export default class PackNFTHarness extends LitElement {
         </action-card>
       
         <action-card title="Packs - Add Pack Type" description="Add a new Pack Type to mint" action="addPackType"
-          method="post" fields="packType numberOfNFTs">
+          method="post" fields="packType numberOfNFTs files">
       
           <text-widget field="packType" label="Pack Type" placeholder="5">
           </text-widget>
       
           <text-widget field="numberOfNFTs" label="Number of NFT" placeholder="3">
           </text-widget>
+      
+          <upload-widget data-field="files" field="file" label="NFT Metadata" placeholder="Add NFT Metadata" multiple="true">
+          </upload-widget>
       
         </action-card>
       

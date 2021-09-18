@@ -26,6 +26,7 @@ pub contract NFTContract: NonFungibleToken {
     pub resource NFT: NonFungibleToken.INFT {
         // unique id (completely sequential)
         pub let id: UInt64
+        
 
         // initializer
         //
