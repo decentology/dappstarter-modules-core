@@ -21,7 +21,7 @@ class simple_nft {
 
     // Push files to IPFS
     let ipfsResult = await DappLib.ipfsUpload(config, data.files, folder, (bytes) => {
-      console.log(bytes);
+
     });
 
     let result = await Blockchain.post({

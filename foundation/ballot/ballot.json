@@ -1,7 +1,7 @@
 {
     "name": "ballot",
     "title": "Ballot Voting",
-    "description": "Create a simple voting system with a ballot.",
+    "description": "Create a simple voting system with a ballot with IPFS integration.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -12,9 +12,12 @@
         "enabled": true,
         "children": "form"
     },
-    "parameters": [
+    "parameters": [],
+    "blockchains": [
+        "flow"
     ],
-    "blockchains": ["flow"],
-    "languages": ["cadence"],
+    "languages": [
+        "cadence"
+    ],
     "dependencies": {}
 }
