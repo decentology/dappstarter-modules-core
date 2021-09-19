@@ -1,4 +1,4 @@
-import NonFungibleToken from Flow.NonFungibleToken
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 // KittyItems
 // NFT items for Kitties!

@@ -1,7 +1,6 @@
-import Generator from Project.Generator
-import NonFungibleToken from Flow.NonFungibleToken
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
-pub contract CustomNFTContract: NonFungibleToken {
+pub contract SimpleNFTContract: NonFungibleToken {
 
     pub var totalSupply: UInt64
 
@@ -23,19 +22,20 @@ pub contract CustomNFTContract: NonFungibleToken {
     pub resource NFT: NonFungibleToken.INFT {
         pub let id: UInt64
 
-        pub var metadata: Generator.Metadata
+        pub var ipfsHash: String
 
-        init(_initID: UInt64, _metadata: Generator.Metadata) {
-            self.id = _initID
-            self.metadata = _metadata
+        init(_ipfsHash: String) {
+            self.id = SimpleNFTContract.totalSupply
+            SimpleNFTContract.totalSupply = SimpleNFTContract.totalSupply + (1 as UInt64)
+            self.ipfsHash = _ipfsHash
         }
     }
 
-    pub resource interface CustomNFTCollectionPublic {
+    pub resource interface SimpleNFTCollectionPublic {
         pub fun deposit(token: @NonFungibleToken.NFT)
         pub fun getIDs(): [UInt64]
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
-        pub fun borrowNFTMetadata(id: UInt64): &CustomNFTContract.NFT? {
+        pub fun borrowNFTMetadata(id: UInt64): &SimpleNFTContract.NFT? {
             // If the result isn't nil, the id of the returned reference
             // should be the same as the argument to the function
             post {
@@ -45,7 +45,7 @@ pub contract CustomNFTContract: NonFungibleToken {
         }
     }
 
-    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CustomNFTCollectionPublic {
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, SimpleNFTCollectionPublic {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
         pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
@@ -66,7 +66,7 @@ pub contract CustomNFTContract: NonFungibleToken {
         // deposit takes a NFT and adds it to the collections dictionary
         // and adds the ID to the id array
         pub fun deposit(token: @NonFungibleToken.NFT) {
-            let token <- token as! @CustomNFTContract.NFT
+            let token <- token as! @SimpleNFTContract.NFT
 
             let id: UInt64 = token.id
 
@@ -91,10 +91,10 @@ pub contract CustomNFTContract: NonFungibleToken {
 
         // borrowNFTMetadata gets a reference to an NFT in the collection
         // so that the caller can read its id and metadata
-        pub fun borrowNFTMetadata(id: UInt64): &CustomNFTContract.NFT? {
+        pub fun borrowNFTMetadata(id: UInt64): &SimpleNFTContract.NFT? {
             if self.ownedNFTs[id] != nil {
                 let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
-                return ref as! &CustomNFTContract.NFT
+                return ref as! &SimpleNFTContract.NFT
             } else {
                 return nil
             }
@@ -117,15 +117,13 @@ pub contract CustomNFTContract: NonFungibleToken {
 
         // mintNFT mints a new NFT with a new ID
         // and deposit it in the recipients collection using their collection reference
-        pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: Generator.Metadata) {
+        pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, ipfsHash: String) {
 
             // create a new NFT
-            var newNFT <- create NFT(_initID: CustomNFTContract.totalSupply, _metadata: metadata)
+            var newNFT <- create NFT(_ipfsHash: ipfsHash)
 
             // deposit it in the recipient's account using their reference
             recipient.deposit(token: <-newNFT)
-
-            CustomNFTContract.totalSupply = CustomNFTContract.totalSupply + UInt64(1)
         }
     }
 }

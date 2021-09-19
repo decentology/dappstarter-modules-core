@@ -1,4 +1,4 @@
-import BallotContract from Project.BallotContract
+import BallotContract from "../../contracts/Project/BallotContract.cdc"
 
 transaction(proposalVote: Int) {
 

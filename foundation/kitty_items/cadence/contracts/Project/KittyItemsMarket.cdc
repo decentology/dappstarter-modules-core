@@ -1,7 +1,7 @@
-import FungibleToken from Flow.FungibleToken
-import KittyItems from Project.KittyItems
-import Kibble from Project.Kibble
-import NonFungibleToken from Flow.NonFungibleToken
+import FungibleToken from "../Flow/FungibleToken.cdc"
+import KittyItems from "../Project/KittyItems.cdc"
+import Kibble from "../Project/Kibble.cdc"
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract KittyItemsMarket {
     // Event that is emitted when a new NFT is put up for sale

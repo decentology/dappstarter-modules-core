@@ -1,5 +1,5 @@
-import FungibleToken from Flow.FungibleToken
-import FlowToken from Flow.FlowToken
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
+import FlowToken from "../../../contracts/Flow/FlowToken.cdc"
 
 // Returns the balance of a FlowToken Vault
 

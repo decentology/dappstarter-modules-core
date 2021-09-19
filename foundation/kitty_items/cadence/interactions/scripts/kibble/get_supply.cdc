@@ -1,4 +1,4 @@
-import Kibble from Project.Kibble
+import Kibble from "../../../contracts/Project/Kibble.cdc"
 
 // This script returns the total amount of Kibble currently in existence.
 

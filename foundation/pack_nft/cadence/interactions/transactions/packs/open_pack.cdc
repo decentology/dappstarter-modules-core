@@ -1,6 +1,6 @@
-import PackContract from Project.PackContract
-import AdminContract from Project.AdminContract
-import NonFungibleToken from Flow.NonFungibleToken
+import PackContract from "../../../contracts/Project/PackContract.cdc"
+import AdminContract from "../../../contracts/Project/AdminContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
 
 // Called by the admin to open a Pack in the "recipient" account.
 

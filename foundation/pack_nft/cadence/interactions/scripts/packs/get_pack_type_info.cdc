@@ -1,4 +1,4 @@
-import PackContract from Project.PackContract
+import PackContract from "../../../contracts/Project/PackContract.cdc"
 
 // Gets the info of a Pack Type
 

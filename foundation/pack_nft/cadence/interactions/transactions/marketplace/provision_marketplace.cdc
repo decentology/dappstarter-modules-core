@@ -1,6 +1,6 @@
-import MarketplaceContract from Project.MarketplaceContract
-import FungibleToken from Flow.FungibleToken
-import NonFungibleToken from Flow.NonFungibleToken
+import MarketplaceContract from "../../../contracts/Project/MarketplaceContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 // Sets up the admin to list Packs for sale by giving them a SaleCollection
 

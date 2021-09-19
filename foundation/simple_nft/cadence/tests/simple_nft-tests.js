@@ -24,27 +24,29 @@ describe('Flow Dapp Tests', async () => {
         fkill(':3570');
     });
 
-    describe('Custom NFT', async () => {
+    describe('Simple NFT', async () => {
 
         it(`user has no NFTs`, async () => {
             let testData = {
                 account: config.accounts[1]
             }
             let res = await DappLib.readNFTs(testData);
+
             assert.equal(res.result.length, 0, "Account provisioned incorrectly");
         });
 
         it(`mints NFT into user account`, async () => {
-            let testData = {
+            let testData1 = {
                 recipient: config.accounts[1],
-                metaData: { serial: "3" }
+                files: ["File 1", "File 2"]
             }
-            await DappLib.mintNFT(testData);
-
-            testData = {
+            let testData2 = {
                 account: config.accounts[1]
             }
-            let res = await DappLib.readNFTs(testData);
+
+            await DappLib.mintNFT(testData1);
+
+            let res = await DappLib.readNFTs(testData2);
 
             assert.equal(res.result.length, 1, "NFT did not mint correctly");
             assert.equal(res.result[0], 0, "Minted NFT has the wrong ID");
@@ -57,7 +59,7 @@ describe('Flow Dapp Tests', async () => {
             }
             let res = await DappLib.readNFTMetadata(testData);
 
-            assert.equal(res.result.serial, 3, "Metadata is incorrect");
+            assert.notEqual(res.result.ipfsHash, null, "Metadata is incorrect");
         });
 
         it(`accounts have correct number of NFTs`, async () => {

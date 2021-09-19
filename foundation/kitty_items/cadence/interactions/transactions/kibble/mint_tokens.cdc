@@ -1,5 +1,5 @@
-import FungibleToken from Flow.FungibleToken
-import Kibble from Project.Kibble
+import Kibble from "../../../contracts/Project/Kibble.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 transaction(recipient: Address, amount: UFix64) {
     let tokenMinter: &Kibble.Minter

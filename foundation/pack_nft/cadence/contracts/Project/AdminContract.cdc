@@ -1,6 +1,6 @@
-import NFTContract from Project.NFTContract
-import PackContract from Project.PackContract
-import NonFungibleToken from Flow.NonFungibleToken
+import NFTContract from "./NFTContract.cdc"
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
+import PackContract from "./PackContract.cdc"
 
 pub contract AdminContract {
     // Admin
@@ -26,13 +26,13 @@ pub contract AdminContract {
         // that will be minted when a Pack of this packType
         // is opened.
         //
-        pub fun addPackType(packType: UInt64, numberOfNFTs: UInt64) {
+        pub fun addPackType(packType: UInt64, numberOfNFTs: UInt64, ipfsHash: String) {
             pre {
                 PackContract.packTypes[packType] == nil:
                     "This pack type already exists!"
             }
             // Adds this pack type
-            PackContract.packTypes[packType] = PackContract.PackType(_packType: packType, _numberOfNFTs: numberOfNFTs)
+            PackContract.packTypes[packType] = PackContract.PackType(_packType: packType, _numberOfNFTs: numberOfNFTs, _ipfsHash: ipfsHash)
         }
 
         // mintPacks

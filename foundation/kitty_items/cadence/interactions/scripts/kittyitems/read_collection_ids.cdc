@@ -1,5 +1,5 @@
-import NonFungibleToken from Flow.NonFungibleToken
-import KittyItems from Project.KittyItemsMarket
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import KittyItems from "../../../contracts/Project/KittyItems.cdc"
 
 // This script returns an array of all the NFT IDs in an account's collection.
 

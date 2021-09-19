@@ -1,4 +1,4 @@
-import AdminContract from Project.AdminContract
+import AdminContract from "../../../contracts/Project/AdminContract.cdc"
 
 // Called by the admin to mint a Pack.
 

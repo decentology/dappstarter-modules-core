@@ -1,5 +1,5 @@
-import NFTContract from Project.NFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import NFTContract from "../../../contracts/Project/NFTContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
 
 // Transfers an NFT from the giver to the recipient
 

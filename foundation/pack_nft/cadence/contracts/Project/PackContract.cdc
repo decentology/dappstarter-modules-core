@@ -1,5 +1,5 @@
-import NFTContract from Project.NFTContract
-import NonFungibleToken from Flow.NonFungibleToken
+import NFTContract from "./NFTContract.cdc"
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract PackContract: NonFungibleToken {
     // The total number of Packs that have been minted
@@ -37,7 +37,7 @@ pub contract PackContract: NonFungibleToken {
         // The Pack's id (completely sequential)
         pub let id: UInt64
 
-       // An ID that represents that type of pack this is
+        // An ID that represents that type of pack this is
         pub var packType: UInt64
 
         init(_packType: UInt64) {
@@ -69,9 +69,12 @@ pub contract PackContract: NonFungibleToken {
         // when a pack of this pack type is opened
         pub let numberOfNFTs: UInt64
 
-        init(_packType: UInt64, _numberOfNFTs: UInt64) {
+        pub var ipfsHash: String
+
+        init(_packType: UInt64, _numberOfNFTs: UInt64, _ipfsHash: String) {
             self.packType = _packType
             self.numberOfNFTs = _numberOfNFTs
+            self.ipfsHash = _ipfsHash
         }
     }
 
