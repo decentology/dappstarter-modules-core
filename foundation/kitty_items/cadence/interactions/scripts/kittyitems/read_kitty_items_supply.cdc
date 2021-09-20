@@ -1,4 +1,4 @@
-import KittyItems from Project.KittyItems
+import KittyItems from "../../../contracts/Project/KittyItems.cdc"
 
 // This scripts returns the number of KittyItems currently in existence.
 

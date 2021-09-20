@@ -1,4 +1,4 @@
-import NonFungibleToken from Flow.NonFungibleToken
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract NFTContract: NonFungibleToken {
     // The total number of NFTs in existence
@@ -26,6 +26,7 @@ pub contract NFTContract: NonFungibleToken {
     pub resource NFT: NonFungibleToken.INFT {
         // unique id (completely sequential)
         pub let id: UInt64
+        
 
         // initializer
         //

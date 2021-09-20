@@ -1,6 +1,6 @@
-import FungibleToken from Flow.FungibleToken
-import FlowToken from Flow.FlowToken
-import NonFungibleToken from Flow.NonFungibleToken
+import FungibleToken from "../Flow/FungibleToken.cdc"
+import FlowToken from "../Flow/FlowToken.cdc"
+import NonFungibleToken from "../Flow/NonFungibleToken.cdc"
 
 pub contract MarketplaceContract {
     // Event that is emitted when a new NFT is put up for sale

@@ -164,7 +164,48 @@ class ballot {
         };
     }
 
+    /*
+    data - an object of key value pairs
+    ex. { number: 2, id: 15 }
 
+    types - an object that holds the type of the key 
+    and value using the FCL types
+    ex. { key: t.String, value: t.Int }
+  */
+    static formatFlowDictionary(data, types) {
+        let newData = []
+        let dataKeys = Object.keys(data)
+
+        for (let key of dataKeys) {
+            if (types.key.label.includes("Int")) key = parseInt(key)
+            else if (types.key == t.Bool) key = (key === 'true');
+
+            if (types.value.label.includes("Int")) data[key] = parseInt(data[key])
+            else if (types.value == t.Bool) data[key] = (data[key] === 'true');
+            newData.push({ key: key, value: data[key] })
+        }
+        return { value: newData, type: t.Dictionary(types) }
+    }
+
+    /*
+      data - an array of values
+      ex. ["Hello", "World", "!"]
+    
+      type - the type of the values using the FCL type
+      ex. t.String
+    */
+    static formatFlowArray(data, type) {
+        if (type == t.String) return { value: data, type: t.Array(type) }
+
+        let newData = []
+        for (let element of data) {
+            if (type.label.includes("Int")) element = parseInt(element)
+            else if (type == t.Bool) element = (element === 'true');
+
+            newData.push(element)
+        }
+        return { value: newData, type: t.Array(type) }
+    }
 
     ///)
 }

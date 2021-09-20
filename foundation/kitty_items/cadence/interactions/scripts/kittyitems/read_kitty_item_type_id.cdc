@@ -1,5 +1,5 @@
-import NonFungibleToken from Flow.NonFungibleToken
-import KittyItems from Project.KittyItemsMarket
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import KittyItems from "../../../contracts/Project/KittyItems.cdc"
 
 // This script returns the metadata for an NFT in an account's collection.
 

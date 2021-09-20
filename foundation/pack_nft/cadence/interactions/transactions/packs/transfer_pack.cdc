@@ -1,5 +1,5 @@
-import PackContract from Project.PackContract
-import MarketplaceContract from Project.MarketplaceContract
+import PackContract from "../../../contracts/Project/PackContract.cdc"
+import MarketplaceContract from "../../../contracts/Project/MarketplaceContract.cdc"
 
 // Transfers a Pack from the giver to the recipient.
 

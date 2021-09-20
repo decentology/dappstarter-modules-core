@@ -1,5 +1,5 @@
-import PackContract from Project.PackContract
-import NonFungibleToken from Flow.NonFungibleToken
+import PackContract from "../../../contracts/Project/PackContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
 
 // Gets all the owned Packs in the user's PackCollection
 

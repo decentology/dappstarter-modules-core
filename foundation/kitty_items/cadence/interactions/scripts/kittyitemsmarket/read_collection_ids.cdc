@@ -1,4 +1,4 @@
-import KittyItemsMarket from Project.KittyItemsMarket
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
 
 // This script returns an array of all the NFT IDs for sale 
 // in an account's SaleCollection.

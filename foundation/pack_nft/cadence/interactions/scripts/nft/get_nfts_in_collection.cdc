@@ -1,5 +1,5 @@
-import NonFungibleToken from Flow.NonFungibleToken
-import NFTContract from Project.NFTContract
+import NFTContract from "../../../contracts/Project/NFTContract.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
 
 // Returns all the IDs of the NFTs in the acct's NFT Collection
 

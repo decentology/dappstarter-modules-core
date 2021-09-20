@@ -1,4 +1,4 @@
-import KittyItemsMarket from Project.KittyItemsMarket
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
 
 // This transaction allows the signer to list a Kitty Item for sale
 // from their Kitty Items Collection

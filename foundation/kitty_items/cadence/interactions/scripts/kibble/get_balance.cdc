@@ -1,5 +1,5 @@
-import Kibble from Project.Kibble
-import FungibleToken from Flow.FungibleToken
+import Kibble from "../../../contracts/Project/Kibble.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 // This script returns an account's Kibble balance.
 

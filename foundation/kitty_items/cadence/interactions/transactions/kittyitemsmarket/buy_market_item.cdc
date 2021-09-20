@@ -1,8 +1,8 @@
-import FungibleToken from Flow.FungibleToken
-import KittyItemsMarket from Project.KittyItemsMarket
-import NonFungibleToken from Flow.NonFungibleToken
-import KittyItems from Project.KittyItems
-import Kibble from Project.Kibble
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
+import Kibble from "../../../contracts/Project/Kibble.cdc"
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
+import NonFungibleToken from "../../../contracts/Flow/NonFungibleToken.cdc"
+import KittyItems from "../../../contracts/Project/KittyItems.cdc"
 
 // This transaction allows the signer to purchase a Kitty Item
 // with id == itemID from the marketCollectionAddress

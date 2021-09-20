@@ -1,4 +1,4 @@
-import KittyItemsMarket from Project.KittyItemsMarket
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
 
 // This transaction allows a SaleCollection owner to remove a Kitty Item
 // from sale

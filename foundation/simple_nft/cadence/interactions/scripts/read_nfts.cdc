@@ -1,4 +1,4 @@
-import NonFungibleToken from Flow.NonFungibleToken
+import NonFungibleToken from "../../contracts/Flow/NonFungibleToken.cdc"
 
 pub fun main(account: Address): [UInt64] {
     // Get the public collection of the owner of the token

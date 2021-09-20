@@ -1,5 +1,5 @@
-import FlowToken from Flow.FlowToken
-import FungibleToken from Flow.FungibleToken
+import FlowToken from "../../../contracts/Flow/FlowToken.cdc"
+import FungibleToken from "../../../contracts/Flow/FungibleToken.cdc"
 
 // Mints FlowTokens
 

@@ -1,7 +1,7 @@
 {
-    "name": "custom_nft",
-    "title": "Custom NFT",
-    "description": "User created NFT with customizable metadata options.",
+    "name": "simple_nft",
+    "title": "Simple NFT",
+    "description": "A Simple NFT with IPFS integration.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -12,7 +12,6 @@
         "enabled": true,
         "children": "form"
     },
-    "customizable": true,
     "parameters": [],
     "blockchains": [
         "flow"

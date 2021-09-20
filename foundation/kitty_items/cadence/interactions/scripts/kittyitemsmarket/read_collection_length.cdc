@@ -1,4 +1,4 @@
-import KittyItemsMarket from Project.KittyItemsMarket
+import KittyItemsMarket from "../../../contracts/Project/KittyItemsMarket.cdc"
 
 // This script returns the size of an account's SaleCollection.
 
