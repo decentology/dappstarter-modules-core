@@ -1,0 +1,26 @@
+{
+    "name": "core",
+    "title": "Vulcan Core",
+    "description": "Access Vulcan Core contract features.",
+    "imageUrl": "",
+    "help": {
+        "title": "",
+        "url": ""
+    },
+    "interface": {
+        "hidden": false,
+        "enabled": true,
+        "children": "form"
+    },
+    "blockchains": [
+        "vulcan"
+    ],
+    "languages": [
+        "solidity"
+    ],
+    "children": [],
+    "dependencies": {
+        "solidity": {
+        }
+    }
+}
