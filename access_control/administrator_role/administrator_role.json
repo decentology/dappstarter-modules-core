@@ -16,7 +16,7 @@
         "ethereum",
         "polygon",
         "avalanche",
-        "conflux"
+        "vulcan"
     ],
     "languages": [
         "solidity"

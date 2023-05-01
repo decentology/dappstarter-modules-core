@@ -1,7 +1,7 @@
 {
-    "name": "contract_runstate",
-    "title": "Contract Run State",
-    "description": "Ability to pause operation of your smart contract.",
+    "name": "core",
+    "title": "Vulcan Core",
+    "description": "Access Vulcan Core contract features.",
     "imageUrl": "",
     "help": {
         "title": "",
@@ -13,9 +13,6 @@
         "children": "form"
     },
     "blockchains": [
-        "ethereum",
-        "polygon",
-        "avalanche",
         "vulcan"
     ],
     "languages": [
@@ -24,9 +21,6 @@
     "children": [],
     "dependencies": {
         "solidity": {
-            "access_control": [
-                "core-administrator_role"
-            ]
         }
     }
 }
